@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Heart Disease Prediction</title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/prediction.css') }}">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ========================================= -->
+<!-- HEADER -->
+<!-- ========================================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            <span>Heart Disease Risk Prediction</span>
+
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+
+                <a href="{{ url_for('home') }}">
+                    Home
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{{ url_for('prediction_page') }}">
+                    Prediction
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{{ url_for('about') }}">
+                    About
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{{ url_for('contact') }}">
+                    Contact
+                </a>
+
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+<!-- ========================================= -->
+<!-- PAGE TITLE -->
+<!-- ========================================= -->
+
+<section class="page-title">
+
+    <h1>
+
+        Heart Disease Prediction
+
+    </h1>
+
+    <p>
+
+        Enter the patient's medical details below
+        to predict the likelihood of heart disease.
+
+    </p>
+
+</section>
+
+<!-- ========================================= -->
+<!-- PREDICTION FORM -->
+<!-- ========================================= -->
+
+<section class="prediction-section">
+
+<div class="prediction-container">
+
+<h2>
+
+Patient Information
+
+</h2>
+
+<form action="{{ url_for('predict') }}"
+      method="POST">
+
+<!-- ========================================= -->
+<!-- Age -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+Age
+
+</label>
+
+<input
+type="number"
+name="Age"
+min="1"
+max="120"
+required>
+
+</div>
+
+<!-- ========================================= -->
+<!-- Gender -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+Gender
+
+</label>
+
+<select
+name="Sex"
+required>
+
+<option value="">
+
+Select Gender
+
+</option>
+
+<option value="M">
+
+Male
+
+</option>
+
+<option value="F">
+
+Female
+
+</option>
+
+</select>
+
+</div>
+
+<!-- ========================================= -->
+<!-- Chest Pain -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+Chest Pain Type
+
+</label>
+
+<select
+name="ChestPainType"
+required>
+
+<option value="">
+
+Select
+
+</option>
+
+<option value="ATA">
+
+Atypical Angina
+
+</option>
+
+<option value="NAP">
+
+Non-Anginal Pain
+
+</option>
+
+<option value="ASY">
+
+Asymptomatic
+
+</option>
+
+<option value="TA">
+
+Typical Angina
+
+</option>
+
+</select>
+
+</div>
+
+<!-- ========================================= -->
+<!-- Resting Blood Pressure -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+Resting Blood Pressure
+
+</label>
+
+<input
+type="number"
+name="RestingBP"
+required>
+
+</div>
+
+<!-- ========================================= -->
+<!-- Cholesterol -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+Cholesterol
+
+</label>
+
+<input
+type="number"
+name="Cholesterol"
+required>
+
+</div>
+
+<!-- ========================================= -->
+<!-- Fasting Blood Sugar -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+Fasting Blood Sugar
+
+</label>
+
+<select
+name="FastingBS"
+required>
+
+<option value="">
+
+Select
+
+</option>
+
+<option value="0">
+
+Less than 120 mg/dL
+
+</option>
+
+<option value="1">
+
+Greater than 120 mg/dL
+
+</option>
+
+</select>
+
+</div>
+
+<!-- ========================================= -->
+<!-- Resting ECG -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+Resting ECG
+
+</label>
+
+<select
+name="RestingECG"
+required>
+
+<option value="">
+
+Select
+
+</option>
+
+<option value="Normal">
+
+Normal
+
+</option>
+
+<option value="ST">
+
+ST
+
+</option>
+
+<option value="LVH">
+
+LVH
+
+</option>
+
+</select>
+
+</div>
+
+<!-- ========================================= -->
+<!-- Maximum Heart Rate -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+Maximum Heart Rate
+
+</label>
+
+<input
+type="number"
+name="MaxHR"
+required>
+
+</div>
+<!-- ========================================= -->
+<!-- Exercise Angina -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+Exercise Induced Angina
+
+</label>
+
+<select
+name="ExerciseAngina"
+required>
+
+<option value="">
+
+Select
+
+</option>
+
+<option value="Y">
+
+Yes
+
+</option>
+
+<option value="N">
+
+No
+
+</option>
+
+</select>
+
+</div>
+
+<!-- ========================================= -->
+<!-- Oldpeak -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+Oldpeak
+
+</label>
+
+<input
+type="number"
+name="Oldpeak"
+step="0.1"
+required>
+
+</div>
+
+<!-- ========================================= -->
+<!-- ST Slope -->
+<!-- ========================================= -->
+
+<div class="input-group">
+
+<label>
+
+ST Slope
+
+</label>
+
+<select
+name="ST_Slope"
+required>
+
+<option value="">
+
+Select
+
+</option>
+
+<option value="Up">
+
+Up
+
+</option>
+
+<option value="Flat">
+
+Flat
+
+</option>
+
+<option value="Down">
+
+Down
+
+</option>
+
+</select>
+
+</div>
+
+<!-- ========================================= -->
+<!-- Buttons -->
+<!-- ========================================= -->
+
+<div class="button-group">
+
+<button
+type="submit"
+class="btn">
+
+<i class="fa-solid fa-heart-circle-check"></i>
+
+Predict
+
+</button>
+
+<button
+type="reset"
+class="btn-reset">
+
+Reset
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- Prediction Result -->
+<!-- ========================================= -->
+
+{% if prediction %}
+
+<section class="result-section">
+
+<div class="result-card">
+
+<h2>
+
+Prediction Result
+
+</h2>
+
+<p>
+
+{{ prediction }}
+
+</p>
+
+{% if confidence %}
+
+<p>
+
+Confidence :
+<strong>
+
+{{ "%.2f"|format(confidence*100) }}%
+
+</strong>
+
+</p>
+
+{% endif %}
+
+</div>
+
+</section>
+
+{% endif %}
+
+<!-- ========================================= -->
+<!-- Error Message -->
+<!-- ========================================= -->
+
+{% if error %}
+
+<section class="error-section">
+
+<div class="error-card">
+
+<h2>
+
+Error
+
+</h2>
+
+<p>
+
+{{ error }}
+
+</p>
+
+</div>
+
+</section>
+
+{% endif %}
+
+<!-- ========================================= -->
+<!-- Information -->
+<!-- ========================================= -->
+
+<section class="prediction-info">
+
+<div class="container">
+
+<h2>
+
+Important Information
+
+</h2>
+
+<p>
+
+This prediction is generated using a trained
+machine learning model and is intended for
+educational and research purposes. It should
+not replace professional medical advice,
+diagnosis, or treatment.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- Footer -->
+<!-- ========================================= -->
+
+<footer>
+
+<div class="footer-container">
+
+<div class="footer-section">
+
+<h3>
+
+Heart Disease Risk Prediction
+
+</h3>
+
+<p>
+
+AI-powered heart disease prediction system
+developed using Machine Learning,
+Flask, HTML, CSS and JavaScript.
+
+</p>
+
+</div>
+
+<div class="footer-section">
+
+<h3>
+
+Quick Links
+
+</h3>
+
+<ul>
+
+<li>
+
+<a href="{{ url_for('home') }}">
+
+Home
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('prediction_page') }}">
+
+Prediction
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('about') }}">
+
+About
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('contact') }}">
+
+Contact
+
+</a>
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="footer-section">
+
+<h3>
+
+Follow Us
+
+</h3>
+
+<div class="social-icons">
+
+<a href="#">
+
+<i class="fab fa-facebook-f"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fab fa-instagram"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fab fa-linkedin-in"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fab fa-github"></i>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<hr>
+
+<p class="copyright">
+
+© 2026 Heart Disease Risk Prediction.
+All Rights Reserved.
+
+</p>
+
+</footer>
+<form id="predictionForm"
+      action="{{ url_for('predict') }}"
+      method="POST">
+
+<!-- ========================================= -->
+<!-- JavaScript -->
+<!-- ========================================= -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/prediction.js') }}"></script>
+
+</body>
+
+</html>

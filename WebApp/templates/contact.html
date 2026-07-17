@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | Heart Disease Risk Prediction</title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/contact.css') }}">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ========================================= -->
+<!-- HEADER -->
+<!-- ========================================= -->
+
+<header>
+
+<nav class="navbar">
+
+<div class="logo">
+
+<i class="fa-solid fa-heart-pulse"></i>
+
+<span>
+
+Heart Disease Risk Prediction
+
+</span>
+
+</div>
+
+<ul class="nav-links">
+
+<li>
+
+<a href="{{ url_for('home') }}">
+
+Home
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('prediction_page') }}">
+
+Prediction
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('about') }}">
+
+About
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('contact') }}">
+
+Contact
+
+</a>
+
+</li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<!-- ========================================= -->
+<!-- PAGE TITLE -->
+<!-- ========================================= -->
+
+<section class="page-title">
+
+<h1>
+
+Contact Us
+
+</h1>
+
+<p>
+
+Have questions about the Heart Disease
+Risk Prediction System?
+
+We would love to hear from you.
+
+</p>
+
+</section>
+
+<!-- ========================================= -->
+<!-- CONTACT INFORMATION -->
+<!-- ========================================= -->
+
+<section class="contact-info">
+
+<div class="container">
+
+<div class="cards">
+
+<div class="card">
+
+<i class="fa-solid fa-location-dot"></i>
+
+<h3>
+
+Address
+
+</h3>
+
+<p>
+
+Pune, Maharashtra
+
+India
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-phone"></i>
+
+<h3>
+
+Phone
+
+</h3>
+
+<p>
+
++91 XXXXX XXXXX
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-envelope"></i>
+
+<h3>
+
+Email
+
+</h3>
+
+<p>
+
+example@email.com
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-clock"></i>
+
+<h3>
+
+Working Hours
+
+</h3>
+
+<p>
+
+Monday - Saturday
+
+9:00 AM - 6:00 PM
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- CONTACT FORM -->
+<!-- ========================================= -->
+
+<section class="contact-section">
+
+<div class="container">
+
+<div class="contact-form">
+
+<h2>
+
+Send Us a Message
+
+</h2>
+
+<form action="#"
+      method="POST">
+
+<!-- Name -->
+
+<div class="input-group">
+
+<label>
+
+Full Name
+
+</label>
+
+<input
+
+type="text"
+
+name="name"
+
+placeholder="Enter your full name"
+
+required>
+
+</div>
+
+<!-- Email -->
+
+<div class="input-group">
+
+<label>
+
+Email Address
+
+</label>
+
+<input
+
+type="email"
+
+name="email"
+
+placeholder="Enter your email"
+
+required>
+
+</div>
+
+<!-- Phone -->
+
+<div class="input-group">
+
+<label>
+
+Phone Number
+
+</label>
+
+<input
+
+type="tel"
+
+name="phone"
+
+placeholder="Enter your phone number"
+
+required>
+
+</div>
+
+<!-- Subject -->
+
+<div class="input-group">
+
+<label>
+
+Subject
+
+</label>
+
+<input
+
+type="text"
+
+name="subject"
+
+placeholder="Enter subject"
+
+required>
+
+</div>
+
+<!-- Message -->
+
+<div class="input-group">
+
+<label>
+
+Message
+
+</label>
+
+<textarea
+
+name="message"
+
+rows="6"
+
+placeholder="Write your message here..."
+
+required>
+
+</textarea>
+
+</div>
+
+<!-- Submit Button -->
+
+<div class="button-group">
+
+<button
+
+type="submit"
+
+class="btn">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+Send Message
+
+</button>
+
+<button
+
+type="reset"
+
+class="btn-reset">
+
+Reset
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+<!-- ========================================= -->
+<!-- GOOGLE MAP -->
+<!-- ========================================= -->
+
+<section class="map-section">
+
+    <div class="container">
+
+        <h2>
+
+            Our Location
+
+        </h2>
+
+        <div class="map-container">
+
+            <iframe
+                src="https://www.google.com/maps?q=Pune,Maharashtra&output=embed"
+                width="100%"
+                height="400"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy">
+
+            </iframe>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FAQ SECTION -->
+<!-- ========================================= -->
+
+<section class="faq-section">
+
+    <div class="container">
+
+        <h2>
+
+            Frequently Asked Questions
+
+        </h2>
+
+        <div class="faq">
+
+            <h3>
+
+                What is this application?
+
+            </h3>
+
+            <p>
+
+                This web application predicts the risk of
+                heart disease using Machine Learning.
+
+            </p>
+
+        </div>
+
+        <div class="faq">
+
+            <h3>
+
+                Is this prediction medically certified?
+
+            </h3>
+
+            <p>
+
+                No. It is developed for educational
+                and research purposes only.
+                Please consult a qualified doctor
+                for medical advice.
+
+            </p>
+
+        </div>
+
+        <div class="faq">
+
+            <h3>
+
+                Which Machine Learning model is used?
+
+            </h3>
+
+            <p>
+
+                The prediction is generated using
+                the XGBoost Machine Learning model.
+
+            </p>
+
+        </div>
+
+        <div class="faq">
+
+            <h3>
+
+                Can I use this application for free?
+
+            </h3>
+
+            <p>
+
+                Yes. This project is intended for
+                learning and demonstration purposes.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- SOCIAL MEDIA -->
+<!-- ========================================= -->
+
+<section class="social-section">
+
+    <div class="container">
+
+        <h2>
+
+            Connect With Us
+
+        </h2>
+
+        <p>
+
+            Stay connected through our social media
+            platforms for project updates.
+
+        </p>
+
+        <div class="social-icons">
+
+            <a href="#">
+
+                <i class="fab fa-facebook-f"></i>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fab fa-instagram"></i>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fab fa-linkedin-in"></i>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fab fa-github"></i>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fab fa-youtube"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FOOTER -->
+<!-- ========================================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-section">
+
+            <h3>
+
+                Heart Disease Risk Prediction
+
+            </h3>
+
+            <p>
+
+                A Machine Learning based web
+                application for predicting
+                heart disease risk using
+                patient clinical information.
+
+            </p>
+
+        </div>
+
+        <div class="footer-section">
+
+            <h3>
+
+                Quick Links
+
+            </h3>
+
+            <ul>
+
+                <li>
+
+                    <a href="{{ url_for('home') }}">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('prediction_page') }}">
+
+                        Prediction
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('about') }}">
+
+                        About
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('contact') }}">
+
+                        Contact
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="footer-section">
+
+            <h3>
+
+                Technologies
+
+            </h3>
+
+            <ul>
+
+                <li>Python</li>
+
+                <li>Flask</li>
+
+                <li>XGBoost</li>
+
+                <li>HTML5</li>
+
+                <li>CSS3</li>
+
+                <li>JavaScript</li>
+
+            </ul>
+
+        </div>
+
+        <div class="footer-section">
+
+            <h3>
+
+                Contact
+
+            </h3>
+
+            <p>
+
+                Pune, Maharashtra
+
+            </p>
+
+            <p>
+
+                example@email.com
+
+            </p>
+
+            <p>
+
+                +91 XXXXX XXXXX
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <p class="copyright">
+
+        © 2026 Heart Disease Risk Prediction.
+        All Rights Reserved.
+
+    </p>
+
+</footer>
+
+<!-- ========================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================= -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Heart Disease Risk Prediction</title>
+
+    <!-- CSS -->
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/home.css') }}">
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ========================================= -->
+<!-- HEADER -->
+<!-- ========================================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            <span>Heart Disease Risk Prediction</span>
+
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="{{ url_for('home') }}">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('prediction_page') }}">
+                    Prediction
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('about') }}">
+                    About
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('contact') }}">
+                    Contact
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+<!-- ========================================= -->
+<!-- HERO SECTION -->
+<!-- ========================================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+
+            Predict Heart Disease
+
+            <span>Using Artificial Intelligence</span>
+
+        </h1>
+
+        <p>
+
+            Our intelligent machine learning system analyzes
+            important medical parameters and predicts whether
+            a patient is at risk of heart disease. The application
+            is designed to support early diagnosis and increase
+            awareness through data-driven healthcare solutions.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="{{ url_for('prediction_page') }}"
+               class="btn">
+
+                Predict Now
+
+            </a>
+
+            <a href="{{ url_for('about') }}"
+               class="btn-outline">
+
+                Learn More
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="hero-image">
+
+        <img src="{{ url_for('static',
+                 filename='images/heart.png') }}"
+             alt="Heart">
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- PROJECT INFORMATION -->
+<!-- ========================================= -->
+
+<section class="information">
+
+    <div class="container">
+
+        <h2>
+
+            Why Heart Disease Prediction?
+
+        </h2>
+
+        <p>
+
+            Heart disease remains one of the leading causes of
+            death worldwide. Early prediction allows patients
+            and healthcare professionals to identify risk factors
+            before severe complications occur.
+
+        </p>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <i class="fa-solid fa-heart-circle-check"></i>
+
+                <h3>
+
+                    Early Detection
+
+                </h3>
+
+                <p>
+
+                    Detect heart disease at an early stage
+                    using trained machine learning models.
+
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-brain"></i>
+
+                <h3>
+
+                    Artificial Intelligence
+
+                </h3>
+
+                <p>
+
+                    Uses machine learning algorithms
+                    trained on real-world heart disease data.
+
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+                <h3>
+
+                    Clinical Support
+
+                </h3>
+
+                <p>
+
+                    Assists healthcare professionals in
+                    evaluating patient risk efficiently.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FEATURES -->
+<!-- ========================================= -->
+
+<section class="features">
+
+    <div class="container">
+
+        <h2>
+
+            Key Features
+
+        </h2>
+
+        <div class="feature-grid">
+
+            <div class="feature-box">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <h3>
+
+                    Accurate Prediction
+
+                </h3>
+
+                <p>
+
+                    Machine learning models provide
+                    highly accurate heart disease prediction.
+
+                </p>
+
+            </div>
+
+            <div class="feature-box">
+
+                <i class="fa-solid fa-database"></i>
+
+                <h3>
+
+                    Clinical Dataset
+
+                </h3>
+
+                <p>
+
+                    Built using a publicly available
+                    heart disease dataset.
+
+                </p>
+
+            </div>
+
+            <div class="feature-box">
+
+                <i class="fa-solid fa-shield-heart"></i>
+
+                <h3>
+
+                    Health Monitoring
+
+                </h3>
+
+                <p>
+
+                    Supports preventive healthcare
+                    by identifying potential risks.
+
+                </p>
+
+            </div>
+
+            <div class="feature-box">
+
+                <i class="fa-solid fa-laptop-medical"></i>
+
+                <h3>
+
+                    User Friendly
+
+                </h3>
+
+                <p>
+
+                    Simple web interface for entering
+                    patient details and viewing predictions.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ========================================= -->
+<!-- STATISTICS SECTION -->
+<!-- ========================================= -->
+
+<section class="statistics">
+
+    <div class="container">
+
+        <h2>
+            Project Statistics
+        </h2>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-database"></i>
+
+                <h3>918</h3>
+
+                <p>Patient Records</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-heart-pulse"></i>
+
+                <h3>11</h3>
+
+                <p>Medical Features</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-brain"></i>
+
+                <h3>XGBoost</h3>
+
+                <p>Machine Learning Model</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+                <h3>91.85%</h3>
+
+                <p>Prediction Accuracy</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- HOW IT WORKS -->
+<!-- ========================================= -->
+
+<section class="how-it-works">
+
+    <div class="container">
+
+        <h2>
+            How It Works
+        </h2>
+
+        <div class="steps">
+
+            <div class="step">
+
+                <span>1</span>
+
+                <h3>Enter Patient Details</h3>
+
+                <p>
+                    Fill in patient information such as age,
+                    blood pressure, cholesterol level,
+                    ECG results and other medical details.
+                </p>
+
+            </div>
+
+            <div class="step">
+
+                <span>2</span>
+
+                <h3>AI Analysis</h3>
+
+                <p>
+                    The trained machine learning model
+                    processes the information using
+                    preprocessing and prediction algorithms.
+                </p>
+
+            </div>
+
+            <div class="step">
+
+                <span>3</span>
+
+                <h3>Prediction Result</h3>
+
+                <p>
+                    The system predicts whether
+                    heart disease is likely to be
+                    present or not.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- CALL TO ACTION -->
+<!-- ========================================= -->
+
+<section class="cta">
+
+    <div class="container">
+
+        <h2>
+
+            Ready to Predict Heart Disease Risk?
+
+        </h2>
+
+        <p>
+
+            Click the button below to start
+            predicting heart disease using
+            our AI-powered prediction system.
+
+        </p>
+
+        <a href="{{ url_for('prediction_page') }}"
+           class="btn">
+
+            Start Prediction
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FOOTER -->
+<!-- ========================================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-section">
+
+            <h3>
+
+                Heart Disease Risk Prediction
+
+            </h3>
+
+            <p>
+
+                A machine learning based web
+                application that predicts the
+                likelihood of heart disease
+                using patient medical data.
+
+            </p>
+
+        </div>
+
+        <div class="footer-section">
+
+            <h3>
+
+                Quick Links
+
+            </h3>
+
+            <ul>
+
+                <li>
+
+                    <a href="{{ url_for('home') }}">
+                        Home
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('prediction_page') }}">
+                        Prediction
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('about') }}">
+                        About
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('contact') }}">
+                        Contact
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="footer-section">
+
+            <h3>
+
+                Technologies
+
+            </h3>
+
+            <ul>
+
+                <li>Python</li>
+
+                <li>Flask</li>
+
+                <li>HTML5</li>
+
+                <li>CSS3</li>
+
+                <li>JavaScript</li>
+
+                <li>XGBoost</li>
+
+            </ul>
+
+        </div>
+
+        <div class="footer-section">
+
+            <h3>
+
+                Connect
+
+            </h3>
+
+            <div class="social-icons">
+
+                <a href="#">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fab fa-github"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <p class="copyright">
+
+        © 2026 Heart Disease Risk Prediction.
+        All Rights Reserved.
+
+    </p>
+
+</footer>
+
+<!-- ========================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================= -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</html>
