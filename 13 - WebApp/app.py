@@ -10,20 +10,11 @@ import pandas as pd
 import pickle
 from pathlib import Path
 import os
-import smtplib
-from dotenv import load_dotenv
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import resend
 
 app = Flask(__name__)
-load_dotenv()
-
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-print("===================================")
-print("Email Address :", EMAIL_ADDRESS)
-print("Password Loaded :", EMAIL_PASSWORD is not None)
-print("===================================")
+RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+resend.api_key = RESEND_API_KEY
 
 # ==========================================
 # LOAD TRAINED MODEL
@@ -130,60 +121,28 @@ def contact():
             # CREATE EMAIL
             # ==========================================
 
-            msg = MIMEMultipart()
+            params = {
+                "from": "onboarding@resend.dev",
+                "to": ["codewithtanmay098@gmail.com"],
+                "subject": f"Heart Disease Prediction Contact : {subject}",
+                "html": f"""
+                <h2>New Contact Form Submission</h2>
 
-            msg["From"] = EMAIL_ADDRESS
+                <p><strong>Name:</strong> {name}</p>
+                <p><strong>Email:</strong> {email}</p>
+                <p><strong>Subject:</strong> {subject}</p>
 
-            msg["To"] = EMAIL_ADDRESS
+                <hr>
 
-            msg["Subject"] = f"Heart Disease Prediction Contact : {subject}"
+                <p>{message}</p>
 
+                <hr>
 
-            body = f"""
+                <p>Sent from Heart Disease Prediction Website</p>
+                """
+            }
 
-New Contact Form Submission
-
-----------------------------------------
-
-Name : {name}
-
-Email : {email}
-
-Subject : {subject}
-
-----------------------------------------
-
-Message
-
-{message}
-
-----------------------------------------
-
-Sent From Heart Disease Prediction Website
-
-"""
-
-            msg.attach(MIMEText(body, "plain"))
-
-
-            # ==========================================
-            # CONNECT TO GMAIL
-            # ==========================================
-
-            server = smtplib.SMTP("smtp.gmail.com", 587)
-
-            server.starttls()
-
-            server.login(
-                EMAIL_ADDRESS,
-                EMAIL_PASSWORD
-            )
-
-            server.send_message(msg)
-
-            server.quit()
-
-
+            resend.Emails.send(params)
             # ==========================================
             # SUCCESS
             # ==========================================
