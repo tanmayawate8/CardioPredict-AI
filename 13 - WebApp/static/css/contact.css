@@ -683,3 +683,288 @@ CONTACT PAGE ANIMATION
     animation:fadeUp .8s ease;
 
 }
+/*=========================================================
+MOBILE RESPONSIVE (NO DESKTOP CHANGES)
+=========================================================*/
+
+@media (max-width:992px){
+
+    .contact-section,
+    .contact-info,
+    .map-section,
+    .faq-section,
+    .social-section{
+
+        padding:60px 20px;
+
+    }
+
+    .contact-section .container{
+
+        max-width:100%;
+        padding:0 10px;
+
+    }
+
+    .contact-info .cards{
+
+        grid-template-columns:repeat(2,1fr);
+        gap:20px;
+
+    }
+
+    .contact-form{
+
+        padding:40px 30px;
+
+    }
+
+    .contact-form h2{
+
+        font-size:28px;
+
+    }
+
+    .contact-form .form-description{
+
+        font-size:15px;
+        line-height:1.7;
+
+    }
+
+    .map-container iframe{
+
+        height:400px;
+
+    }
+
+    .social-icons{
+
+        gap:20px;
+
+    }
+
+    .social-icons a{
+
+        width:55px;
+        height:55px;
+        font-size:22px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .contact-section,
+    .contact-info,
+    .map-section,
+    .faq-section,
+    .social-section{
+
+        padding:50px 18px;
+
+    }
+
+    .contact-info .cards{
+
+        grid-template-columns:1fr;
+        gap:20px;
+
+    }
+
+    .contact-form{
+
+        padding:30px 20px;
+
+    }
+
+    .contact-form h2{
+
+        font-size:24px;
+
+    }
+
+    .contact-form .form-description{
+
+        font-size:14px;
+
+    }
+
+    .contact-form form{
+
+        grid-template-columns:1fr;
+
+        gap:18px;
+
+    }
+
+    .contact-form .input-group.full-width{
+
+        grid-column:auto;
+
+    }
+
+    .contact-form .button-group{
+
+        flex-direction:column;
+        width:100%;
+        gap:15px;
+
+    }
+
+    .contact-form .btn,
+    .contact-form .btn-reset{
+
+        width:100%;
+        min-width:0;
+
+    }
+
+    .map-container{
+
+        border-radius:15px;
+
+    }
+
+    .map-container iframe{
+
+        height:320px;
+
+    }
+
+    .faq{
+
+        padding:20px;
+
+    }
+
+    .faq h3{
+
+        font-size:18px;
+
+    }
+
+    .faq p{
+
+        font-size:15px;
+        line-height:1.7;
+
+    }
+
+    .social-icons{
+
+        flex-wrap:wrap;
+        gap:18px;
+
+    }
+
+    .social-icons a{
+
+        width:50px;
+        height:50px;
+        font-size:20px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .contact-section,
+    .contact-info,
+    .map-section,
+    .faq-section,
+    .social-section{
+
+        padding:40px 15px;
+
+    }
+
+    .contact-form{
+
+        padding:22px 16px;
+        border-radius:15px;
+
+    }
+
+    .contact-form h2{
+
+        font-size:22px;
+
+    }
+
+    .contact-form .form-description{
+
+        font-size:13px;
+        line-height:1.6;
+
+    }
+
+    .contact-form label{
+
+        font-size:14px;
+
+    }
+
+    .contact-form input,
+    .contact-form textarea{
+
+        padding:13px 15px;
+        font-size:14px;
+
+    }
+
+    .contact-form textarea{
+
+        min-height:150px;
+
+    }
+
+    .contact-success,
+    .contact-error{
+
+        padding:12px 15px;
+        font-size:13px;
+
+    }
+
+    .map-container iframe{
+
+        height:260px;
+
+    }
+
+    .faq{
+
+        padding:18px 15px;
+
+    }
+
+    .faq h3{
+
+        font-size:17px;
+
+    }
+
+    .faq p{
+
+        font-size:14px;
+
+    }
+
+    .social-icons{
+
+        gap:15px;
+
+    }
+
+    .social-icons a{
+
+        width:46px;
+        height:46px;
+        font-size:18px;
+
+    }
+
+}

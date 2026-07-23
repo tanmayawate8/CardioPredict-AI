@@ -386,3 +386,224 @@ ABOUT PAGE ANIMATION
     }
 
 }
+/*=========================================================
+MOBILE RESPONSIVE (NO DESKTOP CHANGES)
+=========================================================*/
+
+@media (max-width: 992px){
+
+    .about-section,
+    .objectives,
+    .why-project,
+    .technologies,
+    .workflow,
+    .dataset,
+    .performance,
+    .future{
+
+        padding:60px 20px;
+
+    }
+
+    .about-section .container,
+    .why-project .container{
+
+        max-width:100%;
+        padding:0 10px;
+
+    }
+
+    .about-section p,
+    .why-project p{
+
+        font-size:16px;
+        line-height:1.8;
+        text-align:left;
+
+    }
+
+    .objectives .cards,
+    .technologies .cards,
+    .steps,
+    .performance .cards{
+
+        grid-template-columns:repeat(2,1fr);
+        gap:20px;
+
+    }
+
+    .step{
+
+        padding:25px;
+
+    }
+
+    .step span{
+
+        width:60px;
+        height:60px;
+        font-size:24px;
+
+    }
+
+    .dataset ul,
+    .future ul{
+
+        width:100%;
+
+    }
+
+    .dataset li,
+    .future li{
+
+        padding:16px 18px;
+        font-size:16px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .objectives .cards,
+    .technologies .cards,
+    .steps,
+    .performance .cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .about-section,
+    .objectives,
+    .why-project,
+    .technologies,
+    .workflow,
+    .dataset,
+    .performance,
+    .future{
+
+        padding:50px 18px;
+
+    }
+
+    .about-section p,
+    .why-project p{
+
+        font-size:15px;
+        line-height:1.7;
+        text-align:left;
+
+    }
+
+    .objectives .card,
+    .technologies .card,
+    .performance .card,
+    .step{
+
+        padding:25px 20px;
+
+    }
+
+    .objectives .card i,
+    .technologies .card i{
+
+        font-size:45px;
+
+    }
+
+    .step span{
+
+        width:55px;
+        height:55px;
+        font-size:22px;
+
+    }
+
+    .dataset li{
+
+        font-size:15px;
+        padding:15px 18px;
+
+    }
+
+    .future li{
+
+        font-size:15px;
+        padding:18px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .about-section,
+    .objectives,
+    .why-project,
+    .technologies,
+    .workflow,
+    .dataset,
+    .performance,
+    .future{
+
+        padding:40px 15px;
+
+    }
+
+    .about-section p,
+    .why-project p{
+
+        font-size:14px;
+        line-height:1.7;
+
+    }
+
+    .objectives .card,
+    .technologies .card,
+    .performance .card,
+    .step{
+
+        padding:20px 15px;
+
+    }
+
+    .objectives .card i,
+    .technologies .card i{
+
+        font-size:40px;
+
+    }
+
+    .step span{
+
+        width:50px;
+        height:50px;
+        font-size:20px;
+
+    }
+
+    .step h3,
+    .performance .card h3,
+    .technologies .card h3,
+    .objectives .card h3{
+
+        font-size:18px;
+
+    }
+
+    .performance .card p{
+
+        font-size:22px;
+
+    }
+
+    .dataset li,
+    .future li{
+
+        font-size:14px;
+        padding:14px 16px;
+
+    }
+
+}

@@ -1566,3 +1566,160 @@
     }
 
 }
+/*=========================================================
+EXTRA PROFESSIONAL MOBILE RESPONSIVE
+(ADD AT THE VERY END OF THE CSS)
+=========================================================*/
+
+@media (max-width:768px){
+
+    html{
+        font-size:16px;
+        scroll-behavior:smooth;
+    }
+
+    body{
+        overflow-x:hidden;
+    }
+
+    .prediction-section,
+    .result-section,
+    .error-section{
+        padding:40px 0;
+    }
+
+    .prediction-container,
+    .result-card,
+    .error-message{
+        width:94%;
+        margin:auto;
+    }
+
+    .prediction-form{
+        grid-template-columns:1fr;
+        gap:18px;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea{
+        min-height:50px;
+        font-size:16px;
+    }
+
+    .prediction-header h1{
+        line-height:1.3;
+        word-break:break-word;
+    }
+
+    .prediction-header p{
+        line-height:1.8;
+    }
+
+    .patient-data-grid{
+        grid-template-columns:1fr;
+    }
+
+    .patient-data-item{
+        padding:15px;
+    }
+
+    .risk-result{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        gap:15px;
+    }
+
+    .risk-content{
+        text-align:center;
+    }
+
+    .button-group{
+        flex-direction:column;
+        width:100%;
+    }
+
+    .button-group .btn,
+    .button-group .btn-reset,
+    .result-actions .btn{
+        width:100%;
+        min-width:0;
+    }
+
+    .probability-bar{
+        height:12px;
+    }
+
+    .recommendation,
+    .medical-disclaimer,
+    .form-note{
+        padding:18px;
+    }
+
+    .medical-disclaimer{
+        flex-direction:column;
+    }
+
+    .error-message{
+        flex-direction:column;
+    }
+
+}
+
+@media (max-width:480px){
+
+    .prediction-container,
+    .result-card{
+        padding:20px 15px;
+    }
+
+    .prediction-header h1{
+        font-size:23px;
+    }
+
+    .result-header h2{
+        font-size:24px;
+    }
+
+    .prediction-header p,
+    .result-header p,
+    .recommendation p,
+    .medical-disclaimer p,
+    .form-note p{
+        font-size:14px;
+    }
+
+    .prediction-icon,
+    .result-icon{
+        width:58px;
+        height:58px;
+        font-size:24px;
+    }
+
+    .risk-icon{
+        width:55px;
+        height:55px;
+        font-size:24px;
+    }
+
+    .probability-value{
+        font-size:34px;
+    }
+
+    .section-title h3{
+        font-size:18px;
+    }
+
+    .risk-content h3{
+        font-size:18px;
+    }
+
+    .data-label{
+        font-size:11px;
+    }
+
+    .data-value{
+        font-size:14px;
+    }
+}

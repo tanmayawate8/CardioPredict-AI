@@ -454,3 +454,293 @@ COMMON ANIMATION
     }
 
 }
+/*=========================================================
+HOME PAGE MOBILE RESPONSIVE
+(ADD AT THE END OF THE CSS FILE)
+=========================================================*/
+
+@media (max-width:992px){
+
+    .hero{
+
+        width:92%;
+        margin:100px auto 60px;
+        gap:40px;
+        align-items:center;
+
+    }
+
+    .hero-content h1{
+
+        font-size:46px;
+
+    }
+
+    .hero-content p{
+
+        font-size:17px;
+        text-align:left;
+
+    }
+
+    .hero-image img{
+
+        max-width:420px;
+
+    }
+
+    .cards,
+    .feature-grid,
+    .stats-grid,
+    .steps{
+
+        grid-template-columns:repeat(2,1fr);
+        gap:25px;
+
+    }
+
+    .feature-box,
+    .stat-card,
+    .step{
+
+        padding:30px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .hero{
+
+        flex-direction:column-reverse;
+        text-align:center;
+        width:94%;
+        margin:90px auto 50px;
+        gap:35px;
+
+    }
+
+    .hero-content{
+
+        width:100%;
+
+    }
+
+    .hero-content h1{
+
+        font-size:38px;
+        line-height:1.25;
+
+    }
+
+    .hero-content h1 span{
+
+        display:block;
+
+    }
+
+    .hero-content p{
+
+        font-size:16px;
+        line-height:1.8;
+        text-align:center;
+
+    }
+
+    .hero-buttons{
+
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:15px;
+
+    }
+
+    .hero-image{
+
+        width:100%;
+
+    }
+
+    .hero-image img{
+
+        width:90%;
+        max-width:380px;
+
+    }
+
+    .cards,
+    .feature-grid,
+    .stats-grid,
+    .steps{
+
+        grid-template-columns:1fr;
+        gap:20px;
+
+    }
+
+    .feature-box,
+    .stat-card,
+    .step{
+
+        padding:25px 20px;
+
+    }
+
+    .feature-box i{
+
+        font-size:42px;
+
+    }
+
+    .stat-card h3{
+
+        font-size:32px;
+
+    }
+
+    .step span{
+
+        width:60px;
+        height:60px;
+        font-size:24px;
+
+    }
+
+    .information p,
+    .cta p{
+
+        width:100%;
+        font-size:15px;
+        line-height:1.7;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .hero{
+
+        width:95%;
+        margin:80px auto 40px;
+        gap:25px;
+
+    }
+
+    .hero-content h1{
+
+        font-size:30px;
+
+    }
+
+    .hero-content p{
+
+        font-size:14px;
+        line-height:1.7;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+        width:100%;
+
+    }
+
+    .hero-buttons .btn{
+
+        width:100%;
+
+    }
+
+    .hero-image img{
+
+        width:100%;
+        max-width:300px;
+
+    }
+
+    .feature-box{
+
+        padding:22px 18px;
+
+    }
+
+    .feature-box i{
+
+        font-size:38px;
+
+    }
+
+    .feature-box h3{
+
+        font-size:20px;
+
+    }
+
+    .feature-box p{
+
+        font-size:14px;
+
+    }
+
+    .stat-card{
+
+        padding:22px 18px;
+
+    }
+
+    .stat-card i{
+
+        font-size:36px;
+
+    }
+
+    .stat-card h3{
+
+        font-size:28px;
+
+    }
+
+    .stat-card p{
+
+        font-size:14px;
+
+    }
+
+    .step{
+
+        padding:22px 18px;
+
+    }
+
+    .step span{
+
+        width:50px;
+        height:50px;
+        font-size:20px;
+        margin-bottom:18px;
+
+    }
+
+    .step h3{
+
+        font-size:20px;
+
+    }
+
+    .step p{
+
+        font-size:14px;
+
+    }
+
+    .information p,
+    .cta p{
+
+        font-size:14px;
+
+    }
+
+}
