@@ -3,18 +3,27 @@
 # FLASK BACKEND
 # ==========================================
 
+
 from flask import Flask, render_template, request
+
 import pandas as pd
 import pickle
 from pathlib import Path
-
-
-# ==========================================
-# FLASK APP
-# ==========================================
+import os
+import smtplib
+from dotenv import load_dotenv
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
+load_dotenv()
 
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+print("===================================")
+print("Email Address :", EMAIL_ADDRESS)
+print("Password Loaded :", EMAIL_PASSWORD is not None)
+print("===================================")
 
 # ==========================================
 # LOAD TRAINED MODEL
@@ -92,11 +101,114 @@ def about():
 # CONTACT PAGE
 # ==========================================
 
-@app.route("/contact")
+# ==========================================
+# CONTACT PAGE
+# SEND EMAIL USING GMAIL SMTP
+# ==========================================
+
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
 
-    return render_template("contact.html")
+    if request.method == "POST":
 
+        try:
+
+            # ==========================================
+            # GET USER INPUT
+            # ==========================================
+
+            name = request.form["name"]
+
+            email = request.form["email"]
+
+            subject = request.form["subject"]
+
+            message = request.form["message"]
+
+
+            # ==========================================
+            # CREATE EMAIL
+            # ==========================================
+
+            msg = MIMEMultipart()
+
+            msg["From"] = EMAIL_ADDRESS
+
+            msg["To"] = EMAIL_ADDRESS
+
+            msg["Subject"] = f"Heart Disease Prediction Contact : {subject}"
+
+
+            body = f"""
+
+New Contact Form Submission
+
+----------------------------------------
+
+Name : {name}
+
+Email : {email}
+
+Subject : {subject}
+
+----------------------------------------
+
+Message
+
+{message}
+
+----------------------------------------
+
+Sent From Heart Disease Prediction Website
+
+"""
+
+            msg.attach(MIMEText(body, "plain"))
+
+
+            # ==========================================
+            # CONNECT TO GMAIL
+            # ==========================================
+
+            server = smtplib.SMTP("smtp.gmail.com", 587)
+
+            server.starttls()
+
+            server.login(
+                EMAIL_ADDRESS,
+                EMAIL_PASSWORD
+            )
+
+            server.send_message(msg)
+
+            server.quit()
+
+
+            # ==========================================
+            # SUCCESS
+            # ==========================================
+
+            return render_template(
+
+                "contact.html",
+
+                success="Your message has been sent successfully."
+
+            )
+
+
+        except Exception as e:
+
+            return render_template(
+
+                "contact.html",
+
+                error=str(e)
+
+            )
+
+
+    return render_template("contact.html")
 
 # ==========================================
 # PREDICTION PAGE

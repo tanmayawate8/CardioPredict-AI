@@ -10,7 +10,6 @@
 
     <title>Contact | CardioPredict AI</title>
 
-
     <!-- ========================================= -->
     <!-- CSS -->
     <!-- ========================================= -->
@@ -21,14 +20,12 @@
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/contact.css') }}">
 
-
     <!-- ========================================= -->
     <!-- FONT AWESOME -->
     <!-- ========================================= -->
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
 
     <!-- ========================================= -->
     <!-- GOOGLE FONT -->
@@ -46,9 +43,7 @@
 
 </head>
 
-
 <body>
-
 
 <!-- ========================================= -->
 <!-- HEADER -->
@@ -58,7 +53,6 @@
 
     <nav class="navbar">
 
-
         <!-- LOGO -->
 
         <div class="logo">
@@ -66,63 +60,39 @@
             <i class="fa-solid fa-heart-pulse"></i>
 
             <span>
-
                 CardioPredict AI
-
             </span>
 
         </div>
-
 
         <!-- NAVIGATION -->
 
         <ul class="nav-links">
 
-
             <li>
-
                 <a href="{{ url_for('home') }}">
-
                     Home
-
                 </a>
-
             </li>
 
-
             <li>
-
                 <a href="{{ url_for('prediction_page') }}">
-
                     Prediction
-
                 </a>
-
             </li>
 
-
             <li>
-
                 <a href="{{ url_for('about') }}">
-
                     About
-
                 </a>
-
             </li>
 
-
             <li>
-
                 <a href="{{ url_for('contact') }}"
                    class="active">
-
                     Contact
-
                 </a>
-
             </li>
-
 
         </ul>
 
@@ -130,34 +100,22 @@
 
 </header>
 
-
-
 <!-- ========================================= -->
 <!-- PAGE TITLE -->
 <!-- ========================================= -->
 
 <section class="page-title">
 
-
     <h1>
-
         Contact Us
-
     </h1>
 
-
     <p>
-
         Have questions about the CardioPredict AI?
-
         We would love to hear from you.
-
     </p>
 
-
 </section>
-
-
 
 <!-- ========================================= -->
 <!-- CONTACT INFORMATION -->
@@ -165,909 +123,417 @@
 
 <section class="contact-info">
 
-
     <div class="container">
 
-
         <div class="cards">
-
 
             <!-- ADDRESS -->
 
             <div class="card">
 
-
                 <i class="fa-solid fa-location-dot"></i>
 
-
                 <h3>
-
                     Address
-
                 </h3>
 
-
                 <p>
-
                     Pune, Maharashtra
-
                     <br>
-
                     India
-
                 </p>
 
-
             </div>
-
-
 
             <!-- PHONE -->
 
             <div class="card">
 
-
                 <i class="fa-solid fa-phone"></i>
 
-
                 <h3>
-
                     Phone
-
                 </h3>
 
-
                 <p>
-
                     +91 98865 00642
-
                 </p>
 
-
             </div>
-
-
 
             <!-- EMAIL -->
 
             <div class="card">
 
-
                 <i class="fa-solid fa-envelope"></i>
 
-
                 <h3>
-
                     Email
-
                 </h3>
 
-
                 <p>
-
-                    CardioPredictAI@email.com
-
+                    codewithtanmay098@email.com
                 </p>
 
-
             </div>
-
-
 
             <!-- WORKING HOURS -->
 
             <div class="card">
 
-
                 <i class="fa-solid fa-clock"></i>
 
-
                 <h3>
-
                     Working Hours
-
                 </h3>
 
-
                 <p>
-
                     Monday - Saturday
-
                     <br>
-
                     9:00 AM - 6:00 PM
-
                 </p>
 
-
             </div>
-
 
         </div>
 
     </div>
 
 </section>
-
-
-
 <!-- ========================================= -->
 <!-- CONTACT FORM -->
 <!-- ========================================= -->
 
 <section class="contact-section">
 
-
     <div class="container">
 
-
-        <div class="contact-form">
-
-
-            <!-- FORM HEADING -->
-
-            <h2>
-
-                Send Us a Message
-
-            </h2>
-
-
-            <p class="form-description">
-
-                Have a question, suggestion, or feedback
-                about our CardioPredict AI? 
-                Fill out the form below and
-                send us a message.
-
-            </p>
-
-
+        <div class="contact-wrapper">
 
             <!-- ========================================= -->
-            <!-- SUCCESS MESSAGE -->
+            <!-- LEFT CONTENT -->
             <!-- ========================================= -->
 
-            {% if success %}
+            <div class="contact-content">
 
-            <div class="contact-success">
-
-                <i class="fa-solid fa-circle-check"></i>
-
-                <span>
-
-                    {{ success }}
-
+                <span class="section-tag">
+                    Get In Touch
                 </span>
 
+                <h2>
+                    We'd Love To Hear From You
+                </h2>
+
+                <p>
+
+                    If you have any questions regarding
+                    Heart Disease Risk Prediction,
+                    machine learning, or this project,
+                    feel free to contact us using the form.
+                    Our team will get back to you as soon
+                    as possible.
+
+                </p>
+
+                <div class="contact-features">
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <span>
+                            Fast Response
+                        </span>
+
+                    </div>
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <span>
+                            Professional Support
+                        </span>
+
+                    </div>
+
+                    <div class="feature">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <span>
+                            100% Secure Communication
+                        </span>
+
+                    </div>
+
+                </div>
+
             </div>
-
-            {% endif %}
-
-
-
-            <!-- ========================================= -->
-            <!-- ERROR MESSAGE -->
-            <!-- ========================================= -->
-
-            {% if error %}
-
-            <div class="contact-error">
-
-                <i class="fa-solid fa-circle-exclamation"></i>
-
-                <span>
-
-                    {{ error }}
-
-                </span>
-
-            </div>
-
-            {% endif %}
-
-
 
             <!-- ========================================= -->
             <!-- CONTACT FORM -->
             <!-- ========================================= -->
 
-            <form action="{{ url_for('contact') }}"
-                  method="POST">
+            <div class="contact-form">
 
+                <!-- SUCCESS MESSAGE -->
 
-                <!-- ========================================= -->
-                <!-- FULL NAME -->
-                <!-- ========================================= -->
+                {% if success %}
 
-                <div class="input-group">
+                <div class="success-message">
 
-
-                    <label for="name">
-
-                        <i class="fa-solid fa-user"></i>
-
-                        Full Name
-
-                    </label>
-
-
-                    <input
-
-                        type="text"
-
-                        id="name"
-
-                        name="name"
-
-                        placeholder="Enter your full name"
-
-                        autocomplete="name"
-
-                        required>
-
+                    {{ success }}
 
                 </div>
 
+                {% endif %}
 
+                <!-- ERROR MESSAGE -->
 
-                <!-- ========================================= -->
-                <!-- EMAIL -->
-                <!-- ========================================= -->
+                {% if error %}
 
-                <div class="input-group">
+                <div class="error-message">
 
-
-                    <label for="email">
-
-                        <i class="fa-solid fa-envelope"></i>
-
-                        Email Address
-
-                    </label>
-
-
-                    <input
-
-                        type="email"
-
-                        id="email"
-
-                        name="email"
-
-                        placeholder="Enter your email address"
-
-                        autocomplete="email"
-
-                        required>
-
+                    {{ error }}
 
                 </div>
 
+                {% endif %}
 
+                <form
+                        action="{{ url_for('contact') }}"
+                        method="POST">
 
-                <!-- ========================================= -->
-                <!-- PHONE -->
-                <!-- ========================================= -->
+                    <!-- NAME -->
 
-                <div class="input-group">
+                    <div class="input-group">
 
+                        <label for="name">
 
-                    <label for="phone">
+                            Full Name
 
-                        <i class="fa-solid fa-phone"></i>
+                        </label>
 
-                        Phone Number
+                        <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                required>
 
-                    </label>
+                    </div>
 
+                    <!-- EMAIL -->
 
-                    <input
+                    <div class="input-group">
 
-                        type="tel"
+                        <label for="email">
 
-                        id="phone"
+                            Email Address
 
-                        name="phone"
+                        </label>
 
-                        placeholder="Enter your phone number"
+                        <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required>
 
-                        autocomplete="tel">
+                    </div>
 
+                    <!-- PHONE -->
 
-                </div>
+                    <div class="input-group">
 
+                        <label for="phone">
 
+                            Phone Number
 
-                <!-- ========================================= -->
-                <!-- SUBJECT -->
-                <!-- ========================================= -->
+                        </label>
 
-                <div class="input-group">
+                        <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="Enter your phone number">
 
+                    </div>
 
-                    <label for="subject">
+                    <!-- SUBJECT -->
 
-                        <i class="fa-solid fa-heading"></i>
+                    <div class="input-group">
 
-                        Subject
+                        <label for="subject">
 
-                    </label>
+                            Subject
 
+                        </label>
 
-                    <input
+                        <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                placeholder="Enter subject"
+                                required>
 
-                        type="text"
+                    </div>
 
-                        id="subject"
+                    <!-- MESSAGE -->
 
-                        name="subject"
+                    <div class="input-group">
 
-                        placeholder="Enter message subject"
+                        <label for="message">
 
-                        required>
+                            Message
 
+                        </label>
 
-                </div>
+                        <textarea
+                                id="message"
+                                name="message"
+                                rows="6"
+                                placeholder="Write your message here..."
+                                required></textarea>
 
+                    </div>
 
+                    <!-- BUTTONS -->
 
-                <!-- ========================================= -->
-                <!-- MESSAGE -->
-                <!-- ========================================= -->
+                    <div class="form-buttons">
 
-                <div class="input-group full-width">
+                        <button
+                                type="submit"
+                                class="btn-primary">
 
+                            <i class="fa-solid fa-paper-plane"></i>
 
-                    <label for="message">
+                            Send Message
 
-                        <i class="fa-solid fa-message"></i>
+                        </button>
 
-                        Your Message
+                        <button
+                                type="reset"
+                                class="btn-secondary">
 
-                    </label>
+                            <i class="fa-solid fa-rotate-left"></i>
 
+                            Reset
 
-                    <textarea
+                        </button>
 
-                        id="message"
+                    </div>
 
-                        name="message"
+                </form>
 
-                        rows="6"
-
-                        placeholder="Write your message here..."
-
-                        required></textarea>
-
-
-                </div>
-
-
-
-                <!-- ========================================= -->
-                <!-- BUTTON GROUP -->
-                <!-- ========================================= -->
-
-                <div class="button-group">
-
-
-                    <!-- SEND BUTTON -->
-
-                    <button
-
-                        type="submit"
-
-                        class="btn">
-
-
-                        <i class="fa-solid fa-paper-plane"></i>
-
-                        Send Message
-
-
-                    </button>
-
-
-
-                    <!-- RESET BUTTON -->
-
-                    <button
-
-                        type="reset"
-
-                        class="btn-reset">
-
-
-                        <i class="fa-solid fa-rotate-left"></i>
-
-                        Reset
-
-
-                    </button>
-
-
-                </div>
-
-
-            </form>
-
+            </div>
 
         </div>
 
     </div>
 
 </section>
-
-
-
-<!-- ========================================= -->
-<!-- GOOGLE MAP -->
-<!-- ========================================= -->
-
-<section class="map-section">
-
-
-    <div class="container">
-
-
-        <h2>
-
-            Our Location
-
-        </h2>
-
-
-        <div class="map-container">
-
-
-            <iframe
-
-                src="https://www.google.com/maps?q=Pune,Maharashtra&output=embed"
-
-                width="100%"
-
-                height="400"
-
-                style="border:0;"
-
-                allowfullscreen=""
-
-                loading="lazy">
-
-            </iframe>
-
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- ========================================= -->
-<!-- FAQ SECTION -->
-<!-- ========================================= -->
-
-<section class="faq-section">
-
-
-    <div class="container">
-
-
-        <h2>
-
-            Frequently Asked Questions
-
-        </h2>
-
-
-
-        <!-- FAQ 1 -->
-
-        <div class="faq">
-
-
-            <h3>
-
-                What is this application?
-
-            </h3>
-
-
-            <p>
-
-                This web application predicts the risk of
-                heart disease using Machine Learning.
-
-            </p>
-
-
-        </div>
-
-
-
-        <!-- FAQ 2 -->
-
-        <div class="faq">
-
-
-            <h3>
-
-                Is this prediction medically certified?
-
-            </h3>
-
-
-            <p>
-
-                No. It is developed for educational
-                and research purposes only.
-
-                Please consult a qualified doctor
-                for medical advice.
-
-            </p>
-
-
-        </div>
-
-
-
-        <!-- FAQ 3 -->
-
-        <div class="faq">
-
-
-            <h3>
-
-                Which Machine Learning model is used?
-
-            </h3>
-
-
-            <p>
-
-                The prediction is generated using
-                the XGBoost Machine Learning model.
-
-            </p>
-
-
-        </div>
-
-
-
-        <!-- FAQ 4 -->
-
-        <div class="faq">
-
-
-            <h3>
-
-                Can I use this application for free?
-
-            </h3>
-
-
-            <p>
-
-                Yes. This project is intended for
-                learning and demonstration purposes.
-
-            </p>
-
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- ========================================= -->
-<!-- SOCIAL MEDIA -->
-<!-- ========================================= -->
-
-<section class="social-section">
-
-
-    <div class="container">
-
-
-        <h2>
-
-            Connect With Us
-
-        </h2>
-
-
-        <p>
-
-            Stay connected through our social media
-            platforms for project updates.
-
-        </p>
-
-
-        <div class="social-icons">
-
-
-            <a href="#"
-               aria-label="Facebook">
-
-                <i class="fab fa-facebook-f"></i>
-
-            </a>
-
-
-            <a href="#"
-               aria-label="Instagram">
-
-                <i class="fab fa-instagram"></i>
-
-            </a>
-
-
-            <a href="#"
-               aria-label="LinkedIn">
-
-                <i class="fab fa-linkedin-in"></i>
-
-            </a>
-
-
-            <a href="#"
-               aria-label="GitHub">
-
-                <i class="fab fa-github"></i>
-
-            </a>
-
-
-            <a href="#"
-               aria-label="YouTube">
-
-                <i class="fab fa-youtube"></i>
-
-            </a>
-
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
 <!-- ========================================= -->
 <!-- FOOTER -->
 <!-- ========================================= -->
 
-<footer>
+<footer class="footer">
 
+    <div class="container">
 
-    <div class="footer-container">
+        <div class="footer-content">
 
+            <div class="footer-logo">
 
-        <!-- ABOUT -->
+                <i class="fa-solid fa-heart-pulse"></i>
 
-        <div class="footer-section">
+                <span>
 
+                    CardioPredict AI
 
-            <h3>
+                </span>
 
-                Heart Disease Risk Prediction
-
-            </h3>
-
+            </div>
 
             <p>
 
-                A Machine Learning based web
-                application for predicting
-                heart disease risk using
-                patient clinical information.
+                CardioPredict AI is an intelligent
+                Heart Disease Risk Prediction system
+                developed using Machine Learning and
+                Flask to assist users in understanding
+                their potential heart disease risk.
 
             </p>
 
+            <div class="footer-links">
 
-        </div>
+                <a href="{{ url_for('home') }}">
 
+                    Home
 
+                </a>
 
-        <!-- QUICK LINKS -->
+                <a href="{{ url_for('prediction_page') }}">
 
-        <div class="footer-section">
+                    Prediction
 
+                </a>
 
-            <h3>
+                <a href="{{ url_for('about') }}">
 
-                Quick Links
+                    About
 
-            </h3>
+                </a>
 
+                <a href="{{ url_for('contact') }}">
 
-            <ul>
+                    Contact
 
+                </a>
 
-                <li>
+            </div>
 
-                    <a href="{{ url_for('home') }}">
+            <div class="social-icons">
 
-                        Home
+                <a href="#">
 
-                    </a>
+                    <i class="fab fa-facebook-f"></i>
 
-                </li>
+                </a>
 
+                <a href="#">
 
-                <li>
+                    <i class="fab fa-instagram"></i>
 
-                    <a href="{{ url_for('prediction_page') }}">
+                </a>
 
-                        Prediction
+                <a href="#">
 
-                    </a>
+                    <i class="fab fa-linkedin-in"></i>
 
-                </li>
+                </a>
 
+                <a href="#">
 
-                <li>
+                    <i class="fab fa-github"></i>
 
-                    <a href="{{ url_for('about') }}">
+                </a>
 
-                        About
+            </div>
 
-                    </a>
+            <p class="copyright">
 
-                </li>
-
-
-                <li>
-
-                    <a href="{{ url_for('contact') }}">
-
-                        Contact
-
-                    </a>
-
-                </li>
-
-
-            </ul>
-
-
-        </div>
-
-
-
-        <!-- TECHNOLOGIES -->
-
-        <div class="footer-section">
-
-
-            <h3>
-
-                Technologies
-
-            </h3>
-
-
-            <ul>
-
-
-                <li>
-
-                    Python
-
-                </li>
-
-
-                <li>
-
-                    Flask
-
-                </li>
-
-
-                <li>
-
-                    XGBoost
-
-                </li>
-
-
-                <li>
-
-                    HTML5
-
-                </li>
-
-
-                <li>
-
-                    CSS3
-
-                </li>
-
-
-                <li>
-
-                    JavaScript
-
-                </li>
-
-
-            </ul>
-
-
-        </div>
-
-
-
-        <!-- CONTACT -->
-
-        <div class="footer-section">
-
-
-            <h3>
-
-                Contact
-
-            </h3>
-
-
-            <p>
-
-                Pune, Maharashtra
+                © 2026 CardioPredict AI.
+                All Rights Reserved.
 
             </p>
 
-
-            <p>
-
-                CardioPredictAI@email.com
-
-            </p>
-
-
-            <p>
-
-                +91 98865 00642
-
-            </p>
-
-
         </div>
-
 
     </div>
 
-
-
-    <hr>
-
-
-
-    <p class="copyright">
-
-        © 2026 Heart Disease Risk Prediction.
-
-        All Rights Reserved.
-
-    </p>
-
-
 </footer>
-
-
 
 <!-- ========================================= -->
 <!-- JAVASCRIPT -->
@@ -1075,6 +541,7 @@
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
 
 </body>
 
