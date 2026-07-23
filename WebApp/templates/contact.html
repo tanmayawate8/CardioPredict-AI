@@ -10,20 +10,29 @@
 
     <title>Contact | Heart Disease Risk Prediction</title>
 
+
+    <!-- ========================================= -->
     <!-- CSS -->
+    <!-- ========================================= -->
 
     <link rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}">
+          href="{{ url_for('static', filename='css/style.css') }}">
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/contact.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/contact.css') }}">
 
-    <!-- Font Awesome -->
+
+    <!-- ========================================= -->
+    <!-- FONT AWESOME -->
+    <!-- ========================================= -->
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <!-- Google Font -->
+
+    <!-- ========================================= -->
+    <!-- GOOGLE FONT -->
+    <!-- ========================================= -->
 
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
@@ -37,7 +46,9 @@
 
 </head>
 
+
 <body>
+
 
 <!-- ========================================= -->
 <!-- HEADER -->
@@ -45,67 +56,81 @@
 
 <header>
 
-<nav class="navbar">
+    <nav class="navbar">
 
-<div class="logo">
 
-<i class="fa-solid fa-heart-pulse"></i>
+        <!-- LOGO -->
 
-<span>
+        <div class="logo">
 
-Heart Disease Risk Prediction
+            <i class="fa-solid fa-heart-pulse"></i>
 
-</span>
+            <span>
 
-</div>
+                Heart Disease Risk Prediction
 
-<ul class="nav-links">
+            </span>
 
-<li>
+        </div>
 
-<a href="{{ url_for('home') }}">
 
-Home
+        <!-- NAVIGATION -->
 
-</a>
+        <ul class="nav-links">
 
-</li>
 
-<li>
+            <li>
 
-<a href="{{ url_for('prediction_page') }}">
+                <a href="{{ url_for('home') }}">
 
-Prediction
+                    Home
 
-</a>
+                </a>
 
-</li>
+            </li>
 
-<li>
 
-<a href="{{ url_for('about') }}">
+            <li>
 
-About
+                <a href="{{ url_for('prediction_page') }}">
 
-</a>
+                    Prediction
 
-</li>
+                </a>
 
-<li>
+            </li>
 
-<a href="{{ url_for('contact') }}">
 
-Contact
+            <li>
 
-</a>
+                <a href="{{ url_for('about') }}">
 
-</li>
+                    About
 
-</ul>
+                </a>
 
-</nav>
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('contact') }}"
+                   class="active">
+
+                    Contact
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </nav>
 
 </header>
+
+
 
 <!-- ========================================= -->
 <!-- PAGE TITLE -->
@@ -113,22 +138,27 @@ Contact
 
 <section class="page-title">
 
-<h1>
 
-Contact Us
+    <h1>
 
-</h1>
+        Contact Us
 
-<p>
+    </h1>
 
-Have questions about the Heart Disease
-Risk Prediction System?
 
-We would love to hear from you.
+    <p>
 
-</p>
+        Have questions about the Heart Disease
+        Risk Prediction System?
+
+        We would love to hear from you.
+
+    </p>
+
 
 </section>
+
+
 
 <!-- ========================================= -->
 <!-- CONTACT INFORMATION -->
@@ -136,283 +166,123 @@ We would love to hear from you.
 
 <section class="contact-info">
 
-<div class="container">
-
-<div class="cards">
-
-<div class="card">
-
-<i class="fa-solid fa-location-dot"></i>
-
-<h3>
-
-Address
-
-</h3>
-
-<p>
-
-Pune, Maharashtra
-
-India
-
-</p>
-
-</div>
-
-<div class="card">
-
-<i class="fa-solid fa-phone"></i>
-
-<h3>
-
-Phone
-
-</h3>
-
-<p>
-
-+91 XXXXX XXXXX
-
-</p>
-
-</div>
-
-<div class="card">
-
-<i class="fa-solid fa-envelope"></i>
-
-<h3>
-
-Email
-
-</h3>
-
-<p>
-
-example@email.com
-
-</p>
-
-</div>
-
-<div class="card">
-
-<i class="fa-solid fa-clock"></i>
-
-<h3>
-
-Working Hours
-
-</h3>
-
-<p>
-
-Monday - Saturday
-
-9:00 AM - 6:00 PM
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ========================================= -->
-<!-- CONTACT FORM -->
-<!-- ========================================= -->
-
-<section class="contact-section">
-
-<div class="container">
-
-<div class="contact-form">
-
-<h2>
-
-Send Us a Message
-
-</h2>
-
-<form action="#"
-      method="POST">
-
-<!-- Name -->
-
-<div class="input-group">
-
-<label>
-
-Full Name
-
-</label>
-
-<input
-
-type="text"
-
-name="name"
-
-placeholder="Enter your full name"
-
-required>
-
-</div>
-
-<!-- Email -->
-
-<div class="input-group">
-
-<label>
-
-Email Address
-
-</label>
-
-<input
-
-type="email"
-
-name="email"
-
-placeholder="Enter your email"
-
-required>
-
-</div>
-
-<!-- Phone -->
-
-<div class="input-group">
-
-<label>
-
-Phone Number
-
-</label>
-
-<input
-
-type="tel"
-
-name="phone"
-
-placeholder="Enter your phone number"
-
-required>
-
-</div>
-
-<!-- Subject -->
-
-<div class="input-group">
-
-<label>
-
-Subject
-
-</label>
-
-<input
-
-type="text"
-
-name="subject"
-
-placeholder="Enter subject"
-
-required>
-
-</div>
-
-<!-- Message -->
-
-<div class="input-group">
-
-<label>
-
-Message
-
-</label>
-
-<textarea
-
-name="message"
-
-rows="6"
-
-placeholder="Write your message here..."
-
-required>
-
-</textarea>
-
-</div>
-
-<!-- Submit Button -->
-
-<div class="button-group">
-
-<button
-
-type="submit"
-
-class="btn">
-
-<i class="fa-solid fa-paper-plane"></i>
-
-Send Message
-
-</button>
-
-<button
-
-type="reset"
-
-class="btn-reset">
-
-Reset
-
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-</section>
-<!-- ========================================= -->
-<!-- GOOGLE MAP -->
-<!-- ========================================= -->
-
-<section class="map-section">
 
     <div class="container">
 
-        <h2>
 
-            Our Location
+        <div class="cards">
 
-        </h2>
 
-        <div class="map-container">
+            <!-- ADDRESS -->
 
-            <iframe
-                src="https://www.google.com/maps?q=Pune,Maharashtra&output=embed"
-                width="100%"
-                height="400"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy">
+            <div class="card">
 
-            </iframe>
+
+                <i class="fa-solid fa-location-dot"></i>
+
+
+                <h3>
+
+                    Address
+
+                </h3>
+
+
+                <p>
+
+                    Pune, Maharashtra
+
+                    <br>
+
+                    India
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- PHONE -->
+
+            <div class="card">
+
+
+                <i class="fa-solid fa-phone"></i>
+
+
+                <h3>
+
+                    Phone
+
+                </h3>
+
+
+                <p>
+
+                    +91 XXXXX XXXXX
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="card">
+
+
+                <i class="fa-solid fa-envelope"></i>
+
+
+                <h3>
+
+                    Email
+
+                </h3>
+
+
+                <p>
+
+                    example@email.com
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- WORKING HOURS -->
+
+            <div class="card">
+
+
+                <i class="fa-solid fa-clock"></i>
+
+
+                <h3>
+
+                    Working Hours
+
+                </h3>
+
+
+                <p>
+
+                    Monday - Saturday
+
+                    <br>
+
+                    9:00 AM - 6:00 PM
+
+                </p>
+
+
+            </div>
+
 
         </div>
 
@@ -420,13 +290,373 @@ Reset
 
 </section>
 
+
+
+<!-- ========================================= -->
+<!-- CONTACT FORM -->
+<!-- ========================================= -->
+
+<section class="contact-section">
+
+
+    <div class="container">
+
+
+        <div class="contact-form">
+
+
+            <!-- FORM HEADING -->
+
+            <h2>
+
+                Send Us a Message
+
+            </h2>
+
+
+            <p class="form-description">
+
+                Have a question, suggestion, or feedback
+                about our Heart Disease Risk Prediction
+                System? Fill out the form below and
+                send us a message.
+
+            </p>
+
+
+
+            <!-- ========================================= -->
+            <!-- SUCCESS MESSAGE -->
+            <!-- ========================================= -->
+
+            {% if success %}
+
+            <div class="contact-success">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <span>
+
+                    {{ success }}
+
+                </span>
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- ========================================= -->
+            <!-- ERROR MESSAGE -->
+            <!-- ========================================= -->
+
+            {% if error %}
+
+            <div class="contact-error">
+
+                <i class="fa-solid fa-circle-exclamation"></i>
+
+                <span>
+
+                    {{ error }}
+
+                </span>
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- ========================================= -->
+            <!-- CONTACT FORM -->
+            <!-- ========================================= -->
+
+            <form action="{{ url_for('contact') }}"
+                  method="POST">
+
+
+                <!-- ========================================= -->
+                <!-- FULL NAME -->
+                <!-- ========================================= -->
+
+                <div class="input-group">
+
+
+                    <label for="name">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        Full Name
+
+                    </label>
+
+
+                    <input
+
+                        type="text"
+
+                        id="name"
+
+                        name="name"
+
+                        placeholder="Enter your full name"
+
+                        autocomplete="name"
+
+                        required>
+
+
+                </div>
+
+
+
+                <!-- ========================================= -->
+                <!-- EMAIL -->
+                <!-- ========================================= -->
+
+                <div class="input-group">
+
+
+                    <label for="email">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        Email Address
+
+                    </label>
+
+
+                    <input
+
+                        type="email"
+
+                        id="email"
+
+                        name="email"
+
+                        placeholder="Enter your email address"
+
+                        autocomplete="email"
+
+                        required>
+
+
+                </div>
+
+
+
+                <!-- ========================================= -->
+                <!-- PHONE -->
+                <!-- ========================================= -->
+
+                <div class="input-group">
+
+
+                    <label for="phone">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        Phone Number
+
+                    </label>
+
+
+                    <input
+
+                        type="tel"
+
+                        id="phone"
+
+                        name="phone"
+
+                        placeholder="Enter your phone number"
+
+                        autocomplete="tel">
+
+
+                </div>
+
+
+
+                <!-- ========================================= -->
+                <!-- SUBJECT -->
+                <!-- ========================================= -->
+
+                <div class="input-group">
+
+
+                    <label for="subject">
+
+                        <i class="fa-solid fa-heading"></i>
+
+                        Subject
+
+                    </label>
+
+
+                    <input
+
+                        type="text"
+
+                        id="subject"
+
+                        name="subject"
+
+                        placeholder="Enter message subject"
+
+                        required>
+
+
+                </div>
+
+
+
+                <!-- ========================================= -->
+                <!-- MESSAGE -->
+                <!-- ========================================= -->
+
+                <div class="input-group full-width">
+
+
+                    <label for="message">
+
+                        <i class="fa-solid fa-message"></i>
+
+                        Your Message
+
+                    </label>
+
+
+                    <textarea
+
+                        id="message"
+
+                        name="message"
+
+                        rows="6"
+
+                        placeholder="Write your message here..."
+
+                        required></textarea>
+
+
+                </div>
+
+
+
+                <!-- ========================================= -->
+                <!-- BUTTON GROUP -->
+                <!-- ========================================= -->
+
+                <div class="button-group">
+
+
+                    <!-- SEND BUTTON -->
+
+                    <button
+
+                        type="submit"
+
+                        class="btn">
+
+
+                        <i class="fa-solid fa-paper-plane"></i>
+
+                        Send Message
+
+
+                    </button>
+
+
+
+                    <!-- RESET BUTTON -->
+
+                    <button
+
+                        type="reset"
+
+                        class="btn-reset">
+
+
+                        <i class="fa-solid fa-rotate-left"></i>
+
+                        Reset
+
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- GOOGLE MAP -->
+<!-- ========================================= -->
+
+<section class="map-section">
+
+
+    <div class="container">
+
+
+        <h2>
+
+            Our Location
+
+        </h2>
+
+
+        <div class="map-container">
+
+
+            <iframe
+
+                src="https://www.google.com/maps?q=Pune,Maharashtra&output=embed"
+
+                width="100%"
+
+                height="400"
+
+                style="border:0;"
+
+                allowfullscreen=""
+
+                loading="lazy">
+
+            </iframe>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
 <!-- ========================================= -->
 <!-- FAQ SECTION -->
 <!-- ========================================= -->
 
 <section class="faq-section">
 
+
     <div class="container">
+
 
         <h2>
 
@@ -434,13 +664,19 @@ Reset
 
         </h2>
 
+
+
+        <!-- FAQ 1 -->
+
         <div class="faq">
+
 
             <h3>
 
                 What is this application?
 
             </h3>
+
 
             <p>
 
@@ -449,9 +685,15 @@ Reset
 
             </p>
 
+
         </div>
 
+
+
+        <!-- FAQ 2 -->
+
         <div class="faq">
+
 
             <h3>
 
@@ -459,24 +701,33 @@ Reset
 
             </h3>
 
+
             <p>
 
                 No. It is developed for educational
                 and research purposes only.
+
                 Please consult a qualified doctor
                 for medical advice.
 
             </p>
 
+
         </div>
 
+
+
+        <!-- FAQ 3 -->
+
         <div class="faq">
+
 
             <h3>
 
                 Which Machine Learning model is used?
 
             </h3>
+
 
             <p>
 
@@ -485,15 +736,22 @@ Reset
 
             </p>
 
+
         </div>
 
+
+
+        <!-- FAQ 4 -->
+
         <div class="faq">
+
 
             <h3>
 
                 Can I use this application for free?
 
             </h3>
+
 
             <p>
 
@@ -502,11 +760,15 @@ Reset
 
             </p>
 
+
         </div>
+
 
     </div>
 
 </section>
+
+
 
 <!-- ========================================= -->
 <!-- SOCIAL MEDIA -->
@@ -514,13 +776,16 @@ Reset
 
 <section class="social-section">
 
+
     <div class="container">
+
 
         <h2>
 
             Connect With Us
 
         </h2>
+
 
         <p>
 
@@ -529,43 +794,58 @@ Reset
 
         </p>
 
+
         <div class="social-icons">
 
-            <a href="#">
+
+            <a href="#"
+               aria-label="Facebook">
 
                 <i class="fab fa-facebook-f"></i>
 
             </a>
 
-            <a href="#">
+
+            <a href="#"
+               aria-label="Instagram">
 
                 <i class="fab fa-instagram"></i>
 
             </a>
 
-            <a href="#">
+
+            <a href="#"
+               aria-label="LinkedIn">
 
                 <i class="fab fa-linkedin-in"></i>
 
             </a>
 
-            <a href="#">
+
+            <a href="#"
+               aria-label="GitHub">
 
                 <i class="fab fa-github"></i>
 
             </a>
 
-            <a href="#">
+
+            <a href="#"
+               aria-label="YouTube">
 
                 <i class="fab fa-youtube"></i>
 
             </a>
 
+
         </div>
+
 
     </div>
 
 </section>
+
+
 
 <!-- ========================================= -->
 <!-- FOOTER -->
@@ -573,15 +853,21 @@ Reset
 
 <footer>
 
+
     <div class="footer-container">
 
+
+        <!-- ABOUT -->
+
         <div class="footer-section">
+
 
             <h3>
 
                 Heart Disease Risk Prediction
 
             </h3>
+
 
             <p>
 
@@ -592,9 +878,15 @@ Reset
 
             </p>
 
+
         </div>
 
+
+
+        <!-- QUICK LINKS -->
+
         <div class="footer-section">
+
 
             <h3>
 
@@ -602,7 +894,9 @@ Reset
 
             </h3>
 
+
             <ul>
+
 
                 <li>
 
@@ -614,6 +908,7 @@ Reset
 
                 </li>
 
+
                 <li>
 
                     <a href="{{ url_for('prediction_page') }}">
@@ -623,6 +918,7 @@ Reset
                     </a>
 
                 </li>
+
 
                 <li>
 
@@ -634,6 +930,7 @@ Reset
 
                 </li>
 
+
                 <li>
 
                     <a href="{{ url_for('contact') }}">
@@ -644,11 +941,18 @@ Reset
 
                 </li>
 
+
             </ul>
+
 
         </div>
 
+
+
+        <!-- TECHNOLOGIES -->
+
         <div class="footer-section">
+
 
             <h3>
 
@@ -656,25 +960,63 @@ Reset
 
             </h3>
 
+
             <ul>
 
-                <li>Python</li>
 
-                <li>Flask</li>
+                <li>
 
-                <li>XGBoost</li>
+                    Python
 
-                <li>HTML5</li>
+                </li>
 
-                <li>CSS3</li>
 
-                <li>JavaScript</li>
+                <li>
+
+                    Flask
+
+                </li>
+
+
+                <li>
+
+                    XGBoost
+
+                </li>
+
+
+                <li>
+
+                    HTML5
+
+                </li>
+
+
+                <li>
+
+                    CSS3
+
+                </li>
+
+
+                <li>
+
+                    JavaScript
+
+                </li>
+
 
             </ul>
 
+
         </div>
 
+
+
+        <!-- CONTACT -->
+
         <div class="footer-section">
+
 
             <h3>
 
@@ -682,11 +1024,13 @@ Reset
 
             </h3>
 
+
             <p>
 
                 Pune, Maharashtra
 
             </p>
+
 
             <p>
 
@@ -694,32 +1038,44 @@ Reset
 
             </p>
 
+
             <p>
 
                 +91 XXXXX XXXXX
 
             </p>
 
+
         </div>
+
 
     </div>
 
+
+
     <hr>
+
+
 
     <p class="copyright">
 
         © 2026 Heart Disease Risk Prediction.
+
         All Rights Reserved.
 
     </p>
 
+
 </footer>
+
+
 
 <!-- ========================================= -->
 <!-- JAVASCRIPT -->
 <!-- ========================================= -->
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 
 </body>
 

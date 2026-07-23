@@ -1,430 +1,1567 @@
 /*=========================================================
-PREDICTION PAGE
+  HEART DISEASE PREDICTION SYSTEM
+  PREDICTION PAGE CSS
 =========================================================*/
 
-.prediction-section{
-
-    background:#f5f8fc;
-
-    padding:80px 0;
-
-}
-
-.prediction-container{
-
-    width:90%;
-
-    max-width:1100px;
-
-    margin:auto;
-
-    background:#ffffff;
-
-    border-radius:20px;
-
-    box-shadow:var(--shadow);
-
-    padding:50px;
-
-}
-
-.prediction-container h2{
-
-    text-align:center;
-
-    color:var(--secondary);
-
-    margin-bottom:40px;
-
-    font-size:38px;
-
-}
-
-.prediction-container p{
-
-    text-align:center;
-
-    color:#666;
-
-    margin-bottom:35px;
-
-}
 
 /*=========================================================
-FORM
+  1. PREDICTION PAGE SECTION
 =========================================================*/
 
-.prediction-form{
+.prediction-section {
 
-    display:grid;
+    width: 100%;
 
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    min-height: 100vh;
 
-    gap:25px;
+    padding: 80px 0;
+
+    background: #f5f8fc;
 
 }
 
+
 /*=========================================================
-INPUT GROUP
+  2. PREDICTION CONTAINER
 =========================================================*/
 
-.input-group{
+.prediction-container {
 
-    display:flex;
+    width: 90%;
 
-    flex-direction:column;
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding: 50px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow);
+
+    animation: slideUp 0.7s ease;
 
 }
 
-.input-group label{
-
-    font-size:16px;
-
-    font-weight:600;
-
-    color:var(--secondary);
-
-    margin-bottom:10px;
-
-}
 
 /*=========================================================
-INPUTS
+  3. PREDICTION HEADER
+=========================================================*/
+
+.prediction-header {
+
+    text-align: center;
+
+    margin-bottom: 45px;
+
+}
+
+
+/*=========================================================
+  PREDICTION ICON
+=========================================================*/
+
+.prediction-icon {
+
+    width: 75px;
+
+    height: 75px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fff1f2;
+
+    color: var(--primary);
+
+    border-radius: 50%;
+
+    font-size: 32px;
+
+}
+
+
+/*=========================================================
+  PREDICTION TITLE
+=========================================================*/
+
+.prediction-header h1 {
+
+    margin: 0 0 15px;
+
+    color: var(--secondary);
+
+    font-size: 38px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+
+/*=========================================================
+  PREDICTION DESCRIPTION
+=========================================================*/
+
+.prediction-header p {
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    color: #666;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+}
+
+
+/*=========================================================
+  4. PREDICTION FORM
+=========================================================*/
+
+.prediction-form {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 25px;
+
+}
+
+
+/*=========================================================
+  5. INPUT GROUP
+=========================================================*/
+
+.input-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100%;
+
+}
+
+
+/*=========================================================
+  INPUT LABEL
+=========================================================*/
+
+.input-group label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 10px;
+
+    color: var(--secondary);
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+}
+
+
+/*=========================================================
+  LABEL ICON
+=========================================================*/
+
+.input-group label i {
+
+    color: var(--primary);
+
+    font-size: 15px;
+
+}
+
+
+/*=========================================================
+  6. INPUTS AND SELECT
 =========================================================*/
 
 .input-group input,
 
 .input-group select,
 
-.input-group textarea{
+.input-group textarea {
 
-    width:100%;
+    width: 100%;
 
-    padding:15px 18px;
+    min-height: 52px;
 
-    border:2px solid #dfe6e9;
+    box-sizing: border-box;
 
-    border-radius:12px;
+    padding: 14px 16px;
 
-    background:#fff;
+    border: 2px solid #dfe6e9;
 
-    font-size:16px;
+    border-radius: 12px;
 
-    transition:.35s;
+    outline: none;
+
+    background: #ffffff;
+
+    color: #333;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
 
 }
 
-.input-group textarea{
-
-    resize:none;
-
-}
 
 /*=========================================================
-FOCUS
+  INPUT HOVER
+=========================================================*/
+
+.input-group input:hover,
+
+.input-group select:hover,
+
+.input-group textarea:hover {
+
+    border-color: #b8c2cc;
+
+}
+
+
+/*=========================================================
+  INPUT FOCUS
 =========================================================*/
 
 .input-group input:focus,
 
 .input-group select:focus,
 
-.input-group textarea:focus{
+.input-group textarea:focus {
 
-    border-color:var(--primary);
+    border-color: var(--primary);
 
-    box-shadow:0 0 10px rgba(217,4,41,.25);
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px rgba(217, 4, 41, 0.08);
 
 }
+
 
 /*=========================================================
-PLACEHOLDER
+  PLACEHOLDER
 =========================================================*/
 
-input::placeholder,
+.input-group input::placeholder,
 
-textarea::placeholder{
+.input-group textarea::placeholder {
 
-    color:#999;
+    color: #999;
 
 }
+
 
 /*=========================================================
-SELECT
+  SELECT
 =========================================================*/
 
-select{
+.input-group select {
 
-    cursor:pointer;
+    cursor: pointer;
+
+    appearance: auto;
 
 }
+
 
 /*=========================================================
-BUTTON GROUP
+  SMALL HELPER TEXT
 =========================================================*/
 
-.button-group{
+.input-group small {
 
-    grid-column:1/-1;
+    margin-top: 6px;
 
-    display:flex;
+    color: #777;
 
-    justify-content:center;
+    font-size: 12px;
 
-    gap:20px;
-
-    margin-top:15px;
+    line-height: 1.4;
 
 }
+
 
 /*=========================================================
-PREDICT BUTTON
+  7. INPUT VALIDATION
 =========================================================*/
 
-.button-group .btn{
+/*
+  Do not make every valid input green.
+  This keeps the professional medical dashboard
+  appearance clean.
+*/
 
-    min-width:180px;
+.input-group input:invalid,
+
+.input-group select:invalid {
+
+    border-color: #dfe6e9;
 
 }
+
 
 /*=========================================================
-RESET BUTTON
+  8. BUTTON GROUP
 =========================================================*/
 
-.button-group .btn-reset{
+.button-group {
 
-    min-width:180px;
+    grid-column: 1 / -1;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-top: 15px;
 
 }
+
 
 /*=========================================================
-RESULT SECTION
+  BUTTON COMMON STYLE
 =========================================================*/
 
-.result-section{
+.button-group .btn {
 
-    padding:60px 0;
+    min-width: 190px;
 
-}
+    min-height: 52px;
 
-.result-card{
+    padding: 14px 25px;
 
-    width:90%;
+    border-radius: 10px;
 
-    max-width:700px;
+    font-size: 15px;
 
-    margin:auto;
+    font-weight: 600;
 
-    background:#ffffff;
-
-    border-left:8px solid var(--success);
-
-    border-radius:15px;
-
-    padding:35px;
-
-    box-shadow:var(--shadow);
-
-    text-align:center;
+    cursor: pointer;
 
 }
 
-.result-card h2{
-
-    color:var(--success);
-
-    margin-bottom:20px;
-
-}
-
-.result-card p{
-
-    font-size:20px;
-
-    font-weight:500;
-
-    margin-bottom:12px;
-
-}
 
 /*=========================================================
-ERROR SECTION
+  RESET BUTTON
 =========================================================*/
 
-.error-section{
+.button-group .btn-reset {
 
-    padding:50px 0;
-
-}
-
-.error-card{
-
-    width:90%;
-
-    max-width:700px;
-
-    margin:auto;
-
-    background:#fff;
-
-    border-left:8px solid var(--danger);
-
-    border-radius:15px;
-
-    padding:35px;
-
-    text-align:center;
-
-    box-shadow:var(--shadow);
+    min-width: 190px;
 
 }
 
-.error-card h2{
-
-    color:var(--danger);
-
-    margin-bottom:20px;
-
-}
 
 /*=========================================================
-INFORMATION
+  BUTTON ICON
 =========================================================*/
 
-.prediction-info{
+.button-group .btn i {
 
-    background:#ffffff;
-
-}
-
-.prediction-info .container{
-
-    max-width:900px;
+    margin-right: 7px;
 
 }
 
-.prediction-info p{
-
-    text-align:center;
-
-    color:#555;
-
-    font-size:17px;
-
-}
 
 /*=========================================================
-SUCCESS MESSAGE
+  9. FORM INFORMATION NOTE
 =========================================================*/
 
-.success{
+.form-note {
 
-    color:var(--success);
+    display: flex;
 
-    font-weight:700;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-top: 30px;
+
+    padding: 18px 20px;
+
+    background: #f8f9fa;
+
+    border: 1px solid #e9ecef;
+
+    border-radius: 12px;
 
 }
+
+
+.form-note > i {
+
+    margin-top: 3px;
+
+    color: #0d6efd;
+
+    font-size: 18px;
+
+}
+
+
+.form-note p {
+
+    margin: 0;
+
+    color: #666;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+}
+
 
 /*=========================================================
-WARNING MESSAGE
+  10. RESULT SECTION
 =========================================================*/
 
-.warning{
+.result-section {
 
-    color:var(--warning);
+    width: 100%;
 
-    font-weight:700;
+    padding: 70px 0;
+
+    background: #f5f8fc;
 
 }
+
 
 /*=========================================================
-DANGER MESSAGE
+  11. RESULT CARD
 =========================================================*/
 
-.danger{
+.result-card {
 
-    color:var(--danger);
+    width: 90%;
 
-    font-weight:700;
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    padding: 45px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border-radius: 22px;
+
+    box-shadow: var(--shadow);
+
+    text-align: center;
+
+    animation: zoomIn 0.6s ease;
 
 }
+
 
 /*=========================================================
-INPUT VALIDATION
+  12. RESULT HEADER
 =========================================================*/
 
-input:invalid,
+.result-header {
 
-select:invalid{
+    text-align: center;
 
-    border-color:#ced4da;
-
-}
-
-input:valid,
-
-select:valid{
-
-    border-color:#2ecc71;
+    margin-bottom: 35px;
 
 }
+
 
 /*=========================================================
-FORM ANIMATION
+  RESULT ICON
 =========================================================*/
 
-.prediction-container{
+.result-icon {
 
-    animation:slideUp .8s ease;
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fff1f2;
+
+    color: var(--primary);
+
+    border-radius: 50%;
+
+    font-size: 30px;
 
 }
 
-@keyframes slideUp{
 
-    from{
+/*=========================================================
+  RESULT HEADING
+=========================================================*/
 
-        opacity:0;
+.result-header h2 {
 
-        transform:translateY(60px);
+    margin: 0 0 10px;
+
+    color: var(--secondary);
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+}
+
+
+/*=========================================================
+  RESULT DESCRIPTION
+=========================================================*/
+
+.result-header p {
+
+    margin: 0;
+
+    color: #6c757d;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+}
+
+
+/*=========================================================
+  13. PATIENT SUMMARY
+=========================================================*/
+
+.patient-summary {
+
+    padding: 30px;
+
+    margin-bottom: 30px;
+
+    background: #f8f9fa;
+
+    border: 1px solid #e1e5e9;
+
+    border-radius: 16px;
+
+    text-align: left;
+
+}
+
+
+/*=========================================================
+  PATIENT SECTION TITLE
+=========================================================*/
+
+.section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding-bottom: 15px;
+
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid #dee2e6;
+
+}
+
+
+.section-title i {
+
+    color: var(--primary);
+
+    font-size: 21px;
+
+}
+
+
+.section-title h3 {
+
+    margin: 0;
+
+    color: var(--secondary);
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+}
+
+
+/*=========================================================
+  14. PATIENT DATA GRID
+=========================================================*/
+
+.patient-data-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+
+}
+
+
+/*=========================================================
+  PATIENT DATA ITEM
+=========================================================*/
+
+.patient-data-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    min-width: 0;
+
+    padding: 16px 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+
+    border-radius: 10px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+/*=========================================================
+  PATIENT DATA HOVER
+=========================================================*/
+
+.patient-data-item:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.05);
+
+}
+
+
+/*=========================================================
+  DATA LABEL
+=========================================================*/
+
+.data-label {
+
+    color: #6c757d;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+/*=========================================================
+  DATA VALUE
+=========================================================*/
+
+.data-value {
+
+    color: var(--secondary);
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    word-break: break-word;
+
+}
+
+
+/*=========================================================
+  15. RISK RESULT
+=========================================================*/
+
+.risk-result {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    padding: 25px;
+
+    margin-bottom: 30px;
+
+    border-radius: 16px;
+
+}
+
+
+/*=========================================================
+  HIGH RISK
+=========================================================*/
+
+.risk-result.high-risk {
+
+    background: #fff1f2;
+
+    border: 2px solid #ffccd2;
+
+}
+
+
+.risk-result.high-risk .risk-icon {
+
+    color: #d90429;
+
+}
+
+
+.risk-result.high-risk .risk-content h3 {
+
+    color: #d90429;
+
+}
+
+
+/*=========================================================
+  LOW RISK
+=========================================================*/
+
+.risk-result.low-risk {
+
+    background: #f0fff7;
+
+    border: 2px solid #b7ebd1;
+
+}
+
+
+.risk-result.low-risk .risk-icon {
+
+    color: #198754;
+
+}
+
+
+.risk-result.low-risk .risk-content h3 {
+
+    color: #198754;
+
+}
+
+
+/*=========================================================
+  16. RISK ICON
+=========================================================*/
+
+.risk-icon {
+
+    width: 65px;
+
+    height: 65px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    font-size: 29px;
+
+}
+
+
+/*=========================================================
+  17. RISK CONTENT
+=========================================================*/
+
+.risk-content {
+
+    text-align: left;
+
+}
+
+
+.risk-label {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #6c757d;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+}
+
+
+.risk-content h3 {
+
+    margin: 0;
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+}
+
+
+/*=========================================================
+  18. PROBABILITY SECTION
+=========================================================*/
+
+.probability-section {
+
+    padding: 30px;
+
+    margin-bottom: 30px;
+
+    background: #f8f9fa;
+
+    border: 1px solid #e9ecef;
+
+    border-radius: 16px;
+
+}
+
+
+/*=========================================================
+  PROBABILITY HEADING
+=========================================================*/
+
+.probability-section h3 {
+
+    margin: 0 0 18px;
+
+    color: var(--secondary);
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+}
+
+
+/*=========================================================
+  PROBABILITY VALUE
+=========================================================*/
+
+.probability-value {
+
+    margin-bottom: 20px;
+
+    color: var(--primary);
+
+    font-size: 48px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+}
+
+
+/*=========================================================
+  19. PROBABILITY BAR
+=========================================================*/
+
+.probability-bar {
+
+    width: 100%;
+
+    height: 14px;
+
+    margin-bottom: 15px;
+
+    overflow: hidden;
+
+    background: #e9ecef;
+
+    border-radius: 20px;
+
+}
+
+
+/*=========================================================
+  PROBABILITY FILL
+=========================================================*/
+
+.probability-fill {
+
+    height: 100%;
+
+    min-width: 0;
+
+    border-radius: 20px;
+
+    transition: width 1s ease;
+
+}
+
+
+/*=========================================================
+  HIGH RISK PROBABILITY
+=========================================================*/
+
+.high-risk-fill {
+
+    background: #d90429;
+
+}
+
+
+/*=========================================================
+  LOW RISK PROBABILITY
+=========================================================*/
+
+.low-risk-fill {
+
+    background: #198754;
+
+}
+
+
+/*=========================================================
+  PROBABILITY DESCRIPTION
+=========================================================*/
+
+.probability-section p {
+
+    margin: 0;
+
+    color: #6c757d;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+}
+
+
+/*=========================================================
+  20. RECOMMENDATION
+=========================================================*/
+
+.recommendation {
+
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    border-radius: 15px;
+
+    text-align: left;
+
+}
+
+
+/*=========================================================
+  RECOMMENDATION HEADING
+=========================================================*/
+
+.recommendation h3 {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 0 0 12px;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+}
+
+
+.recommendation p {
+
+    margin: 0;
+
+    color: #555;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+}
+
+
+/*=========================================================
+  HIGH RISK RECOMMENDATION
+=========================================================*/
+
+.recommendation.high-risk {
+
+    background: #fff5f5;
+
+    border-left: 5px solid #d90429;
+
+}
+
+
+.recommendation.high-risk h3 {
+
+    color: #d90429;
+
+}
+
+
+/*=========================================================
+  LOW RISK RECOMMENDATION
+=========================================================*/
+
+.recommendation.low-risk {
+
+    background: #f2fff8;
+
+    border-left: 5px solid #198754;
+
+}
+
+
+.recommendation.low-risk h3 {
+
+    color: #198754;
+
+}
+
+
+/*=========================================================
+  21. MEDICAL DISCLAIMER
+=========================================================*/
+
+.medical-disclaimer {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    margin-top: 20px;
+
+    background: #f8f9fa;
+
+    border: 1px solid #dee2e6;
+
+    border-radius: 12px;
+
+    text-align: left;
+
+}
+
+
+/*=========================================================
+  DISCLAIMER ICON
+=========================================================*/
+
+.medical-disclaimer > i {
+
+    flex-shrink: 0;
+
+    margin-top: 3px;
+
+    color: #0d6efd;
+
+    font-size: 21px;
+
+}
+
+
+/*=========================================================
+  DISCLAIMER CONTENT
+=========================================================*/
+
+.medical-disclaimer strong {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--secondary);
+
+    font-size: 14px;
+
+}
+
+
+.medical-disclaimer p {
+
+    margin: 0;
+
+    color: #6c757d;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+}
+
+
+/*=========================================================
+  22. RESULT ACTIONS
+=========================================================*/
+
+.result-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 30px;
+
+}
+
+
+/*=========================================================
+  RESULT ACTION BUTTON
+=========================================================*/
+
+.result-actions .btn {
+
+    min-width: 220px;
+
+}
+
+
+/*=========================================================
+  23. ERROR SECTION
+=========================================================*/
+
+.error-section {
+
+    width: 100%;
+
+    padding: 40px 0;
+
+    background: #f5f8fc;
+
+}
+
+
+/*=========================================================
+  ERROR MESSAGE
+=========================================================*/
+
+.error-message {
+
+    width: 90%;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding: 20px 25px;
+
+    box-sizing: border-box;
+
+    background: #fff5f5;
+
+    border-left: 5px solid #d90429;
+
+    border-radius: 12px;
+
+    box-shadow: var(--shadow);
+
+}
+
+
+/*=========================================================
+  ERROR ICON
+=========================================================*/
+
+.error-message > i {
+
+    flex-shrink: 0;
+
+    color: #d90429;
+
+    font-size: 24px;
+
+}
+
+
+/*=========================================================
+  ERROR HEADING
+=========================================================*/
+
+.error-message h3 {
+
+    margin: 0 0 5px;
+
+    color: #d90429;
+
+    font-size: 18px;
+
+}
+
+
+/*=========================================================
+  ERROR TEXT
+=========================================================*/
+
+.error-message p {
+
+    margin: 0;
+
+    color: #555;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+}
+
+
+/*=========================================================
+  24. FORM ANIMATION
+=========================================================*/
+
+@keyframes slideUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(40px);
 
     }
 
-    to{
+    to {
 
-        opacity:1;
+        opacity: 1;
 
-        transform:translateY(0);
+        transform: translateY(0);
 
     }
 
 }
+
 
 /*=========================================================
-RESULT ANIMATION
+  25. RESULT ANIMATION
 =========================================================*/
 
-.result-card,
+@keyframes zoomIn {
 
-.error-card{
+    from {
 
-    animation:zoomIn .6s ease;
+        opacity: 0;
 
-}
-
-@keyframes zoomIn{
-
-    from{
-
-        opacity:0;
-
-        transform:scale(.8);
+        transform: scale(0.92);
 
     }
 
-    to{
+    to {
 
-        opacity:1;
+        opacity: 1;
 
-        transform:scale(1);
+        transform: scale(1);
+
+    }
+
+}
+
+
+/*=========================================================
+  26. TABLET RESPONSIVE
+=========================================================*/
+
+@media (max-width: 900px) {
+
+    .prediction-container {
+
+        padding: 40px;
+
+    }
+
+    .prediction-form {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .button-group {
+
+        grid-column: 1;
+
+    }
+
+}
+
+
+/*=========================================================
+  27. MOBILE RESPONSIVE
+=========================================================*/
+
+@media (max-width: 768px) {
+
+    .prediction-section {
+
+        padding: 50px 0;
+
+    }
+
+    .prediction-container {
+
+        width: 92%;
+
+        padding: 30px 22px;
+
+        border-radius: 16px;
+
+    }
+
+    .prediction-header h1 {
+
+        font-size: 28px;
+
+    }
+
+    .prediction-header p {
+
+        font-size: 14px;
+
+    }
+
+    .patient-data-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .patient-summary {
+
+        padding: 20px;
+
+    }
+
+    .result-card {
+
+        width: 92%;
+
+        padding: 30px 22px;
+
+        border-radius: 16px;
+
+    }
+
+    .result-header h2 {
+
+        font-size: 27px;
+
+    }
+
+    .risk-result {
+
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 22px 15px;
+
+    }
+
+    .risk-content {
+
+        text-align: center;
+
+    }
+
+    .risk-content h3 {
+
+        font-size: 21px;
+
+    }
+
+    .probability-section {
+
+        padding: 22px 18px;
+
+    }
+
+    .probability-value {
+
+        font-size: 40px;
+
+    }
+
+    .medical-disclaimer {
+
+        flex-direction: column;
+
+    }
+
+    .button-group {
+
+        flex-direction: column;
+
+        width: 100%;
+
+    }
+
+    .button-group .btn,
+
+    .button-group .btn-reset {
+
+        width: 100%;
+
+        min-width: 0;
+
+    }
+
+}
+
+
+/*=========================================================
+  28. SMALL MOBILE
+=========================================================*/
+
+@media (max-width: 480px) {
+
+    .prediction-container {
+
+        width: 94%;
+
+        padding: 25px 16px;
+
+    }
+
+    .result-card {
+
+        width: 94%;
+
+        padding: 25px 16px;
+
+    }
+
+    .prediction-header h1 {
+
+        font-size: 24px;
+
+    }
+
+    .prediction-icon {
+
+        width: 60px;
+
+        height: 60px;
+
+        font-size: 26px;
+
+    }
+
+    .result-icon {
+
+        width: 60px;
+
+        height: 60px;
+
+        font-size: 26px;
+
+    }
+
+    .patient-summary {
+
+        padding: 16px;
+
+    }
+
+    .risk-content h3 {
+
+        font-size: 19px;
+
+    }
+
+    .probability-value {
+
+        font-size: 36px;
+
+    }
+
+    .recommendation {
+
+        padding: 20px;
+
+    }
+
+    .medical-disclaimer {
+
+        padding: 16px;
 
     }
 

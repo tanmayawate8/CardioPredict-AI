@@ -1,109 +1,311 @@
-# ==========================================================
+# ==========================================
 # HEART DISEASE RISK PREDICTION
-# Flask Application
-# ==========================================================
+# FLASK BACKEND
+# ==========================================
 
 from flask import Flask, render_template, request
-from backend.prediction import predict_heart_disease
+import pandas as pd
+import pickle
+from pathlib import Path
 
-# ==========================================================
-# Create Flask App
-# ==========================================================
+
+# ==========================================
+# FLASK APP
+# ==========================================
 
 app = Flask(__name__)
 
-# ==========================================================
-# Home Page
-# ==========================================================
+
+# ==========================================
+# LOAD TRAINED MODEL
+# ==========================================
+
+BASE_DIR = Path(__file__).resolve().parent
+
+MODEL_PATH = BASE_DIR / "heart_disease_model.pkl"
+
+with open(MODEL_PATH, "rb") as file:
+    model = pickle.load(file)
+
+print("Model Loaded Successfully")
+
+
+# ==========================================
+# LABEL ENCODING DICTIONARIES
+# ==========================================
+
+sex_map = {
+    "M": 1,
+    "F": 0
+}
+
+
+cp_map = {
+    "ATA": 0,
+    "NAP": 1,
+    "ASY": 2,
+    "TA": 3
+}
+
+
+ecg_map = {
+    "Normal": 1,
+    "ST": 2,
+    "LVH": 0
+}
+
+
+angina_map = {
+    "N": 0,
+    "Y": 1
+}
+
+
+slope_map = {
+    "Up": 2,
+    "Flat": 1,
+    "Down": 0
+}
+
+
+# ==========================================
+# HOME PAGE
+# ==========================================
 
 @app.route("/")
 def home():
+
     return render_template("index.html")
 
-# ==========================================================
-# About Page
-# ==========================================================
+
+# ==========================================
+# ABOUT PAGE
+# ==========================================
 
 @app.route("/about")
 def about():
+
     return render_template("about.html")
 
-# ==========================================================
-# Contact Page
-# ==========================================================
+
+# ==========================================
+# CONTACT PAGE
+# ==========================================
 
 @app.route("/contact")
 def contact():
+
     return render_template("contact.html")
 
-# ==========================================================
-# Prediction Page
-# ==========================================================
+
+# ==========================================
+# PREDICTION PAGE
+# ==========================================
 
 @app.route("/prediction")
 def prediction_page():
+
     return render_template("prediction.html")
 
-# ==========================================================
-# Predict Heart Disease
-# ==========================================================
+
+# ==========================================
+# PREDICT ROUTE
+# ==========================================
 
 @app.route("/predict", methods=["POST"])
 def predict():
 
     try:
 
-        # ----------------------------------------
-        # Read Data from HTML Form
-        # ----------------------------------------
+        # ==========================================
+        # GET ORIGINAL USER INPUT VALUES
+        # ==========================================
 
-        age = request.form["Age"]
-        sex = request.form["Sex"]
-        chest_pain = request.form["ChestPainType"]
-        resting_bp = request.form["RestingBP"]
-        cholesterol = request.form["Cholesterol"]
-        fasting_bs = request.form["FastingBS"]
-        resting_ecg = request.form["RestingECG"]
-        max_hr = request.form["MaxHR"]
-        exercise_angina = request.form["ExerciseAngina"]
-        oldpeak = request.form["Oldpeak"]
-        st_slope = request.form["ST_Slope"]
+        Age = int(request.form["Age"])
 
-        # ----------------------------------------
-        # Create Dictionary
-        # ----------------------------------------
+        Sex_original = request.form["Sex"]
 
-        patient_data = {
+        ChestPainType_original = request.form["ChestPainType"]
 
-            "Age": age,
-            "Sex": sex,
-            "ChestPainType": chest_pain,
-            "RestingBP": resting_bp,
-            "Cholesterol": cholesterol,
-            "FastingBS": fasting_bs,
-            "RestingECG": resting_ecg,
-            "MaxHR": max_hr,
-            "ExerciseAngina": exercise_angina,
-            "Oldpeak": oldpeak,
-            "ST_Slope": st_slope
+        RestingBP = int(request.form["RestingBP"])
+
+        Cholesterol = int(request.form["Cholesterol"])
+
+        FastingBS = int(request.form["FastingBS"])
+
+        RestingECG_original = request.form["RestingECG"]
+
+        MaxHR = int(request.form["MaxHR"])
+
+        ExerciseAngina_original = request.form["ExerciseAngina"]
+
+        Oldpeak = float(request.form["Oldpeak"])
+
+        ST_Slope_original = request.form["ST_Slope"]
+
+
+        # ==========================================
+        # ENCODE INPUT VALUES FOR MODEL
+        # ==========================================
+
+        Sex = sex_map[Sex_original]
+
+        ChestPainType = cp_map[ChestPainType_original]
+
+        RestingECG = ecg_map[RestingECG_original]
+
+        ExerciseAngina = angina_map[ExerciseAngina_original]
+
+        ST_Slope = slope_map[ST_Slope_original]
+
+
+        # ==========================================
+        # CREATE DATAFRAME FOR MODEL
+        # ==========================================
+
+        patient = pd.DataFrame([{
+
+            "Age": Age,
+
+            "Sex": Sex,
+
+            "ChestPainType": ChestPainType,
+
+            "RestingBP": RestingBP,
+
+            "Cholesterol": Cholesterol,
+
+            "FastingBS": FastingBS,
+
+            "RestingECG": RestingECG,
+
+            "MaxHR": MaxHR,
+
+            "ExerciseAngina": ExerciseAngina,
+
+            "Oldpeak": Oldpeak,
+
+            "ST_Slope": ST_Slope
+
+        }])
+
+
+        # ==========================================
+        # MAKE PREDICTION
+        # ==========================================
+
+        prediction_value = model.predict(patient)[0]
+
+
+        # ==========================================
+        # GET MODEL PROBABILITY
+        # ==========================================
+
+        probabilities = model.predict_proba(patient)[0]
+
+
+        # ==========================================
+        # GET PROBABILITY OF POSITIVE CLASS
+        #
+        # Assumption:
+        # 0 = No Heart Disease
+        # 1 = Heart Disease
+        # ==========================================
+
+        confidence = float(probabilities[1])
+
+
+        # ==========================================
+        # CONVERT MODEL OUTPUT
+        # TO HIGH RISK / LOW RISK
+        # ==========================================
+
+        if prediction_value == 1:
+
+            result = "High Risk"
+
+        else:
+
+            result = "Low Risk"
+
+
+        # ==========================================
+        # PATIENT INPUT VALUES FOR RESULT SECTION
+        #
+        # These are the original human-readable
+        # values entered by the user.
+        # ==========================================
+
+        patient_input = {
+
+            "Age": Age,
+
+            "Sex": (
+                "Male"
+                if Sex_original == "M"
+                else "Female"
+            ),
+
+            "Chest Pain Type": {
+                "ATA": "Atypical Angina (ATA)",
+                "NAP": "Non-Anginal Pain (NAP)",
+                "ASY": "Asymptomatic (ASY)",
+                "TA": "Typical Angina (TA)"
+            }[ChestPainType_original],
+
+            "Resting Blood Pressure": (
+                f"{RestingBP} mmHg"
+            ),
+
+            "Cholesterol": (
+                f"{Cholesterol} mg/dL"
+            ),
+
+            "Fasting Blood Sugar": (
+                "Yes (> 120 mg/dL)"
+                if FastingBS == 1
+                else "No (≤ 120 mg/dL)"
+            ),
+
+            "Resting ECG": RestingECG_original,
+
+            "Maximum Heart Rate": (
+                f"{MaxHR} bpm"
+            ),
+
+            "Exercise Induced Angina": (
+                "Yes"
+                if ExerciseAngina_original == "Y"
+                else "No"
+            ),
+
+            "Oldpeak": Oldpeak,
+
+            "ST Slope": ST_Slope_original
 
         }
 
-        # ----------------------------------------
-        # Predict
-        # ----------------------------------------
 
-        result = predict_heart_disease(patient_data)
+        # ==========================================
+        # SEND RESULT TO PREDICTION.HTML
+        # ==========================================
 
         return render_template(
 
             "prediction.html",
 
-            prediction=result["result"],
+            prediction=result,
 
-            confidence=result.get("confidence", None)
+            confidence=confidence,
+
+            patient_input=patient_input
 
         )
+
+
+    # ==========================================
+    # ERROR HANDLING
+    # ==========================================
 
     except Exception as e:
 
@@ -111,24 +313,23 @@ def predict():
 
             "prediction.html",
 
-            prediction="Prediction Failed",
-
             error=str(e)
 
         )
 
-# ==========================================================
-# Run Flask Server
-# ==========================================================
+
+# ==========================================
+# RUN FLASK APPLICATION
+# ==========================================
 
 if __name__ == "__main__":
 
     app.run(
 
-        host="127.0.0.1",
+        debug=True,
 
-        port=5000,
+        host="0.0.0.0",
 
-        debug=True
+        port=5000
 
     )
