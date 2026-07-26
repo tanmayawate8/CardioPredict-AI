@@ -28,7 +28,6 @@ import pandas as pd
 import pickle
 from pathlib import Path
 import os
-import resend
 
 from config import Config
 from extensions import db, login_manager
@@ -80,25 +79,6 @@ def load_user(user_id):
 with app.app_context():
 
     db.create_all()
-
-
-# ============================================================
-# RESEND EMAIL CONFIGURATION
-# ============================================================
-
-RESEND_API_KEY = os.getenv(
-    "RESEND_API_KEY"
-)
-
-if RESEND_API_KEY:
-
-    resend.api_key = RESEND_API_KEY
-
-else:
-
-    print(
-        "WARNING: RESEND_API_KEY is not configured."
-    )
 
 
 # ============================================================
@@ -222,7 +202,7 @@ def about():
 
 
 # ============================================================
-# CONTACT PAGE
+# CONTACT PAGE & FORMSPREE INTEGRATION
 # ============================================================
 
 @app.route(
@@ -259,145 +239,22 @@ def contact():
                 ""
             ).strip()
 
-
-            # --------------------------------------------
-            # VALIDATE FORM
-            # --------------------------------------------
-
             if not name or not email or not message:
 
-                return render_template(
-
-                    "contact.html",
-
-                    error=(
-                        "Please fill in all required fields."
-                    )
-
-                )
-
+                flash("Please fill in all required fields.", "error")
+                return render_template("contact.html")
 
             # --------------------------------------------
-            # CHECK RESEND API KEY
+            # SUCCESS RESPONSE
             # --------------------------------------------
-
-            if not RESEND_API_KEY:
-
-                return render_template(
-
-                    "contact.html",
-
-                    error=(
-                        "Email service is not configured. "
-                        "Please try again later."
-                    )
-
-                )
-
-
-            # --------------------------------------------
-            # EMAIL PARAMETERS
-            # --------------------------------------------
-
-            params = {
-
-                "from":
-                "onboarding@resend.dev",
-
-                "to":
-                [
-                    "codewithtanmay098@gmail.com"
-                ],
-
-                "subject":
-                (
-                    "Heart Disease Prediction Contact: "
-                    f"{subject}"
-                ),
-
-                "html":
-                f"""
-                <h2>New Contact Form Submission</h2>
-
-                <p>
-                    <strong>Name:</strong>
-                    {name}
-                </p>
-
-                <p>
-                    <strong>Email:</strong>
-                    {email}
-                </p>
-
-                <p>
-                    <strong>Subject:</strong>
-                    {subject}
-                </p>
-
-                <hr>
-
-                <p>
-                    <strong>Message:</strong>
-                </p>
-
-                <p>
-                    {message}
-                </p>
-
-                <hr>
-
-                <p>
-                    Sent from CardioPredict AI
-                </p>
-                """
-
-            }
-
-
-            # --------------------------------------------
-            # SEND EMAIL
-            # --------------------------------------------
-
-            resend.Emails.send(
-                params
-            )
-
-
-            # --------------------------------------------
-            # SUCCESS
-            # --------------------------------------------
-
-            return render_template(
-
-                "contact.html",
-
-                success=(
-                    "Your message has been "
-                    "sent successfully."
-                )
-
-            )
-
+            flash("Thank you! Your message has been sent successfully.", "success")
+            return redirect(url_for("contact"))
 
         except Exception as e:
 
-            print(
-                "CONTACT EMAIL ERROR:",
-                str(e)
-            )
+            flash(f"An error occurred while sending your message: {str(e)}", "error")
 
-            return render_template(
-
-                "contact.html",
-
-                error=str(e)
-
-            )
-
-
-    return render_template(
-        "contact.html"
-    )
+    return render_template("contact.html")
 
 
 # ==========================================
@@ -559,19 +416,6 @@ def register():
             )
 
         # --------------------------------------
-        # DO NOT AUTO LOGIN
-        # --------------------------------------
-        #
-        # IMPORTANT:
-        # We intentionally do NOT use:
-        #
-        # login_user(new_user)
-        #
-        # The user must login manually
-        # after successful registration.
-        #
-
-        # --------------------------------------
         # SUCCESS MESSAGE
         # --------------------------------------
 
@@ -628,7 +472,6 @@ def login():
             url_for("dashboard")
         )
 
-
     # --------------------------------------------
     # POST REQUEST
     # --------------------------------------------
@@ -643,7 +486,6 @@ def login():
 
         ).strip().lower()
 
-
         password = request.form.get(
 
             "password",
@@ -652,7 +494,6 @@ def login():
 
         )
 
-
         remember = bool(
 
             request.form.get(
@@ -660,7 +501,6 @@ def login():
             )
 
         )
-
 
         # --------------------------------------------
         # FIND USER
@@ -673,7 +513,6 @@ def login():
             (User.email == identifier)
 
         ).first()
-
 
         # --------------------------------------------
         # VALIDATE LOGIN
@@ -702,7 +541,6 @@ def login():
 
             )
 
-
         # --------------------------------------------
         # LOGIN USER
         # --------------------------------------------
@@ -715,7 +553,6 @@ def login():
 
         )
 
-
         flash(
 
             f"Welcome back, {user.username}!",
@@ -723,7 +560,6 @@ def login():
             "success"
 
         )
-
 
         # --------------------------------------------
         # CHECK PENDING PREDICTION
@@ -741,7 +577,6 @@ def login():
 
             )
 
-
         # --------------------------------------------
         # NORMAL LOGIN
         # --------------------------------------------
@@ -753,7 +588,6 @@ def login():
             )
 
         )
-
 
     # --------------------------------------------
     # GET REQUEST
@@ -784,7 +618,6 @@ def dashboard():
 
     ).all()
 
-
     return render_template(
 
         "dashboard.html",
@@ -792,6 +625,7 @@ def dashboard():
         predictions=predictions
 
     )
+
 
 @app.route("/report/<int:prediction_id>")
 @login_required
@@ -806,6 +640,8 @@ def view_report(prediction_id):
         "report.html",
         prediction=prediction
     )
+
+
 # ============================================================
 # PREDICTION PAGE
 # ============================================================
@@ -842,16 +678,13 @@ def predict():
             )
         )
 
-
         Sex_original = request.form.get(
             "Sex"
         )
 
-
         ChestPainType_original = request.form.get(
             "ChestPainType"
         )
-
 
         RestingBP = int(
             request.form.get(
@@ -859,13 +692,11 @@ def predict():
             )
         )
 
-
         Cholesterol = int(
             request.form.get(
                 "Cholesterol"
             )
         )
-
 
         FastingBS = int(
             request.form.get(
@@ -873,11 +704,9 @@ def predict():
             )
         )
 
-
         RestingECG_original = request.form.get(
             "RestingECG"
         )
-
 
         MaxHR = int(
             request.form.get(
@@ -885,11 +714,9 @@ def predict():
             )
         )
 
-
         ExerciseAngina_original = request.form.get(
             "ExerciseAngina"
         )
-
 
         Oldpeak = float(
             request.form.get(
@@ -897,11 +724,9 @@ def predict():
             )
         )
 
-
         ST_Slope_original = request.form.get(
             "ST_Slope"
         )
-
 
         # ====================================================
         # VALIDATE CATEGORICAL INPUTS
@@ -913,13 +738,11 @@ def predict():
                 "Invalid gender selected."
             )
 
-
         if ChestPainType_original not in cp_map:
 
             raise ValueError(
                 "Invalid chest pain type selected."
             )
-
 
         if RestingECG_original not in ecg_map:
 
@@ -927,20 +750,17 @@ def predict():
                 "Invalid resting ECG selected."
             )
 
-
         if ExerciseAngina_original not in angina_map:
 
             raise ValueError(
                 "Invalid exercise angina value."
             )
 
-
         if ST_Slope_original not in slope_map:
 
             raise ValueError(
                 "Invalid ST slope selected."
             )
-
 
         # ====================================================
         # ENCODE CATEGORICAL VALUES
@@ -950,26 +770,21 @@ def predict():
             Sex_original
         ]
 
-
         ChestPainType = cp_map[
             ChestPainType_original
         ]
-
 
         RestingECG = ecg_map[
             RestingECG_original
         ]
 
-
         ExerciseAngina = angina_map[
             ExerciseAngina_original
         ]
 
-
         ST_Slope = slope_map[
             ST_Slope_original
         ]
-
 
         # ====================================================
         # CREATE MODEL INPUT DATAFRAME
@@ -1031,7 +846,6 @@ def predict():
 
         )
 
-
         # ====================================================
         # MACHINE LEARNING PREDICTION
         # ====================================================
@@ -1041,7 +855,6 @@ def predict():
             patient
 
         )[0]
-
 
         # ====================================================
         # GET PREDICTION PROBABILITY
@@ -1058,12 +871,6 @@ def predict():
 
             )[0]
 
-
-            # --------------------------------------------
-            # IMPORTANT
-            # Find probability of positive class
-            # --------------------------------------------
-
             if hasattr(
                 model,
                 "classes_"
@@ -1072,7 +879,6 @@ def predict():
                 classes = list(
                     model.classes_
                 )
-
 
                 if 1 in classes:
 
@@ -1106,7 +912,6 @@ def predict():
                 prediction_value
             )
 
-
         # ====================================================
         # CONVERT RESULT TO TEXT
         # ====================================================
@@ -1120,7 +925,6 @@ def predict():
         else:
 
             result = "Low Risk"
-
 
         # ====================================================
         # HUMAN-READABLE PATIENT INFORMATION
@@ -1142,12 +946,10 @@ def predict():
 
         }
 
-
         patient_input = {
 
             "Age":
             Age,
-
 
             "Sex":
 
@@ -1159,23 +961,19 @@ def predict():
                 else "Female"
             ),
 
-
             "Chest Pain Type":
 
             chest_pain_labels[
                 ChestPainType_original
             ],
 
-
             "Resting Blood Pressure":
 
             f"{RestingBP} mmHg",
 
-
             "Cholesterol":
 
             f"{Cholesterol} mg/dL",
-
 
             "Fasting Blood Sugar":
 
@@ -1187,16 +985,13 @@ def predict():
                 else "No (≤ 120 mg/dL)"
             ),
 
-
             "Resting ECG":
 
             RestingECG_original,
 
-
             "Maximum Heart Rate":
 
             f"{MaxHR} bpm",
-
 
             "Exercise Induced Angina":
 
@@ -1208,18 +1003,15 @@ def predict():
                 else "No"
             ),
 
-
             "Oldpeak":
 
             Oldpeak,
-
 
             "ST Slope":
 
             ST_Slope_original
 
         }
-
 
         # ====================================================
         # SAVE PREDICTION IN SESSION
@@ -1232,7 +1024,6 @@ def predict():
             "Age":
             Age,
 
-
             "Sex":
 
             (
@@ -1243,21 +1034,17 @@ def predict():
                 else "Female"
             ),
 
-
             "ChestPainType":
 
             chest_pain_labels[
                 ChestPainType_original
             ],
 
-
             "RestingBP":
             RestingBP,
 
-
             "Cholesterol":
             Cholesterol,
-
 
             "FastingBS":
 
@@ -1269,14 +1056,11 @@ def predict():
                 else "No (≤ 120 mg/dL)"
             ),
 
-
             "RestingECG":
             RestingECG_original,
 
-
             "MaxHR":
             MaxHR,
-
 
             "ExerciseAngina":
 
@@ -1288,18 +1072,14 @@ def predict():
                 else "No"
             ),
 
-
             "Oldpeak":
             Oldpeak,
-
 
             "ST_Slope":
             ST_Slope_original,
 
-
             "result":
             result,
-
 
             "probability":
 
@@ -1312,7 +1092,6 @@ def predict():
             )
 
         }
-
 
         # ====================================================
         # RENDER RESULT
@@ -1330,22 +1109,12 @@ def predict():
 
         )
 
-
     except Exception as e:
-
-        # ====================================================
-        # PRINT ERROR IN TERMINAL
-        # ====================================================
 
         print(
             "PREDICTION ERROR:",
             str(e)
         )
-
-
-        # ====================================================
-        # SHOW ERROR ON PAGE
-        # ====================================================
 
         return render_template(
 
@@ -1372,10 +1141,6 @@ def predict():
 )
 def save_prediction():
 
-    # --------------------------------------------
-    # CHECK PENDING PREDICTION
-    # --------------------------------------------
-
     if not session.get(
         "pending_prediction"
     ):
@@ -1396,11 +1161,6 @@ def save_prediction():
 
         )
 
-
-    # --------------------------------------------
-    # USER NOT LOGGED IN
-    # --------------------------------------------
-
     if not current_user.is_authenticated:
 
         flash(
@@ -1419,11 +1179,6 @@ def save_prediction():
             )
 
         )
-
-
-    # --------------------------------------------
-    # USER LOGGED IN
-    # --------------------------------------------
 
     return redirect(
 
@@ -1444,20 +1199,11 @@ def save_prediction():
 @login_required
 def save_pending_prediction():
 
-    # --------------------------------------------
-    # GET PENDING PREDICTION
-    # --------------------------------------------
-
     pending = session.get(
 
         "pending_prediction"
 
     )
-
-
-    # --------------------------------------------
-    # CHECK PENDING DATA
-    # --------------------------------------------
 
     if not pending:
 
@@ -1477,12 +1223,7 @@ def save_pending_prediction():
 
         )
 
-
     try:
-
-        # --------------------------------------------
-        # CREATE DATABASE RECORD
-        # --------------------------------------------
 
         new_prediction = Prediction(
 
@@ -1527,11 +1268,6 @@ def save_pending_prediction():
 
         )
 
-
-        # --------------------------------------------
-        # SAVE DATABASE RECORD
-        # --------------------------------------------
-
         db.session.add(
 
             new_prediction
@@ -1539,11 +1275,6 @@ def save_pending_prediction():
         )
 
         db.session.commit()
-
-
-        # --------------------------------------------
-        # REMOVE SESSION DATA
-        # --------------------------------------------
 
         session.pop(
 
@@ -1553,11 +1284,6 @@ def save_pending_prediction():
 
         )
 
-
-        # --------------------------------------------
-        # SUCCESS MESSAGE
-        # --------------------------------------------
-
         flash(
 
             "Prediction saved successfully!",
@@ -1565,11 +1291,6 @@ def save_pending_prediction():
             "success"
 
         )
-
-
-        # --------------------------------------------
-        # DASHBOARD
-        # --------------------------------------------
 
         return redirect(
 
@@ -1579,15 +1300,9 @@ def save_pending_prediction():
 
         )
 
-
     except Exception as e:
 
-        # --------------------------------------------
-        # ROLLBACK DATABASE
-        # --------------------------------------------
-
         db.session.rollback()
-
 
         print(
 
@@ -1597,7 +1312,6 @@ def save_pending_prediction():
 
         )
 
-
         flash(
 
             "Unable to save prediction: "
@@ -1606,7 +1320,6 @@ def save_pending_prediction():
             "error"
 
         )
-
 
         return redirect(
 
@@ -1629,7 +1342,6 @@ def logout():
 
     logout_user()
 
-
     flash(
 
         "You have been logged out.",
@@ -1637,12 +1349,6 @@ def logout():
         "success"
 
     )
-
-
-    # --------------------------------------------
-    # FIXED TYPO:
-    # dashboard, NOT dasboard
-    # --------------------------------------------
 
     return redirect(
 
