@@ -41,7 +41,7 @@ class Config:
 
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",
-        "mysql+pymysql://root:12345678@localhost/heart_disease_db"
+        "postgresql: // heartdb_user: jzkYvEIPc79fsNdblaKwxLXl0w5xmxgb @ dpg - d9iudo7aqgkc73amkbmg - a / heartdb"
     )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv(
