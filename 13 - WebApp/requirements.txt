@@ -2,6 +2,7 @@ Flask
 Flask-Login
 Flask-SQLAlchemy
 Flask-Migrate
+SQLAlchemy
 Werkzeug
 python-dotenv
 gunicorn
@@ -9,3 +10,4 @@ pandas
 numpy
 scikit-learn
 xgboost
+psycopg2-binary
