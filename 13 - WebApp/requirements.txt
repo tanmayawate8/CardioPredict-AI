@@ -1,9 +1,11 @@
 Flask
 Flask-Login
 Flask-SQLAlchemy
+Flask-Migrate
+Werkzeug
+python-dotenv
 gunicorn
 pandas
 numpy
 scikit-learn
 xgboost
-python-dotenv
