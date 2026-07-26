@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Prediction Report | CardioPredict AI</title>
+
+    <!-- Main CSS -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Report CSS -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/report.css') }}">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================= -->
+<!-- HEADER -->
+<!-- ========================================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            <span>
+                CardioPredict AI
+            </span>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <ul class="nav-links">
+
+            <li>
+
+                <a href="{{ url_for('home') }}">
+
+                    Home
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('prediction_page') }}">
+
+                    Prediction
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('about') }}">
+
+                    About
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('contact') }}">
+
+                    Contact
+
+                </a>
+
+            </li>
+
+
+            {% if current_user.is_authenticated %}
+
+            <li>
+
+                <span class="nav-user">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    {{ current_user.username }}
+
+                </span>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('logout') }}">
+
+                    Logout
+
+                </a>
+
+            </li>
+
+            {% else %}
+
+            <li>
+
+                <a href="{{ url_for('login') }}">
+
+                    Login
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('register') }}">
+
+                    Register
+
+                </a>
+
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<!-- ========================================= -->
+<!-- REPORT PAGE -->
+<!-- ========================================= -->
+
+<section class="report-section">
+
+    <div class="container">
+
+
+        <!-- ========================================= -->
+        <!-- PAGE HEADER -->
+        <!-- ========================================= -->
+
+        <div class="report-header">
+
+            <div>
+
+                <span class="section-tag">
+
+                    <i class="fa-solid fa-file-medical"></i>
+
+                    Health Prediction Report
+
+                </span>
+
+                <h1>
+
+                    Heart Disease Risk Report
+
+                </h1>
+
+                <p>
+
+                    Detailed prediction information based
+                    on the patient data entered into the
+                    CardioPredict AI system.
+
+                </p>
+
+            </div>
+
+
+            <div class="report-actions">
+
+                <button onclick="window.print()"
+                        class="print-btn">
+
+                    <i class="fa-solid fa-print"></i>
+
+                    Print Report
+
+                </button>
+
+
+                <a href="{{ url_for('dashboard') }}"
+                   class="back-btn">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back to Dashboard
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- PREDICTION RESULT -->
+        <!-- ========================================= -->
+
+        <div class="result-card">
+
+
+            <div class="result-icon">
+
+                {% if prediction.result == "High Risk" %}
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                {% else %}
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="result-content">
+
+                <h2>
+
+                    Prediction Result
+
+                </h2>
+
+
+                <h3 class="
+                    {% if prediction.result == 'High Risk' %}
+                        high
+                    {% elif prediction.result == 'Medium Risk' %}
+                        medium
+                    {% else %}
+                        low
+                    {% endif %}
+                ">
+
+                    {{ prediction.result }}
+
+                </h3>
+
+
+                <p>
+
+                    Estimated Risk Probability:
+
+                    <strong>
+
+                        {{ prediction.probability }}%
+
+                    </strong>
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- PATIENT INFORMATION -->
+        <!-- ========================================= -->
+
+        <div class="report-card">
+
+            <div class="card-title">
+
+                <i class="fa-solid fa-user"></i>
+
+                <h2>
+
+                    Patient Information
+
+                </h2>
+
+            </div>
+
+
+            <div class="details-grid">
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        Age
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.age }}
+
+                        years
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        Sex
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.sex }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        Chest Pain Type
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.chest_pain_type }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        Resting Blood Pressure
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.resting_bp }}
+
+                        mmHg
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        Cholesterol
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.cholesterol }}
+
+                        mg/dL
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        Fasting Blood Sugar
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.fasting_bs }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        Resting ECG
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.resting_ecg }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        Maximum Heart Rate
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.max_hr }}
+
+                        bpm
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        Exercise Induced Angina
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.exercise_angina }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        Oldpeak
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.oldpeak }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+
+                        ST Slope
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.st_slope }}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- PREDICTION INFORMATION -->
+        <!-- ========================================= -->
+
+        <div class="report-card">
+
+            <div class="card-title">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Prediction Information
+
+            </div>
+
+
+            <div class="prediction-info">
+
+
+                <div class="info-box">
+
+                    <span>
+
+                        Result
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.result }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span>
+
+                        Risk Probability
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.probability }}%
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span>
+
+                        Report Date
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.created_at.strftime('%d %B %Y') }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span>
+
+                        Report Time
+
+                    </span>
+
+                    <strong>
+
+                        {{ prediction.created_at.strftime('%I:%M %p') }}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- MEDICAL DISCLAIMER -->
+        <!-- ========================================= -->
+
+        <div class="disclaimer">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <div>
+
+                <h3>
+
+                    Important Medical Disclaimer
+
+                </h3>
+
+                <p>
+
+                    This prediction is generated by a
+                    machine learning model and is intended
+                    for informational and educational
+                    purposes only. It is not a medical
+                    diagnosis. The prediction should not
+                    replace professional medical advice,
+                    examination, or treatment from a
+                    qualified healthcare professional.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FOOTER -->
+<!-- ========================================= -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-content">
+
+
+            <!-- ========================================= -->
+            <!-- FOOTER BRAND -->
+            <!-- ========================================= -->
+
+            <div class="footer-brand">
+
+                <div class="footer-logo">
+
+                    <i class="fa-solid fa-heart-pulse"></i>
+
+                    <span>
+                        CardioPredict AI
+                    </span>
+
+                </div>
+
+
+                <p class="footer-description">
+
+                    CardioPredict AI is an intelligent
+                    Heart Disease Risk Prediction System
+                    developed using Machine Learning and
+                    Flask to help users understand their
+                    potential heart disease risk.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- ========================================= -->
+            <!-- QUICK LINKS -->
+            <!-- ========================================= -->
+
+            <div class="footer-column">
+
+                <h3>
+                    Quick Links
+                </h3>
+
+
+                <a href="{{ url_for('home') }}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Home
+
+                </a>
+
+
+                <a href="{{ url_for('prediction_page') }}">
+
+                    <i class="fa-solid fa-heart-pulse"></i>
+
+                    Prediction
+
+                </a>
+
+
+                <a href="{{ url_for('about') }}">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    About
+
+                </a>
+
+
+                <a href="{{ url_for('contact') }}">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    Contact
+
+                </a>
+
+            </div>
+
+
+
+            <!-- ========================================= -->
+            <!-- CONTACT -->
+            <!-- ========================================= -->
+
+            <div class="footer-column">
+
+                <h3>
+                    Get In Touch
+                </h3>
+
+
+                <p>
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Pune, Maharashtra, India
+
+                </p>
+
+
+                <p>
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    codewithtanmay098@email.com
+
+                </p>
+
+
+                <p>
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    +91 98865 00642
+
+                </p>
+
+
+                <!-- SEND MESSAGE BUTTON -->
+
+                <a href="{{ url_for('contact') }}"
+                   class="footer-contact-btn">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Send Message
+
+                </a>
+
+            </div>
+
+
+
+            <!-- ========================================= -->
+            <!-- SOCIAL MEDIA -->
+            <!-- ========================================= -->
+
+            <div class="footer-column footer-social">
+
+                <h3>
+                    Follow Us
+                </h3>
+
+
+                <p>
+                    Connect with us on social media.
+                </p>
+
+
+                <div class="footer-social-icons">
+
+
+                    <!-- FACEBOOK -->
+
+                    <a href="#"
+                       aria-label="Facebook"
+                       title="Facebook">
+
+                        <i class="fa-brands fa-facebook-f"></i>
+
+                    </a>
+
+
+                    <!-- INSTAGRAM -->
+
+                    <a href="#"
+                       aria-label="Instagram"
+                       title="Instagram">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+
+                    <!-- LINKEDIN -->
+
+                    <a href="#"
+                       aria-label="LinkedIn"
+                       title="LinkedIn">
+
+                        <i class="fa-brands fa-linkedin-in"></i>
+
+                    </a>
+
+
+                    <!-- GITHUB -->
+
+                    <a href="#"
+                       aria-label="GitHub"
+                       title="GitHub">
+
+                        <i class="fa-brands fa-github"></i>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ========================================= -->
+        <!-- FOOTER BOTTOM -->
+        <!-- ========================================= -->
+
+        <div class="footer-bottom">
+
+            <p>
+
+                © 2026 CardioPredict AI.
+                All Rights Reserved.
+
+            </p>
+
+
+            <p>
+
+                Built with
+                <i class="fa-solid fa-heart"></i>
+                using Machine Learning
+
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>

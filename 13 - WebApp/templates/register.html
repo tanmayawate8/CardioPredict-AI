@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<!-- THEME (applied before CSS loads to avoid a flash of the wrong theme) -->
+
+<script>
+
+(function(){
+
+var saved = localStorage.getItem('theme');
+
+if(saved === 'dark'){
+
+document.documentElement.setAttribute('data-theme','dark');
+
+}
+
+})();
+
+</script>
+
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Create Account | CardioPredict AI</title>
+
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/auth.css') }}">
+
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+
+<header>
+
+<nav class="navbar">
+
+
+<div class="logo">
+
+<i class="fa-solid fa-heart-pulse"></i>
+
+<span>
+CardioPredict AI
+</span>
+
+</div>
+
+
+
+<ul class="nav-links">
+
+
+<li>
+<a href="{{ url_for('home') }}">
+Home
+</a>
+</li>
+
+
+<li>
+<a href="{{ url_for('prediction_page') }}">
+Prediction
+</a>
+</li>
+
+
+<li>
+<a href="{{ url_for('about') }}">
+About
+</a>
+</li>
+
+
+<li>
+<a href="{{ url_for('contact') }}">
+Contact
+</a>
+</li>
+
+
+
+{% if current_user.is_authenticated %}
+
+
+<li>
+
+<span class="nav-user">
+
+<i class="fa-solid fa-user"></i>
+
+{{current_user.username}}
+
+</span>
+
+</li>
+
+
+<li>
+
+<a href="{{ url_for('logout') }}">
+Logout
+</a>
+
+</li>
+
+
+
+{% else %}
+
+
+<li>
+
+<a href="{{ url_for('login') }}">
+Login
+</a>
+
+</li>
+
+
+<li>
+
+<a href="{{ url_for('register') }}"
+class="active">
+
+Register
+
+</a>
+
+</li>
+
+
+{% endif %}
+
+
+</ul>
+
+
+<button id="theme-toggle" aria-label="Toggle dark mode" type="button">
+
+<i class="fa-solid fa-moon"></i>
+
+</button>
+
+
+</nav>
+
+
+</header>
+
+
+
+
+
+
+<!-- ================= REGISTER SECTION ================= -->
+
+
+<section class="professional-auth">
+
+
+<div class="auth-container">
+
+
+
+
+
+<!-- LEFT BRAND PANEL -->
+
+
+<div class="auth-brand">
+
+
+<div class="heart-animation">
+
+
+<i class="fa-solid fa-user-plus"></i>
+
+
+</div>
+
+
+
+<h1>
+
+Start Your Health Journey
+
+</h1>
+
+
+
+<p>
+
+Create your CardioPredict AI account and securely save your AI-based heart risk predictions.
+
+</p>
+
+
+
+<div class="feature-box">
+
+
+
+<div>
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+<span>
+Prediction History
+</span>
+
+</div>
+
+
+
+
+<div>
+
+<i class="fa-solid fa-file-circle-check"></i>
+
+<span>
+Medical Reports
+</span>
+
+</div>
+
+
+
+
+<div>
+
+<i class="fa-solid fa-lock"></i>
+
+<span>
+Secure Account Protection
+</span>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- REGISTER CARD -->
+
+
+<div class="auth-card professional-card">
+
+
+
+<div class="login-icon">
+
+<i class="fa-solid fa-user-plus"></i>
+
+</div>
+
+
+
+
+<h2>
+
+Create Account
+
+</h2>
+
+
+
+<p class="auth-subtitle">
+
+Join thousands managing their heart health
+
+</p>
+
+
+
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+
+{% for category,message in messages %}
+
+
+<div class="{{ 'success-message' if category=='success' else 'error-message' }}">
+
+{{message}}
+
+</div>
+
+
+{% endfor %}
+
+
+{% endwith %}
+
+
+
+
+
+{% if error %}
+
+
+<div class="error-message">
+
+{{error}}
+
+</div>
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+<form class="auth-form"
+
+action="{{ url_for('register') }}"
+
+method="POST">
+
+
+
+
+
+
+<!-- USERNAME -->
+
+
+<div class="input-group">
+
+
+<label>
+
+Username
+
+</label>
+
+
+
+<div class="input-box">
+
+
+<i class="fa-solid fa-user"></i>
+
+
+<input type="text"
+
+id="username"
+
+name="username"
+
+placeholder="Create username"
+
+required>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- EMAIL -->
+
+
+<div class="input-group">
+
+
+<label>
+
+Email Address
+
+</label>
+
+
+
+<div class="input-box">
+
+
+<i class="fa-solid fa-envelope"></i>
+
+
+<input type="email"
+
+id="email"
+
+name="email"
+
+placeholder="Enter email address"
+
+required>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- PASSWORD -->
+
+
+<div class="input-group">
+
+
+<label>
+
+Password
+
+</label>
+
+
+
+<div class="input-box">
+
+
+<i class="fa-solid fa-lock"></i>
+
+
+<input type="password"
+
+id="password"
+
+name="password"
+
+placeholder="Create strong password"
+
+minlength="6"
+
+onkeyup="checkStrength()"
+
+required>
+
+
+<button type="button"
+
+class="password-toggle"
+
+onclick="togglePassword('password')">
+
+
+<i class="fa-solid fa-eye"></i>
+
+
+</button>
+
+
+</div>
+
+
+
+<div class="password-strength">
+
+
+<div id="strength-bar"></div>
+
+
+</div>
+
+
+
+<p id="strength-text"></p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- CONFIRM PASSWORD -->
+
+
+<div class="input-group">
+
+
+<label>
+
+Confirm Password
+
+</label>
+
+
+
+<div class="input-box">
+
+
+<i class="fa-solid fa-lock"></i>
+
+
+<input type="password"
+
+id="confirm_password"
+
+name="confirm_password"
+
+placeholder="Confirm password"
+
+required>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="terms-box">
+
+
+<input type="checkbox"
+
+required>
+
+
+<span>
+
+I agree to the Terms & Privacy Policy
+
+</span>
+
+
+</div>
+
+
+
+
+
+
+
+
+<button class="auth-submit"
+
+type="submit">
+
+
+<i class="fa-solid fa-user-check"></i>
+
+
+Create Account
+
+
+</button>
+
+
+
+
+
+</form>
+
+
+
+
+
+
+<div class="divider">
+
+<span>
+
+OR
+
+</span>
+
+</div>
+
+
+
+
+
+
+<button class="google-login">
+
+
+<i class="fa-brands fa-google"></i>
+
+
+Register with Google
+
+
+</button>
+
+
+
+
+
+
+<p class="auth-switch">
+
+
+Already have an account?
+
+
+<a href="{{ url_for('login') }}">
+
+Login here
+
+</a>
+
+
+</p>
+
+
+
+
+
+
+<div class="security-note">
+
+
+<i class="fa-solid fa-shield-halved"></i>
+
+
+Your health data is encrypted and protected
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ================= FOOTER ================= -->
+
+
+<footer>
+
+
+<div class="footer-container">
+
+
+<div class="footer-section">
+
+
+<h3>
+
+CardioPredict AI
+
+</h3>
+
+
+<p>
+
+AI-powered heart disease risk prediction platform using Machine Learning.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="footer-section">
+
+
+<h3>
+
+Quick Links
+
+</h3>
+
+
+<ul>
+
+
+<li>
+<a href="{{ url_for('home') }}">
+Home
+</a>
+</li>
+
+
+<li>
+<a href="{{ url_for('prediction_page') }}">
+Prediction
+</a>
+</li>
+
+
+<li>
+<a href="{{ url_for('about') }}">
+About
+</a>
+</li>
+
+
+<li>
+<a href="{{ url_for('contact') }}">
+Contact
+</a>
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+<div class="footer-section">
+
+
+<h3>
+Connect With Us
+</h3>
+
+
+<div class="footer-contact">
+
+
+<div class="contact-item">
+
+<i class="fa-solid fa-location-dot"></i>
+
+<span>
+
+Pune, Maharashtra, India
+
+</span>
+
+</div>
+
+
+<div class="contact-item">
+
+<i class="fa-solid fa-phone"></i>
+
+<span>
+
++91 98865 00642
+
+</span>
+
+</div>
+
+
+<div class="contact-item">
+
+<i class="fa-solid fa-envelope"></i>
+
+<a href="mailto:codewithtanmay098@gmail.com">
+
+codewithtanmay098@gmail.com
+
+</a>
+
+</div>
+
+
+</div>
+
+
+
+<div class="social-icons">
+
+
+<a href="#" aria-label="Instagram">
+<i class="fa-brands fa-instagram"></i>
+</a>
+
+
+<a href="#" aria-label="LinkedIn">
+<i class="fa-brands fa-linkedin-in"></i>
+</a>
+
+
+<a href="#" aria-label="GitHub">
+<i class="fa-brands fa-github"></i>
+</a>
+
+
+<a href="mailto:codewithtanmay098@gmail.com" aria-label="Email">
+<i class="fa-solid fa-envelope"></i>
+</a>
+
+
+</div>
+
+
+
+<a href="{{ url_for('contact') }}" class="footer-message-btn">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+<span>
+Send Message
+</span>
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+
+<hr>
+
+
+<p class="copyright">
+
+© 2026 CardioPredict AI. All Rights Reserved.
+
+</p>
+
+
+
+</footer>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+function togglePassword(id){
+
+
+let field=document.getElementById(id);
+
+
+if(field.type==="password")
+
+{
+
+field.type="text";
+
+}
+
+else
+
+{
+
+field.type="password";
+
+}
+
+
+}
+
+
+
+
+
+
+
+function checkStrength(){
+
+
+let password=document.getElementById("password").value;
+
+
+let bar=document.getElementById("strength-bar");
+
+let text=document.getElementById("strength-text");
+
+
+
+if(password.length < 6)
+
+{
+
+bar.style.width="30%";
+
+bar.style.background="#dc3545";
+
+text.innerHTML="Weak Password";
+
+}
+
+
+
+else if(password.match(/[A-Z]/) && password.match(/[0-9]/))
+
+{
+
+bar.style.width="100%";
+
+bar.style.background="#198754";
+
+text.innerHTML="Strong Password";
+
+}
+
+
+
+else
+
+{
+
+bar.style.width="65%";
+
+bar.style.background="#f0ad4e";
+
+text.innerHTML="Medium Password";
+
+}
+
+
+
+}
+
+
+
+</script>
+
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+</body>
+
+</html>

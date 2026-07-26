@@ -12,6 +12,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    initializeThemeToggle();
     initializeNavigation();
     initializeSmoothScroll();
     initializeScrollAnimation();
@@ -22,6 +23,50 @@ document.addEventListener("DOMContentLoaded", () => {
     updateFooterYear();
 
 });
+
+
+/*=========================================================
+  DARK / LIGHT THEME TOGGLE
+=========================================================*/
+
+function initializeThemeToggle() {
+
+    const toggle = document.getElementById("theme-toggle");
+
+    if (!toggle) return;
+
+    const icon = toggle.querySelector("i");
+
+    function setIcon(theme) {
+
+        if (!icon) return;
+
+        icon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+
+    }
+
+    // Reflect whatever the anti-flash inline script already set
+    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+
+    setIcon(currentTheme);
+
+    toggle.addEventListener("click", () => {
+
+        const html = document.documentElement;
+
+        const isDark = html.getAttribute("data-theme") === "dark";
+
+        const nextTheme = isDark ? "light" : "dark";
+
+        html.setAttribute("data-theme", nextTheme);
+
+        localStorage.setItem("theme", nextTheme);
+
+        setIcon(nextTheme);
+
+    });
+
+}
 
 
 /*=========================================================

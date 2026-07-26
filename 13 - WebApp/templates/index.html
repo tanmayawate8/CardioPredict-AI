@@ -3,6 +3,24 @@
 
 <head>
 
+    <!-- THEME (applied before CSS loads to avoid a flash of the wrong theme) -->
+
+    <script>
+
+        (function(){
+
+            var saved = localStorage.getItem('theme');
+
+            if(saved === 'dark'){
+
+                document.documentElement.setAttribute('data-theme','dark');
+
+            }
+
+        })();
+
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,6 +32,7 @@
 
 <link rel="stylesheet"
       href="{{ url_for('static', filename='css/home.css') }}">
+
     <!-- Font Awesome -->
 
     <link rel="stylesheet"
@@ -27,7 +46,7 @@
           href="https://fonts.gstatic.com"
           crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
           rel="stylesheet">
 
 </head>
@@ -52,32 +71,68 @@
 
         <ul class="nav-links">
 
-            <li>
-                <a href="{{ url_for('home') }}">
-                    Home
-                </a>
-            </li>
+    <li>
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+    </li>
 
-            <li>
-                <a href="{{ url_for('prediction_page') }}">
-                    Prediction
-                </a>
-            </li>
+    <li>
+        <a href="{{ url_for('prediction_page') }}">
+            Prediction
+        </a>
+    </li>
 
-            <li>
-                <a href="{{ url_for('about') }}">
-                    About
-                </a>
-            </li>
+    <li>
+        <a href="{{ url_for('about') }}">
+            About
+        </a>
+    </li>
 
-            <li>
-                <a href="{{ url_for('contact') }}">
-                    Contact
-                </a>
-            </li>
+    <li>
+        <a href="{{ url_for('contact') }}">
+            Contact
+        </a>
+    </li>
 
-        </ul>
+    {% if current_user.is_authenticated %}
 
+    <li>
+        <a href="{{ url_for('dashboard') }}"
+           class="active">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            Dashboard
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+    </li>
+
+    {% else %}
+
+    <li>
+        <a href="{{ url_for('login') }}">
+            Login
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('register') }}">
+            Register
+        </a>
+    </li>
+
+    {% endif %}
+
+</ul>
+<button id="theme-toggle" aria-label="Toggle theme">
+    <i class="fa-solid fa-moon"></i>
+</button>
     </nav>
 
 </header>
@@ -89,6 +144,8 @@
 <section class="hero">
 
     <div class="hero-content">
+
+        <span class="eyebrow">Clinical-grade risk model</span>
 
         <h1>
 
@@ -128,15 +185,45 @@
 
     </div>
 
-    <div class="hero-image">
+    <div class="hero-monitor" aria-hidden="true">
 
-        <img src="{{ url_for('static',
-                 filename='images/heart.png') }}"
-             alt="Heart">
+        <div class="monitor-panel">
+
+            <div class="monitor-head">
+
+                <span class="monitor-label">Live Readout</span>
+
+                <span class="monitor-reading">
+                    <span class="pulse-dot"></span><b>91.85%</b> accuracy
+                </span>
+
+            </div>
+
+            <svg class="ecg-trace" viewBox="0 0 440 120" preserveAspectRatio="none">
+
+                <line class="grid-line" x1="0" y1="30" x2="440" y2="30" />
+                <line class="grid-line" x1="0" y1="60" x2="440" y2="60" />
+                <line class="grid-line" x1="0" y1="90" x2="440" y2="90" />
+
+                <path d="M0,60 H120 L140,20 L160,100 L180,40 L200,60 H320 L340,20 L360,100 L380,40 L400,60 H440" />
+
+            </svg>
+
+            <div class="monitor-foot">
+
+                <span>918 records analyzed</span>
+
+                <span>XGBoost model</span>
+
+            </div>
+
+        </div>
 
     </div>
 
 </section>
+
+<div class="pulse-divider pulse-divider--on-light" role="presentation"></div>
 
 <!-- ========================================= -->
 <!-- PROJECT INFORMATION -->
@@ -145,6 +232,8 @@
 <section class="information">
 
     <div class="container">
+
+        <span class="eyebrow">The problem</span>
 
         <h2>
 
@@ -226,6 +315,8 @@
 
 </section>
 
+<div class="pulse-divider pulse-divider--on-white" role="presentation"></div>
+
 <!-- ========================================= -->
 <!-- FEATURES -->
 <!-- ========================================= -->
@@ -233,6 +324,8 @@
 <section class="features">
 
     <div class="container">
+
+        <span class="eyebrow">What you get</span>
 
         <h2>
 
@@ -323,6 +416,7 @@
     </div>
 
 </section>
+
 <!-- ========================================= -->
 <!-- STATISTICS SECTION -->
 <!-- ========================================= -->
@@ -330,6 +424,8 @@
 <section class="statistics">
 
     <div class="container">
+
+        <span class="eyebrow">Model readout</span>
 
         <h2>
             Project Statistics
@@ -383,6 +479,8 @@
 
 </section>
 
+<div class="pulse-divider pulse-divider--on-dark" role="presentation"></div>
+
 <!-- ========================================= -->
 <!-- HOW IT WORKS -->
 <!-- ========================================= -->
@@ -390,6 +488,8 @@
 <section class="how-it-works">
 
     <div class="container">
+
+        <span class="eyebrow">The process</span>
 
         <h2>
             How It Works
@@ -399,7 +499,7 @@
 
             <div class="step">
 
-                <span>1</span>
+                <span>01</span>
 
                 <h3>Enter Patient Details</h3>
 
@@ -413,7 +513,7 @@
 
             <div class="step">
 
-                <span>2</span>
+                <span>02</span>
 
                 <h3>AI Analysis</h3>
 
@@ -427,7 +527,7 @@
 
             <div class="step">
 
-                <span>3</span>
+                <span>03</span>
 
                 <h3>Prediction Result</h3>
 
@@ -486,124 +586,117 @@
 
     <div class="footer-container">
 
+        <!-- ABOUT -->
+
         <div class="footer-section">
 
             <h3>
-
                 Heart Disease Risk Prediction
-
             </h3>
 
             <p>
-
-                A machine learning based web
-                application that predicts the
-                likelihood of heart disease
-                using patient medical data.
-
+                A machine learning based web application that
+                predicts the likelihood of heart disease using
+                patient medical data.
             </p>
 
         </div>
 
+        <!-- QUICK LINKS -->
+
         <div class="footer-section">
 
             <h3>
-
                 Quick Links
-
             </h3>
 
             <ul>
 
                 <li>
-
-                    <a href="{{ url_for('home') }}">
-                        Home
-                    </a>
-
+                    <a href="{{ url_for('home') }}">Home</a>
                 </li>
 
                 <li>
-
-                    <a href="{{ url_for('prediction_page') }}">
-                        Prediction
-                    </a>
-
+                    <a href="{{ url_for('prediction_page') }}">Prediction</a>
                 </li>
 
                 <li>
-
-                    <a href="{{ url_for('about') }}">
-                        About
-                    </a>
-
+                    <a href="{{ url_for('about') }}">About</a>
                 </li>
 
                 <li>
-
-                    <a href="{{ url_for('contact') }}">
-                        Contact
-                    </a>
-
+                    <a href="{{ url_for('contact') }}">Contact</a>
                 </li>
 
             </ul>
 
         </div>
 
-        <div class="footer-section">
-
-            <h3>
-
-                Technologies
-
-            </h3>
-
-            <ul>
-
-                <li>Python</li>
-
-                <li>Flask</li>
-
-                <li>HTML5</li>
-
-                <li>CSS3</li>
-
-                <li>JavaScript</li>
-
-                <li>XGBoost</li>
-
-            </ul>
-
-        </div>
+        <!-- CONTACT -->
 
         <div class="footer-section">
 
             <h3>
-
-                Connect
-
+                Connect With Us
             </h3>
+
+            <div class="footer-contact">
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <span>Pune, Maharashtra, India</span>
+
+                </div>
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <span>+91 98865 00642</span>
+
+                </div>
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <a href="mailto:codewithtanmay098@gmail.com">
+                        codewithtanmay098@gmail.com
+                    </a>
+
+                </div>
+
+            </div>
 
             <div class="social-icons">
-
-                <a href="#">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
 
                 <a href="#">
                     <i class="fab fa-instagram"></i>
                 </a>
 
                 <a href="#">
-                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-linkedin-in"></i>
                 </a>
 
                 <a href="#">
                     <i class="fab fa-github"></i>
                 </a>
 
+                <a href="mailto:codewithtanmay098@gmail.com">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+
             </div>
+
+            <a href="{{ url_for('contact') }}" class="footer-btn">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Send Message
+
+            </a>
 
         </div>
 
@@ -613,8 +706,7 @@
 
     <p class="copyright">
 
-        © 2026 Heart Disease Risk Prediction.
-        All Rights Reserved.
+        © 2026 CardioPredict AI. All Rights Reserved.
 
     </p>
 
@@ -625,5 +717,6 @@
 <!-- ========================================= -->
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
 
 </html>

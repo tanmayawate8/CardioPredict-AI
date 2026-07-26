@@ -1,0 +1,806 @@
+/*=========================================================
+DASHBOARD PAGE
+=========================================================*/
+
+.dashboard {
+
+    padding: 70px 8%;
+
+    background: #f8fafc;
+
+    min-height: 80vh;
+
+}
+
+
+/*=========================================================
+WELCOME CARD
+=========================================================*/
+
+.welcome-card {
+
+    background: #ffffff;
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid #eef1f5;
+
+}
+
+
+.welcome-card h1 {
+
+    color: #14213d;
+
+    font-size: 32px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.welcome-card p {
+
+    color: #666;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+}
+
+
+/*=========================================================
+PROFILE ICON
+=========================================================*/
+
+.profile-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    min-width: 70px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #d90429;
+
+    color: #ffffff;
+
+    font-size: 30px;
+
+    box-shadow: 0 10px 20px rgba(217, 4, 41, 0.2);
+
+}
+
+
+/*=========================================================
+STATISTICS CONTAINER
+=========================================================*/
+
+.stats-container {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+
+    margin: 40px 0;
+
+}
+
+
+/*=========================================================
+STAT CARD
+=========================================================*/
+
+.stat-card {
+
+    background: #ffffff;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+
+    border: 1px solid #eef1f5;
+
+    transition: 0.3s ease;
+
+}
+
+
+.stat-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.10);
+
+}
+
+
+.stat-card i {
+
+    font-size: 35px;
+
+    color: #d90429;
+
+    margin-bottom: 10px;
+
+}
+
+
+.stat-card h3 {
+
+    font-size: 30px;
+
+    margin: 15px 0;
+
+    color: #14213d;
+
+}
+
+
+.stat-card p {
+
+    color: #666;
+
+    font-size: 15px;
+
+}
+
+
+/*=========================================================
+HISTORY CARD
+=========================================================*/
+
+.history-card {
+
+    background: #ffffff;
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid #eef1f5;
+
+}
+
+
+/*=========================================================
+SECTION TITLE
+=========================================================*/
+
+.section-title {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-title h2 {
+
+    color: #14213d;
+
+    font-size: 25px;
+
+}
+
+
+.section-title a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    background: #d90429;
+
+    color: #ffffff;
+
+    padding: 12px 20px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: 0.3s ease;
+
+}
+
+
+.section-title a:hover {
+
+    background: #14213d;
+
+    transform: translateY(-2px);
+
+}
+
+
+/*=========================================================
+TABLE WRAPPER
+=========================================================*/
+
+.table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 12px;
+
+}
+
+
+/*=========================================================
+TABLE
+=========================================================*/
+
+table {
+
+    width: 100%;
+
+    min-width: 800px;
+
+    border-collapse: collapse;
+
+}
+
+
+/*=========================================================
+TABLE HEADER
+=========================================================*/
+
+th {
+
+    background: #f8fafc;
+
+    color: #14213d;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    padding: 18px;
+
+    text-align: left;
+
+    white-space: nowrap;
+
+    border-bottom: 2px solid #eef1f5;
+
+}
+
+
+/*=========================================================
+TABLE DATA
+=========================================================*/
+
+td {
+
+    padding: 18px;
+
+    text-align: left;
+
+    color: #555;
+
+    font-size: 14px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    white-space: nowrap;
+
+}
+
+
+/*=========================================================
+TABLE ROW HOVER
+=========================================================*/
+
+tbody tr {
+
+    transition: 0.3s ease;
+
+}
+
+
+tbody tr:hover {
+
+    background: #fafbfc;
+
+}
+
+
+/*=========================================================
+LOW RISK
+=========================================================*/
+
+.low {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #dcfce7;
+
+    color: #15803d;
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+/*=========================================================
+MEDIUM RISK
+=========================================================*/
+
+.medium {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fef3c7;
+
+    color: #92400e;
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+/*=========================================================
+HIGH RISK
+=========================================================*/
+
+.high {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fee2e2;
+
+    color: #b91c1c;
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+/*=========================================================
+VIEW REPORT BUTTON
+=========================================================*/
+
+.view-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    background: #d90429;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    padding: 9px 15px;
+
+    border-radius: 8px;
+
+    transition: 0.3s ease;
+
+    white-space: nowrap;
+
+}
+
+
+.view-btn:hover {
+
+    background: #14213d;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+}
+
+
+/*=========================================================
+VIEW REPORT ICON
+=========================================================*/
+
+.view-btn i {
+
+    font-size: 13px;
+
+}
+
+
+/*=========================================================
+EMPTY HISTORY
+=========================================================*/
+
+.empty {
+
+    text-align: center;
+
+    padding: 60px 30px;
+
+}
+
+
+.empty i {
+
+    font-size: 50px;
+
+    color: #d90429;
+
+    margin-bottom: 20px;
+
+}
+
+
+.empty h3 {
+
+    color: #14213d;
+
+    margin-bottom: 10px;
+
+}
+
+
+.empty p {
+
+    color: #666;
+
+    line-height: 1.7;
+
+}
+
+
+/*=========================================================
+EMPTY STATE BUTTON
+=========================================================*/
+
+.empty a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 20px;
+
+    background: #d90429;
+
+    color: #ffffff;
+
+    padding: 12px 25px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: 0.3s ease;
+
+}
+
+
+.empty a:hover {
+
+    background: #14213d;
+
+    transform: translateY(-2px);
+
+}
+
+
+/*=========================================================
+DASHBOARD ANIMATION
+=========================================================*/
+
+.dashboard {
+
+    animation: dashboardFadeUp 0.8s ease;
+
+}
+
+
+@keyframes dashboardFadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(30px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/*=========================================================
+TABLET RESPONSIVE
+=========================================================*/
+
+@media (max-width: 992px) {
+
+    .dashboard {
+
+        padding: 60px 5%;
+
+    }
+
+
+    .stats-container {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+
+    .welcome-card {
+
+        padding: 30px;
+
+    }
+
+}
+
+
+/*=========================================================
+MOBILE RESPONSIVE
+=========================================================*/
+
+@media (max-width: 800px) {
+
+    .dashboard {
+
+        padding: 50px 20px;
+
+    }
+
+
+    .stats-container {
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+
+    }
+
+
+    .welcome-card {
+
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 30px 20px;
+
+    }
+
+
+    .welcome-card h1 {
+
+        font-size: 26px;
+
+    }
+
+
+    .history-card {
+
+        padding: 25px 20px;
+
+    }
+
+
+    .section-title {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .section-title a {
+
+        width: 100%;
+
+    }
+
+
+    .table-wrapper {
+
+        overflow-x: auto;
+
+    }
+
+}
+
+
+/*=========================================================
+SMALL MOBILE
+=========================================================*/
+
+@media (max-width: 480px) {
+
+    .dashboard {
+
+        padding: 40px 15px;
+
+    }
+
+
+    .welcome-card {
+
+        padding: 25px 15px;
+
+    }
+
+
+    .welcome-card h1 {
+
+        font-size: 23px;
+
+    }
+
+
+    .welcome-card p {
+
+        font-size: 14px;
+
+    }
+
+
+    .profile-icon {
+
+        width: 60px;
+
+        height: 60px;
+
+        min-width: 60px;
+
+        font-size: 25px;
+
+    }
+
+
+    .stat-card {
+
+        padding: 25px 20px;
+
+    }
+
+
+    .stat-card h3 {
+
+        font-size: 26px;
+
+    }
+
+
+    .history-card {
+
+        padding: 20px 15px;
+
+    }
+
+
+    .section-title h2 {
+
+        font-size: 21px;
+
+    }
+
+
+    .section-title a {
+
+        font-size: 13px;
+
+        padding: 11px 16px;
+
+    }
+
+
+    .empty {
+
+        padding: 45px 15px;
+
+    }
+
+}

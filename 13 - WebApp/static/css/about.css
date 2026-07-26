@@ -1,609 +1,1034 @@
+/* =========================================================
+   CARDIOPREDICT AI — ABOUT PAGE CSS
+   Loads after style.css and builds on its design tokens,
+   so About reads as the same product rather than a
+   different page pasted in.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+
+    --teal:#1C6E64;
+    --teal-dark:#124E47;
+    --teal-tint:#EAF4F2;
+    --teal-border:#BFE0DB;
+
+    --font-display:'Space Grotesk', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+
+    --shadow-sm:0 4px 14px rgba(0,0,0,.06);
+
+}
+
+.about-hero h1,
+.about-section-heading h2,
+.about-content-card h3,
+.step-card h3,
+.feature-card h3,
+.technology-card h3,
+.why-content h2,
+.why-image-card h3,
+.about-cta h2,
+.disclaimer-container h3 {
+    font-family: var(--font-display);
+}
+
+/* =========================================================
+   ABOUT HERO SECTION
+   ========================================================= */
+
+.about-hero {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 20px;
+    position: relative;
+    background: linear-gradient(135deg, #fbf6f6 0%, #ffffff 50%, #f2f7f9 100%);
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 12% 20%, rgba(192, 38, 58, 0.05), transparent 40%),
+        radial-gradient(circle at 88% 80%, rgba(28, 110, 100, 0.07), transparent 45%);
+    pointer-events: none;
+}
+
+.about-hero-content {
+    max-width: 900px;
+    margin: auto;
+    position: relative;
+}
+
+.about-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 22px;
+    padding: 7px 16px;
+    background: var(--teal-tint);
+    border: 1px solid var(--teal-border);
+    border-radius: 999px;
+    color: var(--teal-dark);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.about-hero-eyebrow i {
+    color: var(--primary);
+    font-size: 13px;
+}
+
+.about-hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--secondary);
+    margin-bottom: 20px;
+}
+
+.about-hero p {
+    max-width: 750px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #555;
+}
+
+/* =========================================================
+   HERO BUTTONS
+   ========================================================= */
+
+.about-hero-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 35px;
+}
+
+.about-primary-btn,
+.about-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.about-primary-btn {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.about-primary-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+.about-secondary-btn {
+    background: #ffffff;
+    color: var(--secondary);
+    border: 2px solid #dfe3e8;
+}
+
+.about-secondary-btn:hover {
+    border-color: var(--secondary);
+    transform: translateY(-3px);
+}
+
+/* =========================================================
+   COMMON CONTAINER / SECTION
+   ========================================================= */
+
+.about-container {
+    width: 90%;
+    max-width: 1150px;
+    margin: auto;
+}
+
+.about-section,
+.how-it-works-section,
+.features-section,
+.technology-section,
+.why-section {
+    padding: 90px 0;
+}
+
+.about-section {
+    background: #ffffff;
+}
+
+.how-it-works-section {
+    background: #f7f8fa;
+}
+
+.features-section {
+    background: #ffffff;
+}
+
+.technology-section {
+    background: #f7f8fa;
+}
+
+.why-section {
+    background: #ffffff;
+}
+
+/* =========================================================
+   SECTION HEADING
+   ========================================================= */
+
+.about-section-heading {
+    max-width: 800px;
+    margin: 0 auto 50px;
+    text-align: center;
+}
+
+.section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    margin-bottom: 18px;
+    border-radius: 999px;
+    background: var(--teal-tint);
+    border: 1px solid var(--teal-border);
+    color: var(--teal-dark);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.section-badge i {
+    color: var(--primary);
+    font-size: 13px;
+}
+
+.about-section-heading h2 {
+    font-size: 34px;
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--secondary);
+    margin-bottom: 15px;
+}
+
+.about-section-heading p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #666;
+}
+
+/* =========================================================
+   ABOUT INTRO GRID
+   ========================================================= */
+
+.about-intro-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.about-content-card {
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 15px;
+    border: 1px solid #eeeeee;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.about-content-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow);
+}
+
+.card-icon {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 28px;
+    margin-bottom: 22px;
+}
+
+.about-content-card h3 {
+    color: var(--secondary);
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.about-content-card p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.step-card {
+    position: relative;
+    padding: 40px 30px;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.step-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow);
+}
+
+.step-number {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 600;
+    color: #e3e7ec;
+}
+
+.step-icon {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 30px;
+}
+
+.step-card h3 {
+    color: var(--secondary);
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+
+.step-card p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.feature-card {
+    padding: 32px 30px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-7px);
+    box-shadow: var(--shadow);
+    border-color: transparent;
+}
+
+.feature-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--teal-tint);
+    color: var(--teal);
+    font-size: 26px;
+}
+
+.feature-card h3 {
+    color: var(--secondary);
+    font-size: 19px;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   TECHNOLOGY
+   ========================================================= */
+
+.technology-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.technology-card {
+    padding: 32px 30px;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.technology-card:hover {
+    transform: translateY(-7px);
+    box-shadow: var(--shadow);
+}
+
+.technology-card i {
+    font-size: 30px;
+    color: var(--primary);
+    margin-bottom: 18px;
+}
+
+.technology-card h3 {
+    color: var(--secondary);
+    font-size: 19px;
+    margin-bottom: 8px;
+}
+
+.technology-card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   WHY CARDIOPREDICT AI
+   ========================================================= */
+
+.why-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.why-content h2 {
+    color: var(--secondary);
+    font-size: 34px;
+    margin-bottom: 20px;
+}
+
+.why-content p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+.why-list {
+    margin-top: 25px;
+}
+
+.why-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    color: #444;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.why-item i {
+    color: var(--primary);
+    font-size: 18px;
+}
+
+.why-image-card {
+    min-height: 350px;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 20px;
+    color: #ffffff;
+    box-shadow: var(--shadow);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.why-image-icon {
+    font-size: 62px;
+    margin-bottom: 25px;
+}
+
+.why-image-card h3 {
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+.why-image-card p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+/* =========================================================
+   CALL TO ACTION
+   ========================================================= */
+
+.about-cta {
+    padding: 85px 20px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    text-align: center;
+    color: #ffffff;
+}
+
+.about-cta-content {
+    max-width: 750px;
+    margin: auto;
+}
+
+.about-cta-content > i {
+    font-size: 52px;
+    margin-bottom: 20px;
+}
+
+.about-cta h2 {
+    font-size: 34px;
+    margin-bottom: 15px;
+}
+
+.about-cta p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.about-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 15px 32px;
+    background: #ffffff;
+    color: var(--primary);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.about-cta-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================================================
+   MEDICAL DISCLAIMER
+   ========================================================= */
+
+.about-disclaimer {
+    padding: 35px 20px;
+    background: #fff8e8;
+}
+
+.disclaimer-container {
+    width: 90%;
+    max-width: 1150px;
+    margin: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.disclaimer-container > i {
+    font-size: 26px;
+    color: #d88b00;
+    margin-top: 3px;
+}
+
+.disclaimer-container h3 {
+    color: #7a5200;
+    font-size: 17px;
+    margin-bottom: 8px;
+}
+
+.disclaimer-container p {
+    color: #6b5a36;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+.about-hero,
+.about-section,
+.how-it-works-section,
+.features-section,
+.technology-section,
+.why-section,
+.about-cta,
+.about-disclaimer {
+    animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   TABLET RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 992px) {
+
+    .about-hero {
+        min-height: 450px;
+        padding: 80px 20px;
+    }
+
+    .about-hero h1 {
+        font-size: 40px;
+    }
+
+    .about-section,
+    .how-it-works-section,
+    .features-section,
+    .technology-section,
+    .why-section {
+        padding: 70px 20px;
+    }
+
+    .about-intro-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .technology-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .why-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .why-image-card {
+        min-height: 280px;
+    }
+
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .about-hero {
+        min-height: 420px;
+        padding: 70px 18px;
+    }
+
+    .about-hero h1 {
+        font-size: 32px;
+    }
+
+    .about-hero p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .about-hero-buttons {
+        flex-direction: column;
+    }
+
+    .about-primary-btn,
+    .about-secondary-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .about-section,
+    .how-it-works-section,
+    .features-section,
+    .technology-section,
+    .why-section {
+        padding: 55px 18px;
+    }
+
+    .about-section-heading {
+        margin-bottom: 35px;
+    }
+
+    .about-section-heading h2,
+    .why-content h2 {
+        font-size: 28px;
+    }
+
+    .about-section-heading p {
+        font-size: 15px;
+    }
+
+    .steps-grid,
+    .features-grid,
+    .technology-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-content-card {
+        padding: 28px 22px;
+    }
+
+    .step-card {
+        padding: 35px 25px;
+    }
+
+    .feature-card {
+        padding: 28px 22px;
+    }
+
+    .technology-card {
+        padding: 28px 20px;
+    }
+
+    .why-image-card {
+        min-height: 250px;
+        padding: 35px 25px;
+    }
+
+    .about-cta {
+        padding: 60px 18px;
+    }
+
+    .about-cta h2 {
+        font-size: 28px;
+    }
+
+    .disclaimer-container {
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .about-hero {
+        padding: 55px 15px;
+    }
+
+    .about-hero h1 {
+        font-size: 27px;
+    }
+
+    .about-hero p {
+        font-size: 14px;
+    }
+
+    .about-section,
+    .how-it-works-section,
+    .features-section,
+    .technology-section,
+    .why-section {
+        padding: 45px 15px;
+    }
+
+    .about-section-heading h2,
+    .why-content h2 {
+        font-size: 24px;
+    }
+
+    .section-badge {
+        font-size: 12px;
+    }
+
+    .about-content-card h3 {
+        font-size: 19px;
+    }
+
+    .step-card h3 {
+        font-size: 19px;
+    }
+
+    .feature-card h3,
+    .technology-card h3 {
+        font-size: 18px;
+    }
+
+    .about-cta h2 {
+        font-size: 24px;
+    }
+
+    .about-cta p {
+        font-size: 14px;
+    }
+
+    .about-cta-btn {
+        padding: 13px 22px;
+        font-size: 14px;
+    }
+
+    .disclaimer-container p {
+        font-size: 13px;
+    }
+
+}
 /*=========================================================
-ABOUT PAGE
+FOOTER ICONS
 =========================================================*/
 
-.about-section{
+.footer-column p i,
+.footer-column a i{
 
-    background:#ffffff;
-
-    padding:80px 0;
-
-}
-
-.about-section .container{
-
-    max-width:1100px;
-
-}
-
-.about-section p{
-
-    font-size:17px;
-
-    color:#555;
-
-    text-align:justify;
-
-    margin-bottom:20px;
-
-    line-height:1.8;
-
-}
-
-/*=========================================================
-PROJECT OBJECTIVES
-=========================================================*/
-
-.objectives{
-
-    background:#f5f8fc;
-
-}
-
-.objectives .cards{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-    gap:30px;
-
-    margin-top:40px;
-
-}
-
-.objectives .card{
-
-    text-align:center;
-
-}
-
-.objectives .card i{
-
-    font-size:50px;
+    width:20px;
+    margin-right:10px;
 
     color:var(--primary);
 
-    margin-bottom:20px;
-
-}
-
-.objectives .card h3{
-
-    color:var(--secondary);
-
-    margin-bottom:15px;
-
-}
-
-.objectives .card p{
+    font-size:16px;
 
     text-align:center;
+
+    transition:0.3s ease;
+
+}
+
+.footer-column p:hover i,
+.footer-column a:hover i{
+
+    color:var(--primary-dark);
+
+    transform:scale(1.15);
 
 }
 
 /*=========================================================
-WHY PROJECT
+SEND MESSAGE BUTTON
 =========================================================*/
 
-.why-project{
+.footer-btn{
 
-    background:#ffffff;
-
-}
-
-.why-project .container{
-
-    max-width:1000px;
-
-}
-
-.why-project p{
-
-    text-align:justify;
-
-    margin-bottom:20px;
-
-}
-
-/*=========================================================
-TECHNOLOGIES
-=========================================================*/
-
-.technologies{
-
-    background:#f8f9fc;
-
-}
-
-.technologies .cards{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-    gap:30px;
-
-}
-
-.technologies .card{
-
-    text-align:center;
-
-}
-
-.technologies .card i{
-
-    font-size:55px;
-
-    color:var(--primary);
-
-    margin-bottom:20px;
-
-}
-
-.technologies .card h3{
-
-    margin-bottom:15px;
-
-    color:var(--secondary);
-
-}
-
-/*=========================================================
-WORKFLOW
-=========================================================*/
-
-.workflow{
-
-    background:#ffffff;
-
-}
-
-.steps{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-    gap:30px;
-
-    margin-top:40px;
-
-}
-
-.step{
-
-    position:relative;
-
-    padding:35px;
-
-    text-align:center;
-
-    background:#ffffff;
-
-    border-radius:15px;
-
-    box-shadow:var(--shadow);
-
-}
-
-.step span{
-
-    width:70px;
-
-    height:70px;
-
-    display:flex;
+    display:inline-flex;
 
     align-items:center;
 
     justify-content:center;
 
-    margin:auto;
+    gap:10px;
 
-    border-radius:50%;
+    margin-top:20px;
+
+    padding:14px 30px;
 
     background:var(--primary);
 
-    color:#fff;
+    color:#ffffff;
 
-    font-size:28px;
+    border:none;
 
-    font-weight:700;
+    border-radius:50px;
 
-    margin-bottom:20px;
+    text-decoration:none;
 
-}
+    font-size:15px;
 
-.step h3{
+    font-weight:600;
 
-    color:var(--secondary);
+    cursor:pointer;
 
-    margin-bottom:15px;
+    transition:0.35s ease;
 
-}
-
-.step p{
-
-    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
 
 }
 
-/*=========================================================
-DATASET
-=========================================================*/
+.footer-btn:hover{
 
-.dataset{
+    background:var(--primary-dark);
 
-    background:#f5f8fc;
+    transform:translateY(-4px);
 
-}
-
-.dataset ul{
-
-    max-width:700px;
-
-    margin:40px auto;
+    box-shadow:0 15px 30px rgba(0,0,0,.20);
 
 }
 
-.dataset li{
+.footer-btn i{
 
-    background:#ffffff;
+    color:#ffffff;
 
-    margin-bottom:15px;
+    font-size:15px;
 
-    padding:18px 25px;
-
-    border-radius:10px;
-
-    box-shadow:var(--shadow);
-
-    font-size:17px;
+    margin:0;
 
 }
 
-/*=========================================================
-MODEL PERFORMANCE
-=========================================================*/
+.footer-btn:focus-visible{
 
-.performance{
+    outline:2px solid #ffffff;
 
-    background:#ffffff;
-
-}
-
-.performance .cards{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-    gap:25px;
-
-}
-
-.performance .card{
-
-    text-align:center;
-
-}
-
-.performance .card h3{
-
-    color:var(--secondary);
-
-    margin-bottom:15px;
-
-}
-
-.performance .card p{
-
-    font-size:24px;
-
-    color:var(--primary);
-
-    font-weight:700;
-
-}
-
-/*=========================================================
-FUTURE SCOPE
-=========================================================*/
-
-.future{
-
-    background:#f8f9fc;
-
-}
-
-.future ul{
-
-    max-width:900px;
-
-    margin:auto;
-
-}
-
-.future li{
-
-    background:#ffffff;
-
-    margin-bottom:18px;
-
-    padding:20px 25px;
-
-    border-left:6px solid var(--primary);
-
-    border-radius:10px;
-
-    box-shadow:var(--shadow);
-
-    transition:.3s;
-
-}
-
-.future li:hover{
-
-    transform:translateX(10px);
-
-}
-
-/*=========================================================
-ABOUT PAGE ANIMATION
-=========================================================*/
-
-.about-section,
-.objectives,
-.why-project,
-.technologies,
-.workflow,
-.dataset,
-.performance,
-.future{
-
-    animation:fadeUp .8s ease;
-
-}
-
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(50px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
+    outline-offset:3px;
 
 }
 /*=========================================================
-MOBILE RESPONSIVE (NO DESKTOP CHANGES)
+DARK THEME OVERRIDES
 =========================================================*/
 
-@media (max-width: 992px){
+[data-theme="dark"] .about-hero{
 
-    .about-section,
-    .objectives,
-    .why-project,
-    .technologies,
-    .workflow,
-    .dataset,
-    .performance,
-    .future{
-
-        padding:60px 20px;
-
-    }
-
-    .about-section .container,
-    .why-project .container{
-
-        max-width:100%;
-        padding:0 10px;
-
-    }
-
-    .about-section p,
-    .why-project p{
-
-        font-size:16px;
-        line-height:1.8;
-        text-align:left;
-
-    }
-
-    .objectives .cards,
-    .technologies .cards,
-    .steps,
-    .performance .cards{
-
-        grid-template-columns:repeat(2,1fr);
-        gap:20px;
-
-    }
-
-    .step{
-
-        padding:25px;
-
-    }
-
-    .step span{
-
-        width:60px;
-        height:60px;
-        font-size:24px;
-
-    }
-
-    .dataset ul,
-    .future ul{
-
-        width:100%;
-
-    }
-
-    .dataset li,
-    .future li{
-
-        padding:16px 18px;
-        font-size:16px;
-
-    }
+    background:linear-gradient(135deg,#0f172a 0%,#0f172a 50%,#111827 100%);
 
 }
 
-@media (max-width:768px){
+[data-theme="dark"] .about-hero h1,
+[data-theme="dark"] .about-section-heading h2,
+[data-theme="dark"] .about-content-card h3,
+[data-theme="dark"] .step-card h3,
+[data-theme="dark"] .feature-card h3,
+[data-theme="dark"] .technology-card h3,
+[data-theme="dark"] .why-content h2{
 
-    .objectives .cards,
-    .technologies .cards,
-    .steps,
-    .performance .cards{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .about-section,
-    .objectives,
-    .why-project,
-    .technologies,
-    .workflow,
-    .dataset,
-    .performance,
-    .future{
-
-        padding:50px 18px;
-
-    }
-
-    .about-section p,
-    .why-project p{
-
-        font-size:15px;
-        line-height:1.7;
-        text-align:left;
-
-    }
-
-    .objectives .card,
-    .technologies .card,
-    .performance .card,
-    .step{
-
-        padding:25px 20px;
-
-    }
-
-    .objectives .card i,
-    .technologies .card i{
-
-        font-size:45px;
-
-    }
-
-    .step span{
-
-        width:55px;
-        height:55px;
-        font-size:22px;
-
-    }
-
-    .dataset li{
-
-        font-size:15px;
-        padding:15px 18px;
-
-    }
-
-    .future li{
-
-        font-size:15px;
-        padding:18px;
-
-    }
+    color:#f1f5f9;
 
 }
 
-@media (max-width:480px){
+[data-theme="dark"] .about-hero p,
+[data-theme="dark"] .about-section-heading p,
+[data-theme="dark"] .about-content-card p,
+[data-theme="dark"] .step-card p,
+[data-theme="dark"] .feature-card p,
+[data-theme="dark"] .technology-card p,
+[data-theme="dark"] .why-content p{
 
-    .about-section,
-    .objectives,
-    .why-project,
-    .technologies,
-    .workflow,
-    .dataset,
-    .performance,
-    .future{
+    color:#94a3b8;
 
-        padding:40px 15px;
+}
 
-    }
+[data-theme="dark"] .why-item{
 
-    .about-section p,
-    .why-project p{
+    color:#cbd5e1;
 
-        font-size:14px;
-        line-height:1.7;
+}
 
-    }
+[data-theme="dark"] .about-section,
+[data-theme="dark"] .features-section,
+[data-theme="dark"] .why-section{
 
-    .objectives .card,
-    .technologies .card,
-    .performance .card,
-    .step{
+    background:#0f172a;
 
-        padding:20px 15px;
+}
 
-    }
+[data-theme="dark"] .how-it-works-section,
+[data-theme="dark"] .technology-section{
 
-    .objectives .card i,
-    .technologies .card i{
+    background:#111827;
 
-        font-size:40px;
+}
 
-    }
+[data-theme="dark"] .about-content-card,
+[data-theme="dark"] .step-card,
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .technology-card{
 
-    .step span{
+    background:#1e293b;
 
-        width:50px;
-        height:50px;
-        font-size:20px;
+    border-color:#334155;
 
-    }
+}
 
-    .step h3,
-    .performance .card h3,
-    .technologies .card h3,
-    .objectives .card h3{
+[data-theme="dark"] .about-secondary-btn{
 
-        font-size:18px;
+    background:#1e293b;
 
-    }
+    color:#e2e8f0;
 
-    .performance .card p{
+    border-color:#334155;
 
-        font-size:22px;
+}
 
-    }
+[data-theme="dark"] .step-number{
 
-    .dataset li,
-    .future li{
+    color:#334155;
 
-        font-size:14px;
-        padding:14px 16px;
+}
 
-    }
+[data-theme="dark"] .about-disclaimer{
+
+    background:#2a2210;
+
+}
+
+[data-theme="dark"] .disclaimer-container h3{
+
+    color:#f0c869;
+
+}
+
+[data-theme="dark"] .disclaimer-container p{
+
+    color:#c9b98a;
 
 }

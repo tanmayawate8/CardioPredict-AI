@@ -3,6 +3,24 @@
 
 <head>
 
+    <!-- THEME (applied before CSS loads to avoid a flash of the wrong theme) -->
+
+    <script>
+
+        (function(){
+
+            var saved = localStorage.getItem('theme');
+
+            if(saved === 'dark'){
+
+                document.documentElement.setAttribute('data-theme','dark');
+
+            }
+
+        })();
+
+    </script>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -44,6 +62,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
 
+
+    <!-- ========================================== -->
+    <!-- FAVICON -->
+    <!-- ========================================== -->
+
+    <link rel="icon"
+          href="{{ url_for('static', filename='images/favicon.ico') }}">
+
 </head>
 
 
@@ -58,7 +84,6 @@
 
     <nav class="navbar">
 
-
         <!-- LOGO -->
 
         <div class="logo">
@@ -72,85 +97,92 @@
         </div>
 
 
-
         <!-- NAVIGATION -->
 
         <ul class="nav-links">
 
             <li>
-
                 <a href="{{ url_for('home') }}">
-
                     Home
-
                 </a>
-
             </li>
 
 
             <li>
-
                 <a href="{{ url_for('prediction_page') }}"
                    class="active">
-
                     Prediction
-
                 </a>
-
             </li>
 
 
             <li>
-
                 <a href="{{ url_for('about') }}">
-
                     About
-
                 </a>
-
             </li>
 
 
             <li>
-
                 <a href="{{ url_for('contact') }}">
-
                     Contact
+                </a>
+            </li>
+
+
+            <!-- AUTHENTICATION -->
+
+            {% if current_user.is_authenticated %}
+
+            <li>
+
+                <a href="{{ url_for('dashboard') }}">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    Dashboard
 
                 </a>
 
             </li>
+
+            {% else %}
+
+            <li>
+
+                <a href="{{ url_for('login') }}">
+
+                    Login
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="{{ url_for('register') }}">
+
+                    Register
+
+                </a>
+
+            </li>
+
+            {% endif %}
 
         </ul>
+
+
+        <button id="theme-toggle" aria-label="Toggle dark mode" type="button">
+
+            <i class="fa-solid fa-moon"></i>
+
+        </button>
+
 
     </nav>
 
 </header>
-
-
-
-<!-- ========================================== -->
-<!-- PAGE TITLE -->
-<!-- ========================================== -->
-
-<section class="page-title">
-
-    <h1>
-
-        CardioPredict AI
-
-    </h1>
-
-
-    <p>
-
-        Enter the patient's medical information
-        to estimate the risk of heart disease.
-
-    </p>
-
-</section>
-
 
 
 <!-- ========================================== -->
@@ -166,9 +198,7 @@
         <i class="fa-solid fa-circle-exclamation"></i>
 
         <span>
-
             {{ error }}
-
         </span>
 
     </div>
@@ -178,37 +208,55 @@
 {% endif %}
 
 
-
 <!-- ========================================== -->
 <!-- PATIENT INPUT FORM -->
 <!-- ========================================== -->
 
 <section class="prediction-section">
 
-
     <div class="prediction-container">
 
 
-        <h2>
+        <!-- FORM HEADER -->
 
-            <i class="fa-solid fa-user"></i>
+        <div class="prediction-header">
 
-            Patient Information
+            <span class="prediction-eyebrow">
+                <i class="fa-solid fa-heart-pulse"></i>
+                CardioPredict AI
+            </span>
 
-        </h2>
+            <h1>
+                CardioPredic-AI | Heart Disease Risk Prediction
+            </h1>
+
+            <p>
+                Enter the patient's medical information below
+                to generate an AI-based risk assessment.
+            </p>
+
+        </div>
 
 
-        <p class="form-description">
+        <!-- PATIENT INFORMATION -->
 
-            Please enter accurate patient information
-            for the machine learning prediction.
+        <div class="form-intro">
 
-        </p>
+            <span class="form-eyebrow">Intake Form</span>
 
+            <h2>Patient Information</h2>
+
+            <p class="form-description">
+                Enter accurate values for each field below.
+                Every measurement feeds directly into the
+                risk model, so precision matters.
+            </p>
+
+        </div>
 
 
         <!-- ========================================== -->
-        <!-- FORM -->
+        <!-- PREDICTION FORM -->
         <!-- ========================================== -->
 
         <form action="{{ url_for('predict') }}"
@@ -217,507 +265,309 @@
 
 
             <!-- ========================================== -->
-            <!-- AGE -->
+            <!-- SECTION: DEMOGRAPHICS -->
             <!-- ========================================== -->
 
-            <div class="input-group">
+            <div class="form-section">
 
-                <label for="Age">
+                <div class="form-section-header">
 
-                    <i class="fa-solid fa-calendar"></i>
+                    <i class="fa-solid fa-id-card"></i>
 
-                    Age
+                    <h3>Demographics</h3>
 
-                </label>
+                    <span class="form-section-line"></span>
 
+                </div>
 
-                <input
-                    type="number"
-                    id="Age"
-                    name="Age"
-                    min="1"
-                    max="120"
-                    placeholder="Enter age"
-                    required>
+                <div class="form-section-grid cols-2">
+
+                    <!-- AGE -->
+
+                    <div class="input-group">
+
+                        <label for="Age">Age</label>
+
+                        <input
+                            type="number"
+                            id="Age"
+                            name="Age"
+                            min="1"
+                            max="120"
+                            placeholder="Enter age"
+                            required>
+
+                    </div>
+
+                    <!-- SEX -->
+
+                    <div class="input-group">
+
+                        <label for="Sex">Gender</label>
+
+                        <select
+                            id="Sex"
+                            name="Sex"
+                            required>
+
+                            <option value="">Select gender</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
 
             </div>
 
 
-
             <!-- ========================================== -->
-            <!-- SEX -->
-            <!-- ========================================== -->
-
-            <div class="input-group">
-
-                <label for="Sex">
-
-                    <i class="fa-solid fa-person"></i>
-
-                    Gender
-
-                </label>
-
-
-                <select
-                    id="Sex"
-                    name="Sex"
-                    required>
-
-                    <option value="">
-
-                        Select Gender
-
-                    </option>
-
-
-                    <option value="M">
-
-                        Male
-
-                    </option>
-
-
-                    <option value="F">
-
-                        Female
-
-                    </option>
-
-                </select>
-
-            </div>
-
-
-
-            <!-- ========================================== -->
-            <!-- CHEST PAIN TYPE -->
+            <!-- SECTION: VITAL SIGNS -->
             <!-- ========================================== -->
 
-            <div class="input-group">
+            <div class="form-section">
 
-                <label for="ChestPainType">
-
-                    <i class="fa-solid fa-heart"></i>
-
-                    Chest Pain Type
-
-                </label>
-
-
-                <select
-                    id="ChestPainType"
-                    name="ChestPainType"
-                    required>
-
-                    <option value="">
-
-                        Select Chest Pain Type
-
-                    </option>
-
-
-                    <option value="ATA">
-
-                        Atypical Angina (ATA)
-
-                    </option>
-
-
-                    <option value="NAP">
-
-                        Non-Anginal Pain (NAP)
-
-                    </option>
-
-
-                    <option value="ASY">
-
-                        Asymptomatic (ASY)
-
-                    </option>
-
-
-                    <option value="TA">
-
-                        Typical Angina (TA)
-
-                    </option>
-
-                </select>
-
-            </div>
-
-
-
-            <!-- ========================================== -->
-            <!-- RESTING BLOOD PRESSURE -->
-            <!-- ========================================== -->
-
-            <div class="input-group">
-
-                <label for="RestingBP">
-
-                    <i class="fa-solid fa-gauge-high"></i>
-
-                    Resting Blood Pressure
-
-                </label>
-
-
-                <input
-                    type="number"
-                    id="RestingBP"
-                    name="RestingBP"
-                    min="50"
-                    max="300"
-                    placeholder="Example: 120"
-                    required>
-
-
-                <small>
-
-                    Enter systolic blood pressure
-                    in mmHg.
-
-                </small>
-
-            </div>
-
-
-
-            <!-- ========================================== -->
-            <!-- CHOLESTEROL -->
-            <!-- ========================================== -->
-
-            <div class="input-group">
-
-                <label for="Cholesterol">
-
-                    <i class="fa-solid fa-vial"></i>
-
-                    Cholesterol
-
-                </label>
-
-
-                <input
-                    type="number"
-                    id="Cholesterol"
-                    name="Cholesterol"
-                    min="0"
-                    max="1000"
-                    placeholder="Example: 200"
-                    required>
-
-
-                <small>
-
-                    Enter cholesterol level
-                    in mg/dL.
-
-                </small>
-
-            </div>
-
-
-
-            <!-- ========================================== -->
-            <!-- FASTING BLOOD SUGAR -->
-            <!-- ========================================== -->
-
-            <div class="input-group">
-
-                <label for="FastingBS">
-
-                    <i class="fa-solid fa-droplet"></i>
-
-                    Fasting Blood Sugar
-
-                </label>
-
-
-                <select
-                    id="FastingBS"
-                    name="FastingBS"
-                    required>
-
-                    <option value="">
-
-                        Select
-
-                    </option>
-
-
-                    <option value="0">
-
-                        No (≤ 120 mg/dL)
-
-                    </option>
-
-
-                    <option value="1">
-
-                        Yes (> 120 mg/dL)
-
-                    </option>
-
-                </select>
-
-            </div>
-
-
-
-            <!-- ========================================== -->
-            <!-- RESTING ECG -->
-            <!-- ========================================== -->
-
-            <div class="input-group">
-
-                <label for="RestingECG">
-
-                    <i class="fa-solid fa-wave-square"></i>
-
-                    Resting ECG
-
-                </label>
-
-
-                <select
-                    id="RestingECG"
-                    name="RestingECG"
-                    required>
-
-                    <option value="">
-
-                        Select Resting ECG
-
-                    </option>
-
-
-                    <option value="Normal">
-
-                        Normal
-
-                    </option>
-
-
-                    <option value="ST">
-
-                        ST-T Wave Abnormality (ST)
-
-                    </option>
-
-
-                    <option value="LVH">
-
-                        Left Ventricular Hypertrophy (LVH)
-
-                    </option>
-
-                </select>
-
-            </div>
-
-
-
-            <!-- ========================================== -->
-            <!-- MAXIMUM HEART RATE -->
-            <!-- ========================================== -->
-
-            <div class="input-group">
-
-                <label for="MaxHR">
+                <div class="form-section-header">
 
                     <i class="fa-solid fa-heart-pulse"></i>
 
-                    Maximum Heart Rate
+                    <h3>Vital Signs</h3>
 
-                </label>
+                    <span class="form-section-line"></span>
 
+                </div>
 
-                <input
-                    type="number"
-                    id="MaxHR"
-                    name="MaxHR"
-                    min="50"
-                    max="250"
-                    placeholder="Example: 150"
-                    required>
+                <div class="form-section-grid cols-2">
 
-            </div>
+                    <!-- RESTING BP -->
 
+                    <div class="input-group">
 
+                        <label for="RestingBP">Resting Blood Pressure</label>
 
-            <!-- ========================================== -->
-            <!-- EXERCISE INDUCED ANGINA -->
-            <!-- ========================================== -->
+                        <input
+                            type="number"
+                            id="RestingBP"
+                            name="RestingBP"
+                            min="50"
+                            max="300"
+                            placeholder="Example: 120"
+                            required>
 
-            <div class="input-group">
+                        <small>Systolic pressure in mmHg.</small>
 
-                <label for="ExerciseAngina">
+                    </div>
 
-                    <i class="fa-solid fa-person-running"></i>
+                    <!-- CHOLESTEROL -->
 
-                    Exercise Induced Angina
+                    <div class="input-group">
 
-                </label>
+                        <label for="Cholesterol">Cholesterol</label>
 
+                        <input
+                            type="number"
+                            id="Cholesterol"
+                            name="Cholesterol"
+                            min="0"
+                            max="1000"
+                            placeholder="Example: 200"
+                            required>
 
-                <select
-                    id="ExerciseAngina"
-                    name="ExerciseAngina"
-                    required>
+                        <small>Serum cholesterol in mg/dL.</small>
 
-                    <option value="">
+                    </div>
 
-                        Select
+                    <!-- MAXIMUM HEART RATE -->
 
-                    </option>
+                    <div class="input-group">
 
+                        <label for="MaxHR">Maximum Heart Rate</label>
 
-                    <option value="Y">
+                        <input
+                            type="number"
+                            id="MaxHR"
+                            name="MaxHR"
+                            min="50"
+                            max="250"
+                            placeholder="Example: 150"
+                            required>
 
-                        Yes
+                        <small>Highest heart rate achieved, in bpm.</small>
 
-                    </option>
+                    </div>
 
+                    <!-- FASTING BLOOD SUGAR -->
 
-                    <option value="N">
+                    <div class="input-group">
 
-                        No
+                        <label for="FastingBS">Fasting Blood Sugar</label>
 
-                    </option>
+                        <select
+                            id="FastingBS"
+                            name="FastingBS"
+                            required>
 
-                </select>
+                            <option value="">Select</option>
+                            <option value="0">No (&le; 120 mg/dL)</option>
+                            <option value="1">Yes (&gt; 120 mg/dL)</option>
 
-            </div>
+                        </select>
 
+                    </div>
 
-
-            <!-- ========================================== -->
-            <!-- OLDPEAK -->
-            <!-- ========================================== -->
-
-            <div class="input-group">
-
-                <label for="Oldpeak">
-
-                    <i class="fa-solid fa-chart-line"></i>
-
-                    Oldpeak
-
-                </label>
-
-
-                <input
-                    type="number"
-                    id="Oldpeak"
-                    name="Oldpeak"
-                    step="0.1"
-                    min="-5"
-                    max="10"
-                    placeholder="Example: 1.5"
-                    required>
-
-
-                <small>
-
-                    ST depression caused by exercise
-                    relative to rest.
-
-                </small>
+                </div>
 
             </div>
 
 
-
             <!-- ========================================== -->
-            <!-- ST SLOPE -->
+            <!-- SECTION: CLINICAL TEST RESULTS -->
             <!-- ========================================== -->
 
-            <div class="input-group">
+            <div class="form-section">
 
-                <label for="ST_Slope">
+                <div class="form-section-header">
 
-                    <i class="fa-solid fa-chart-line"></i>
+                    <i class="fa-solid fa-wave-square"></i>
 
-                    ST Slope
+                    <h3>Clinical Test Results</h3>
 
-                </label>
+                    <span class="form-section-line"></span>
 
+                </div>
 
-                <select
-                    id="ST_Slope"
-                    name="ST_Slope"
-                    required>
+                <div class="form-section-grid cols-2">
 
-                    <option value="">
+                    <!-- CHEST PAIN TYPE -->
 
-                        Select ST Slope
+                    <div class="input-group">
 
-                    </option>
+                        <label for="ChestPainType">Chest Pain Type</label>
 
+                        <select
+                            id="ChestPainType"
+                            name="ChestPainType"
+                            required>
 
-                    <option value="Up">
+                            <option value="">Select chest pain type</option>
+                            <option value="ATA">Atypical Angina (ATA)</option>
+                            <option value="NAP">Non-Anginal Pain (NAP)</option>
+                            <option value="ASY">Asymptomatic (ASY)</option>
+                            <option value="TA">Typical Angina (TA)</option>
 
-                        Up
+                        </select>
 
-                    </option>
+                    </div>
 
+                    <!-- RESTING ECG -->
 
-                    <option value="Flat">
+                    <div class="input-group">
 
-                        Flat
+                        <label for="RestingECG">Resting ECG</label>
 
-                    </option>
+                        <select
+                            id="RestingECG"
+                            name="RestingECG"
+                            required>
 
+                            <option value="">Select resting ECG</option>
+                            <option value="Normal">Normal</option>
+                            <option value="ST">ST-T Wave Abnormality (ST)</option>
+                            <option value="LVH">Left Ventricular Hypertrophy (LVH)</option>
 
-                    <option value="Down">
+                        </select>
 
-                        Down
+                    </div>
 
-                    </option>
+                    <!-- EXERCISE ANGINA -->
 
-                </select>
+                    <div class="input-group">
+
+                        <label for="ExerciseAngina">Exercise Induced Angina</label>
+
+                        <select
+                            id="ExerciseAngina"
+                            name="ExerciseAngina"
+                            required>
+
+                            <option value="">Select</option>
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- OLDPEAK -->
+
+                    <div class="input-group">
+
+                        <label for="Oldpeak">Oldpeak</label>
+
+                        <input
+                            type="number"
+                            id="Oldpeak"
+                            name="Oldpeak"
+                            step="0.1"
+                            min="-5"
+                            max="10"
+                            placeholder="Example: 1.5"
+                            required>
+
+                        <small>ST depression induced by exercise relative to rest.</small>
+
+                    </div>
+
+                    <!-- ST SLOPE -->
+
+                    <div class="input-group">
+
+                        <label for="ST_Slope">ST Slope</label>
+
+                        <select
+                            id="ST_Slope"
+                            name="ST_Slope"
+                            required>
+
+                            <option value="">Select ST slope</option>
+                            <option value="Up">Up</option>
+                            <option value="Flat">Flat</option>
+                            <option value="Down">Down</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
 
             </div>
 
 
-
-            <!-- ========================================== -->
             <!-- BUTTONS -->
-            <!-- ========================================== -->
 
             <div class="button-group">
-
 
                 <button
                     type="submit"
                     class="btn"
                     id="predictButton">
 
-                    <i class="fa-solid fa-heart-circle-check"></i>
-
                     Predict Heart Disease Risk
 
                 </button>
-
 
 
                 <button
                     type="reset"
                     class="btn-reset">
 
-                    <i class="fa-solid fa-rotate-left"></i>
-
-                    Reset
+                    Reset Form
 
                 </button>
 
-
             </div>
-
 
         </form>
 
@@ -726,108 +576,90 @@
 </section>
 
 
-
 <!-- ========================================== -->
 <!-- PREDICTION RESULT -->
 <!-- ========================================== -->
 
-{% if prediction %}
+{% if prediction is defined and prediction is not none %}
 
 <section class="result-section">
-
 
     <div class="result-card">
 
 
+        <!-- RESULT HEADER -->
+
+        <div class="result-header">
+
+            <div class="result-icon">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+            </div>
+
+            <h2>
+                Prediction Result
+            </h2>
+
+            <p>
+                Your heart disease risk assessment
+                has been generated successfully.
+            </p>
+
+        </div>
+
+
         <!-- ========================================== -->
-        <!-- RESULT HEADING -->
+        <!-- PATIENT SUMMARY -->
         <!-- ========================================== -->
 
-        <h2>
-
-            <i class="fa-solid fa-chart-pie"></i>
-
-            Prediction Result
-
-        </h2>
-
-
-        <p>
-
-            The following patient information was used
-            by the machine learning model to generate
-            the prediction.
-
-        </p>
-
-
-
-        <!-- ========================================== -->
-        <!-- PATIENT INPUT SUMMARY -->
-        <!-- ========================================== -->
+        {% if patient_input is defined and patient_input %}
 
         <div class="patient-summary">
-
 
             <div class="section-title">
 
                 <i class="fa-solid fa-user"></i>
 
                 <h3>
-
                     Patient Information Used for Prediction
-
                 </h3>
 
             </div>
 
 
-
             <div class="patient-data-grid">
-
 
                 {% for field, value in patient_input.items() %}
 
-
                 <div class="patient-data-item">
 
-
                     <span class="data-label">
-
                         {{ field }}
-
                     </span>
-
 
                     <span class="data-value">
-
                         {{ value }}
-
                     </span>
-
 
                 </div>
 
-
                 {% endfor %}
-
 
             </div>
 
-
         </div>
 
+        {% endif %}
 
 
         <!-- ========================================== -->
-        <!-- HIGH RISK -->
+        <!-- PREDICTION RESULT -->
         <!-- ========================================== -->
 
         {% if prediction == "High Risk" %}
 
-
         <div class="risk-result high-risk">
-
 
             <div class="risk-icon">
 
@@ -835,38 +667,24 @@
 
             </div>
 
-
             <div class="risk-content">
 
                 <span class="risk-label">
-
                     Prediction Result
-
                 </span>
 
-
                 <h3>
-
                     High Risk of Heart Disease
-
                 </h3>
 
             </div>
 
-
         </div>
 
 
-
-        <!-- ========================================== -->
-        <!-- LOW RISK -->
-        <!-- ========================================== -->
-
         {% elif prediction == "Low Risk" %}
 
-
         <div class="risk-result low-risk">
-
 
             <div class="risk-icon">
 
@@ -874,62 +692,40 @@
 
             </div>
 
-
             <div class="risk-content">
 
                 <span class="risk-label">
-
                     Prediction Result
-
                 </span>
 
-
                 <h3>
-
                     Low Risk of Heart Disease
-
                 </h3>
 
             </div>
 
-
         </div>
 
-
-
-        <!-- ========================================== -->
-        <!-- OTHER RESULT -->
-        <!-- ========================================== -->
 
         {% else %}
 
-
         <div class="risk-result">
-
 
             <div class="risk-content">
 
                 <span class="risk-label">
-
                     Prediction Result
-
                 </span>
 
-
                 <h3>
-
                     {{ prediction }}
-
                 </h3>
 
             </div>
 
-
         </div>
 
-
         {% endif %}
-
 
 
         <!-- ========================================== -->
@@ -938,16 +734,11 @@
 
         {% if confidence is defined and confidence is not none %}
 
-
         <div class="probability-section">
 
-
             <h3>
-
                 Estimated Risk Probability
-
             </h3>
-
 
             <div class="probability-value">
 
@@ -957,7 +748,6 @@
 
 
             <div class="probability-bar">
-
 
                 <div
                     class="probability-fill
@@ -970,7 +760,12 @@
 
                 </div>
 
+            </div>
 
+            <div class="probability-scale">
+                <span>0%</span>
+                <span>50%</span>
+                <span>100%</span>
             </div>
 
 
@@ -982,23 +777,39 @@
 
             </p>
 
-
         </div>
 
+
+        <!-- RISK CHART -->
+
+        <div class="risk-chart-section">
+
+            <h3>
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                Risk Distribution
+
+            </h3>
+
+            <div class="chart-container">
+
+                <canvas id="riskChart"></canvas>
+
+            </div>
+
+        </div>
 
         {% endif %}
 
 
-
         <!-- ========================================== -->
-        <!-- HIGH RISK RECOMMENDATION -->
+        <!-- RECOMMENDATION -->
         <!-- ========================================== -->
 
         {% if prediction == "High Risk" %}
 
-
         <div class="recommendation high-risk">
-
 
             <h3>
 
@@ -1007,7 +818,6 @@
                 Recommendation
 
             </h3>
-
 
             <p>
 
@@ -1020,20 +830,12 @@
 
             </p>
 
-
         </div>
 
 
-
-        <!-- ========================================== -->
-        <!-- LOW RISK RECOMMENDATION -->
-        <!-- ========================================== -->
-
         {% elif prediction == "Low Risk" %}
 
-
         <div class="recommendation low-risk">
-
 
             <h3>
 
@@ -1042,7 +844,6 @@
                 Recommendation
 
             </h3>
-
 
             <p>
 
@@ -1055,12 +856,119 @@
 
             </p>
 
-
         </div>
-
 
         {% endif %}
 
+
+        <!-- ========================================== -->
+        <!-- SAVE PREDICTION -->
+        <!-- ========================================== -->
+
+        <div class="save-prediction-section">
+
+            <div class="save-prediction-icon">
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+            </div>
+
+
+            <div class="save-prediction-content">
+
+                <h3>
+                    Save Your Prediction
+                </h3>
+
+
+                {% if current_user.is_authenticated %}
+
+                <p>
+
+                    You are logged in as
+                    <strong>{{ current_user.username }}</strong>.
+
+                    Save this prediction to your personal
+                    dashboard for future reference.
+
+                </p>
+
+
+                <div class="save-auth-buttons">
+
+                    <form
+                        action="{{ url_for('save_prediction') }}"
+                        method="POST">
+
+                        <button
+                            type="submit"
+                            class="save-prediction-btn">
+
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                            Save Prediction
+
+                        </button>
+
+                    </form>
+
+
+                    <a
+                        href="{{ url_for('dashboard') }}"
+                        class="login-save-btn">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        View Dashboard
+
+                    </a>
+
+                </div>
+
+
+                {% else %}
+
+                <p>
+
+                    Your prediction is ready.
+
+                    To save this prediction securely and
+                    access it later, please login or create
+                    a new account.
+
+                </p>
+
+
+                <div class="save-auth-buttons">
+
+                    <a
+                        href="{{ url_for('login', next='/dashboard') }}"
+                        class="login-save-btn">
+
+                        <i class="fa-solid fa-right-to-bracket"></i>
+
+                        Login to Save
+
+                    </a>
+
+
+                    <a
+                        href="{{ url_for('register', next='/dashboard') }}"
+                        class="register-save-btn">
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                        Register to Save
+
+                    </a>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
 
 
         <!-- ========================================== -->
@@ -1069,18 +977,13 @@
 
         <div class="medical-disclaimer">
 
-
             <i class="fa-solid fa-circle-info"></i>
-
 
             <div>
 
                 <strong>
-
                     Important Medical Disclaimer
-
                 </strong>
-
 
                 <p>
 
@@ -1096,9 +999,7 @@
 
             </div>
 
-
         </div>
-
 
     </div>
 
@@ -1107,281 +1008,338 @@
 {% endif %}
 
 
-
-<!-- ========================================== -->
-<!-- INFORMATION SECTION -->
-<!-- ========================================== -->
-
-<section class="prediction-info">
-
-
-    <div class="container">
-
-
-        <h2>
-
-            About This Prediction
-
-        </h2>
-
-
-        <p>
-
-            The system uses a trained XGBoost machine
-            learning model to estimate the risk of
-            heart disease based on the patient information
-            provided above.
-
-        </p>
-
-
-        <div class="info-grid">
-
-
-            <div class="info-card">
-
-                <i class="fa-solid fa-brain"></i>
-
-                <h3>
-
-                    Machine Learning
-
-                </h3>
-
-                <p>
-
-                    XGBoost classification model is used
-                    to generate the prediction.
-
-                </p>
-
-            </div>
-
-
-
-            <div class="info-card">
-
-                <i class="fa-solid fa-chart-simple"></i>
-
-                <h3>
-
-                    Risk Probability
-
-                </h3>
-
-                <p>
-
-                    The system displays the model's
-                    estimated probability for the
-                    positive class.
-
-                </p>
-
-            </div>
-
-
-
-            <div class="info-card">
-
-                <i class="fa-solid fa-user-doctor"></i>
-
-                <h3>
-
-                    Medical Guidance
-
-                </h3>
-
-                <p>
-
-                    The prediction should be reviewed
-                    with a qualified healthcare professional.
-
-                </p>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
 <!-- ========================================== -->
 <!-- FOOTER -->
 <!-- ========================================== -->
 
 <footer>
 
-
     <div class="footer-container">
 
 
         <div class="footer-section">
 
-
             <h3>
-
                 Heart Disease Risk Prediction
-
             </h3>
-
 
             <p>
 
-                An AI-powered machine learning system
-                for estimating heart disease risk.
+                A machine learning based web application
+                that predicts the likelihood of heart disease
+                using patient medical data.
 
             </p>
 
         </div>
 
 
-
         <div class="footer-section">
 
-
             <h3>
-
                 Quick Links
-
             </h3>
-
 
             <ul>
 
-
                 <li>
-
                     <a href="{{ url_for('home') }}">
-
                         Home
-
                     </a>
-
                 </li>
 
-
                 <li>
-
                     <a href="{{ url_for('prediction_page') }}">
-
                         Prediction
-
                     </a>
-
                 </li>
 
-
                 <li>
-
                     <a href="{{ url_for('about') }}">
-
                         About
-
                     </a>
-
                 </li>
-
 
                 <li>
-
                     <a href="{{ url_for('contact') }}">
-
                         Contact
-
                     </a>
-
                 </li>
-
 
             </ul>
 
         </div>
 
 
-
         <div class="footer-section">
 
-
             <h3>
-
-                Follow Us
-
+                Connect With Us
             </h3>
+
+
+            <div class="footer-contact">
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <span>
+                        Pune, Maharashtra, India
+                    </span>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <span>
+                        +91 98865 00642
+                    </span>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <a href="mailto:codewithtanmay098@gmail.com">
+
+                        codewithtanmay098@gmail.com
+
+                    </a>
+
+                </div>
+
+            </div>
 
 
             <div class="social-icons">
 
-
-                <a href="#"
-                   aria-label="Facebook">
-
-                    <i class="fab fa-facebook-f"></i>
-
-                </a>
-
-
-                <a href="#"
-                   aria-label="Instagram">
-
+                <a href="#">
                     <i class="fab fa-instagram"></i>
-
                 </a>
 
-
-                <a href="#"
-                   aria-label="LinkedIn">
-
+                <a href="#">
                     <i class="fab fa-linkedin-in"></i>
-
                 </a>
 
-
-                <a href="#"
-                   aria-label="GitHub">
-
+                <a href="#">
                     <i class="fab fa-github"></i>
-
                 </a>
 
+                <a href="mailto:codewithtanmay098@gmail.com">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
 
             </div>
 
+
+            <a
+                href="{{ url_for('contact') }}"
+                class="footer-btn">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Send Message
+
+            </a>
+
         </div>
 
-
     </div>
-
 
 
     <hr>
 
 
-
     <p class="copyright">
 
-        © 2026 CardioPredict AI.
-        All Rights Reserved.
+        © 2026 CardioPredict AI. All Rights Reserved.
 
     </p>
 
-
 </footer>
 
+<!-- Prediction Loading Screen -->
+<div id="predictionLoader" class="prediction-loader">
 
+    <div class="loader-card">
 
+        <div class="heart-wrapper">
+            <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+
+        <div class="ecg-line"></div>
+
+        <div class="loader-spinner"></div>
+
+        <h2 id="loaderTitle">
+            Initializing AI Model...
+        </h2>
+
+        <p id="loaderText">
+            Please wait while CardioPredict AI analyses the patient data.
+        </p>
+
+    </div>
+
+</div>
 <!-- ========================================== -->
 <!-- JAVASCRIPT -->
 <!-- ========================================== -->
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-<script src="{{ url_for('static', filename='js/validation.js') }}"></script>
-
 <script src="{{ url_for('static', filename='js/prediction.js') }}"></script>
+<script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!-- ========================================== -->
+<!-- RISK CHART -->
+<!-- ========================================== -->
+
+{% if confidence is defined and confidence is not none %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const risk = Number(
+        "{{ (confidence * 100)|round(2) }}"
+    );
+
+    const safe = 100 - risk;
+
+    const ctx = document.getElementById("riskChart");
+
+
+    if (ctx && typeof Chart !== "undefined") {
+
+        new Chart(ctx, {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: [
+
+                    "Heart Disease Risk",
+
+                    "Low Risk"
+
+                ],
+
+                datasets: [{
+
+                    data: [
+
+                        risk,
+
+                        safe
+
+                    ],
+
+                    backgroundColor: [
+
+                        "#d90429",
+
+                        "#2ec4b6"
+
+                    ],
+
+                    borderColor: "#ffffff",
+
+                    borderWidth: 3
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+
+                        position: "bottom",
+
+                        labels: {
+
+                            font: {
+
+                                size: 15
+
+                            },
+
+                            padding: 15
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+});
+
+</script>
+
+{% endif %}
+
+
+<!-- ========================================== -->
+<!-- PREDICTION BUTTON LOADING -->
+<!-- ========================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const predictionForm =
+        document.getElementById("predictionForm");
+
+    const predictButton =
+        document.getElementById("predictButton");
+
+
+    if (predictionForm && predictButton) {
+
+        predictionForm.addEventListener(
+            "submit",
+            function (event) {
+
+                if (!predictionForm.checkValidity()) {
+
+                    return;
+
+                }
+
+                predictButton.disabled = true;
+
+                predictButton.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Predicting...';
+
+            }
+        );
+
+    }
+
+});
+
+</script>
 
 
 </body>

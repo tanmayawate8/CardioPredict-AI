@@ -3,27 +3,65 @@
 
 <head>
 
+    <!-- THEME (applied before CSS loads to avoid a flash of the wrong theme) -->
+
+    <script>
+
+        (function(){
+
+            var saved = localStorage.getItem('theme');
+
+            if(saved === 'dark'){
+
+                document.documentElement.setAttribute('data-theme','dark');
+
+            }
+
+        })();
+
+    </script>
+
+    <!-- ========================================== -->
+    <!-- BASIC HTML SETTINGS -->
+    <!-- ========================================== -->
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>About | CardioPredict AI</title>
+    <title>
+        About | CardioPredict AI
+    </title>
 
-    <!-- CSS -->
+
+    <!-- ========================================== -->
+    <!-- MAIN CSS -->
+    <!-- ========================================== -->
 
     <link rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}">
+          href="{{ url_for('static', filename='css/style.css') }}">
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/about.css') }}">
 
-    <!-- Font Awesome -->
+    <!-- ========================================== -->
+    <!-- ABOUT PAGE CSS -->
+    <!-- ========================================== -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/about.css') }}">
+
+
+    <!-- ========================================== -->
+    <!-- FONT AWESOME -->
+    <!-- ========================================== -->
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <!-- Google Font -->
+
+    <!-- ========================================== -->
+    <!-- GOOGLE FONT -->
+    <!-- ========================================== -->
 
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
@@ -35,27 +73,52 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
 
+
+    <!-- ========================================== -->
+    <!-- FAVICON -->
+    <!-- ========================================== -->
+
+    <link rel="icon"
+          href="{{ url_for('static', filename='images/favicon.ico') }}">
+
 </head>
+
 
 <body>
 
-<!-- ========================================= -->
+
+<!-- ========================================== -->
 <!-- HEADER -->
-<!-- ========================================= -->
+<!-- ========================================== -->
 
 <header>
 
     <nav class="navbar">
 
+
+        <!-- ========================================== -->
+        <!-- LOGO -->
+        <!-- ========================================== -->
+
         <div class="logo">
 
             <i class="fa-solid fa-heart-pulse"></i>
 
-            <span>CardioPredict AI</span>
+            <span>
+                CardioPredict AI
+            </span>
 
         </div>
 
+
+        <!-- ========================================== -->
+        <!-- NAVIGATION -->
+        <!-- ========================================== -->
+
         <ul class="nav-links">
+
+
+            <!-- HOME -->
 
             <li>
 
@@ -67,6 +130,9 @@
 
             </li>
 
+
+            <!-- PREDICTION -->
+
             <li>
 
                 <a href="{{ url_for('prediction_page') }}">
@@ -77,15 +143,22 @@
 
             </li>
 
+
+            <!-- ABOUT -->
+
             <li>
 
-                <a href="{{ url_for('about') }}">
+                <a href="{{ url_for('about') }}"
+                   class="active">
 
                     About
 
                 </a>
 
             </li>
+
+
+            <!-- CONTACT -->
 
             <li>
 
@@ -97,284 +170,268 @@
 
             </li>
 
+
+            <!-- ========================================== -->
+            <!-- AUTHENTICATION -->
+            <!-- ========================================== -->
+
+            {% if current_user.is_authenticated %}
+
+
+                <!-- DASHBOARD -->
+
+                <li>
+
+                    <a href="{{ url_for('dashboard') }}">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+
+                <!-- LOGOUT -->
+
+                <li>
+
+                    <a href="{{ url_for('logout') }}">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+
+            {% else %}
+
+
+                <!-- LOGIN -->
+
+                <li>
+
+                    <a href="{{ url_for('login') }}">
+
+                        Login
+
+                    </a>
+
+                </li>
+
+
+                <!-- REGISTER -->
+
+                <li>
+
+                    <a href="{{ url_for('register') }}">
+
+                        Register
+
+                    </a>
+
+                </li>
+
+
+            {% endif %}
+
+
         </ul>
+
+
+        <button id="theme-toggle" aria-label="Toggle dark mode" type="button">
+
+            <i class="fa-solid fa-moon"></i>
+
+        </button>
+
 
     </nav>
 
 </header>
 
-<!-- ========================================= -->
-<!-- PAGE TITLE -->
-<!-- ========================================= -->
 
-<section class="page-title">
 
-    <h1>
+<!-- ========================================== -->
+<!-- ABOUT HERO SECTION -->
+<!-- ========================================== -->
 
-        About This Project
+<section class="about-hero">
 
-    </h1>
 
-    <p>
+    <div class="about-hero-content">
 
-        Machine Learning Based CardioPredict AI
 
-    </p>
+        <span class="about-hero-eyebrow">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            CardioPredict AI
+
+        </span>
+
+
+        <h1>
+
+            Understand Your Heart Health, Instantly
+
+        </h1>
+
+
+        <p>
+
+            CardioPredict AI turns everyday medical
+            measurements into a clear, AI-generated
+            picture of your heart disease risk —
+            so you know what to ask your doctor next.
+
+        </p>
+
+
+        <div class="about-hero-buttons">
+
+
+            <a href="{{ url_for('prediction_page') }}"
+               class="about-primary-btn">
+
+                <i class="fa-solid fa-heart-circle-check"></i>
+
+                Start Prediction
+
+            </a>
+
+
+            {% if current_user.is_authenticated %}
+
+            <a href="{{ url_for('dashboard') }}"
+               class="about-secondary-btn">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                View Dashboard
+
+            </a>
+
+            {% else %}
+
+            <a href="{{ url_for('register') }}"
+               class="about-secondary-btn">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Create Account
+
+            </a>
+
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
 
 </section>
 
-<!-- ========================================= -->
-<!-- PROJECT OVERVIEW -->
-<!-- ========================================= -->
+
+
+<!-- ========================================== -->
+<!-- ABOUT INTRODUCTION -->
+<!-- ========================================== -->
 
 <section class="about-section">
 
-<div class="container">
 
-<h2>
+    <div class="about-container">
 
-Project Overview
 
-</h2>
+        <div class="about-section-heading">
 
-<p>
 
-The CardioPredict AI is a machine 
-learning based web application developed
-to estimate the likelihood of heart disease using
-patient medical information. The system analyzes
-multiple clinical parameters and generates a
-prediction that can support early health awareness.
+            <span class="section-badge">
 
-</p>
+                <i class="fa-solid fa-circle-info"></i>
 
-<p>
+                About The System
 
-The project combines Artificial Intelligence,
-Machine Learning, Data Science and Web
-Development technologies to create a simple,
-interactive and user-friendly healthcare
-application.
+            </span>
 
-</p>
 
-</div>
+            <h2>
 
-</section>
+                What is CardioPredict AI?
 
-<!-- ========================================= -->
-<!-- PROJECT OBJECTIVES -->
-<!-- ========================================= -->
+            </h2>
 
-<section class="objectives">
 
-<div class="container">
+            <p>
 
-<h2>
+                CardioPredict AI is a machine learning based
+                web application developed to assist in the
+                early assessment of heart disease risk.
 
-Project Objectives
+            </p>
 
-</h2>
 
-<div class="cards">
+        </div>
 
-<div class="card">
 
-<i class="fa-solid fa-heart-circle-check"></i>
 
-<h3>
+        <div class="about-intro-grid">
 
-Early Detection
 
-</h3>
+            <!-- LEFT -->
 
-<p>
+            <div class="about-content-card">
 
-Predict the likelihood of heart disease
-before serious complications occur.
 
-</p>
+                <div class="card-icon">
 
-</div>
+                    <i class="fa-solid fa-heart-pulse"></i>
 
-<div class="card">
+                </div>
 
-<i class="fa-solid fa-brain"></i>
-
-<h3>
-
-Machine Learning
-
-</h3>
-
-<p>
-
-Utilize trained machine learning models
-to provide intelligent predictions.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<i class="fa-solid fa-user-doctor"></i>
-
-<h3>
-
-Healthcare Support
-
-</h3>
-
-<p>
-
-Assist healthcare professionals with
-risk assessment and decision support.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<i class="fa-solid fa-laptop-medical"></i>
-
-<h3>
-
-User Friendly
-
-</h3>
-
-<p>
-
-Provide a simple and responsive web
-application for easy interaction.
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ========================================= -->
-<!-- WHY THIS PROJECT -->
-<!-- ========================================= -->
-
-<section class="why-project">
-
-<div class="container">
-
-<h2>
-
-Why CardioPredict AI?
-
-</h2>
-
-<p>
-
-Heart disease is one of the leading causes of
-death worldwide. Early identification of risk
-factors can improve treatment planning and
-encourage healthier lifestyle choices.
-
-</p>
-
-<p>
-
-This application uses patient information such as
-age, blood pressure, cholesterol level, ECG
-results and other medical parameters to estimate
-heart disease risk using a trained machine
-learning model.
-
-</p>
-
-</div>
-
-</section>
-<!-- ========================================= -->
-<!-- TECHNOLOGIES USED -->
-<!-- ========================================= -->
-
-<section class="technologies">
-
-    <div class="container">
-
-        <h2>
-
-            Technologies Used
-
-        </h2>
-
-        <div class="cards">
-
-            <div class="card">
-
-                <i class="fa-brands fa-python"></i>
 
                 <h3>
 
-                    Python
+                    Heart Disease Risk Prediction
 
                 </h3>
 
-                <p>
-
-                    Used for data preprocessing,
-                    model training and backend
-                    development.
-
-                </p>
-
-            </div>
-
-            <div class="card">
-
-                <i class="fa-solid fa-flask"></i>
-
-                <h3>
-
-                    Flask
-
-                </h3>
 
                 <p>
 
-                    Provides backend services
-                    and connects the web interface
-                    with the machine learning model.
+                    The system analyses important patient
+                    medical parameters such as age, gender,
+                    chest pain type, blood pressure,
+                    cholesterol, fasting blood sugar,
+                    resting ECG, maximum heart rate,
+                    exercise-induced angina, Oldpeak
+                    and ST slope.
 
                 </p>
 
-            </div>
-
-            <div class="card">
-
-                <i class="fa-solid fa-code"></i>
-
-                <h3>
-
-                    HTML • CSS • JavaScript
-
-                </h3>
-
-                <p>
-
-                    Used to create a responsive,
-                    attractive and interactive
-                    user interface.
-
-                </p>
 
             </div>
 
-            <div class="card">
 
-                <i class="fa-solid fa-robot"></i>
+
+            <!-- RIGHT -->
+
+            <div class="about-content-card">
+
+
+                <div class="card-icon">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                </div>
+
 
                 <h3>
 
@@ -382,315 +439,899 @@ learning model.
 
                 </h3>
 
+
                 <p>
 
-                    XGBoost model trained using
-                    patient medical records.
+                    A trained machine learning model processes
+                    the patient's information and generates
+                    an estimated heart disease risk result.
+
+                    The prediction is intended to support
+                    educational and research purposes.
 
                 </p>
 
+
             </div>
+
 
         </div>
 
+
     </div>
+
 
 </section>
 
-<!-- ========================================= -->
-<!-- PROJECT WORKFLOW -->
-<!-- ========================================= -->
 
-<section class="workflow">
 
-    <div class="container">
+<!-- ========================================== -->
+<!-- HOW SYSTEM WORKS -->
+<!-- ========================================== -->
 
-        <h2>
+<section class="how-it-works-section">
 
-            Project Workflow
 
-        </h2>
+    <div class="about-container">
 
-        <div class="steps">
 
-            <div class="step">
+        <div class="about-section-heading">
 
-                <span>1</span>
 
-                <h3>
+            <span class="section-badge">
 
-                    Dataset Collection
+                <i class="fa-solid fa-gears"></i>
 
-                </h3>
+                How It Works
 
-                <p>
+            </span>
 
-                    Public heart disease dataset
-                    collected for model training.
 
-                </p>
+            <h2>
 
-            </div>
+                Simple Three-Step Process
 
-            <div class="step">
+            </h2>
 
-                <span>2</span>
 
-                <h3>
+            <p>
 
-                    Data Preprocessing
+                The system provides a simple process for
+                generating a machine learning based risk
+                prediction.
 
-                </h3>
+            </p>
 
-                <p>
-
-                    Missing value handling,
-                    encoding and feature scaling.
-
-                </p>
-
-            </div>
-
-            <div class="step">
-
-                <span>3</span>
-
-                <h3>
-
-                    Model Training
-
-                </h3>
-
-                <p>
-
-                    Multiple algorithms were
-                    evaluated and XGBoost
-                    was selected.
-
-                </p>
-
-            </div>
-
-            <div class="step">
-
-                <span>4</span>
-
-                <h3>
-
-                    Prediction
-
-                </h3>
-
-                <p>
-
-                    User inputs are processed
-                    and heart disease risk
-                    is predicted instantly.
-
-                </p>
-
-            </div>
 
         </div>
 
-    </div>
 
-</section>
 
-<!-- ========================================= -->
-<!-- DATASET INFORMATION -->
-<!-- ========================================= -->
+        <div class="steps-grid">
 
-<section class="dataset">
 
-    <div class="container">
+            <!-- STEP 1 -->
 
-        <h2>
+            <div class="step-card">
 
-            Dataset Information
 
-        </h2>
+                <div class="step-number">
 
-        <ul>
+                    01
 
-            <li>Total Records : <strong>918</strong></li>
+                </div>
 
-            <li>Medical Features : <strong>11</strong></li>
 
-            <li>Target Variable : <strong>HeartDisease</strong></li>
+                <div class="step-icon">
 
-            <li>Missing Values : <strong>None</strong></li>
+                    <i class="fa-solid fa-user-injured"></i>
 
-            <li>Duplicate Records : <strong>None</strong></li>
+                </div>
 
-        </ul>
-
-    </div>
-
-</section>
-
-<!-- ========================================= -->
-<!-- MODEL PERFORMANCE -->
-<!-- ========================================= -->
-
-<section class="performance">
-
-    <div class="container">
-
-        <h2>
-
-            Model Performance
-
-        </h2>
-
-        <div class="cards">
-
-            <div class="card">
 
                 <h3>
 
-                    Selected Model
+                    Enter Patient Data
 
                 </h3>
 
+
                 <p>
 
-                    XGBoost Classifier
+                    Enter the required medical information
+                    of the patient through the prediction form.
 
                 </p>
 
+
             </div>
 
-            <div class="card">
+
+
+            <!-- STEP 2 -->
+
+            <div class="step-card">
+
+
+                <div class="step-number">
+
+                    02
+
+                </div>
+
+
+                <div class="step-icon">
+
+                    <i class="fa-solid fa-microchip"></i>
+
+                </div>
+
 
                 <h3>
 
-                    Accuracy
+                    AI Model Analysis
 
                 </h3>
 
+
                 <p>
 
-                    91.85%
+                    The machine learning model analyses
+                    the provided medical parameters and
+                    calculates the estimated risk.
 
                 </p>
 
+
             </div>
 
-            <div class="card">
+
+
+            <!-- STEP 3 -->
+
+            <div class="step-card">
+
+
+                <div class="step-number">
+
+                    03
+
+                </div>
+
+
+                <div class="step-icon">
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                </div>
+
 
                 <h3>
 
-                    Precision
+                    View Prediction Result
 
                 </h3>
 
-                <p>
-
-                    92.60%
-
-                </p>
-
-            </div>
-
-            <div class="card">
-
-                <h3>
-
-                    Recall
-
-                </h3>
 
                 <p>
 
-                    91.50%
+                    The system displays the predicted risk
+                    category and estimated probability.
 
                 </p>
 
-            </div>
-
-            <div class="card">
-
-                <h3>
-
-                    F1 Score
-
-                </h3>
-
-                <p>
-
-                    92.00%
-
-                </p>
 
             </div>
+
 
         </div>
 
+
     </div>
+
 
 </section>
 
-<!-- ========================================= -->
-<!-- FUTURE SCOPE -->
-<!-- ========================================= -->
 
-<section class="future">
 
-    <div class="container">
+<!-- ========================================== -->
+<!-- SYSTEM FEATURES -->
+<!-- ========================================== -->
+
+<section class="features-section">
+
+
+    <div class="about-container">
+
+
+        <div class="about-section-heading">
+
+
+            <span class="section-badge">
+
+                <i class="fa-solid fa-star"></i>
+
+                System Features
+
+            </span>
+
+
+            <h2>
+
+                Key Features of CardioPredict AI
+
+            </h2>
+
+
+        </div>
+
+
+
+        <div class="features-grid">
+
+
+            <!-- FEATURE 1 -->
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+
+                    <i class="fa-solid fa-heart-pulse"></i>
+
+                </div>
+
+
+                <h3>
+
+                    Risk Prediction
+
+                </h3>
+
+
+                <p>
+
+                    Estimates the likelihood of heart disease
+                    using patient medical parameters.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- FEATURE 2 -->
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+
+                    <i class="fa-solid fa-percent"></i>
+
+                </div>
+
+
+                <h3>
+
+                    Risk Probability
+
+                </h3>
+
+
+                <p>
+
+                    Displays the estimated probability generated
+                    by the machine learning model.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- FEATURE 3 -->
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                </div>
+
+
+                <h3>
+
+                    Visual Results
+
+                </h3>
+
+
+                <p>
+
+                    Presents the prediction result using
+                    easy-to-understand visual information.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- FEATURE 4 -->
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                </div>
+
+
+                <h3>
+
+                    Save Predictions
+
+                </h3>
+
+
+                <p>
+
+                    Registered users can save their prediction
+                    results and access them from their dashboard.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- FEATURE 5 -->
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+
+                    <i class="fa-solid fa-user-lock"></i>
+
+                </div>
+
+
+                <h3>
+
+                    User Authentication
+
+                </h3>
+
+
+                <p>
+
+                    Users can securely create an account,
+                    login and access their personal dashboard.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- FEATURE 6 -->
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+
+                </div>
+
+
+                <h3>
+
+                    User-Friendly Interface
+
+                </h3>
+
+
+                <p>
+
+                    The application provides a clean and
+                    easy-to-use interface for accessing
+                    the prediction system.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ========================================== -->
+<!-- TRUST & RELIABILITY -->
+<!-- ========================================== -->
+
+<section class="technology-section">
+
+
+    <div class="about-container">
+
+
+        <div class="about-section-heading">
+
+
+            <span class="section-badge">
+
+                <i class="fa-solid fa-shield-heart"></i>
+
+                Reliability
+
+            </span>
+
+
+            <h2>
+
+                Built on a Foundation You Can Trust
+
+            </h2>
+
+
+            <p>
+
+                Every prediction is backed by a rigorously
+                trained model, secure data handling, and a
+                system designed to keep improving over time.
+
+            </p>
+
+
+        </div>
+
+
+
+        <div class="technology-grid">
+
+
+            <div class="technology-card">
+
+                <i class="fa-solid fa-brain"></i>
+
+                <h3>
+
+                    Evidence-Based Modeling
+
+                </h3>
+
+                <p>
+
+                    Trained on validated clinical data to
+                    produce consistent, well-calibrated
+                    risk estimates.
+
+                </p>
+
+            </div>
+
+
+            <div class="technology-card">
+
+                <i class="fa-solid fa-lock"></i>
+
+                <h3>
+
+                    Private by Design
+
+                </h3>
+
+                <p>
+
+                    Your medical details are encrypted and
+                    never shared. You decide what gets saved
+                    to your account.
+
+                </p>
+
+            </div>
+
+
+            <div class="technology-card">
+
+                <i class="fa-solid fa-bolt"></i>
+
+                <h3>
+
+                    Instant Results
+
+                </h3>
+
+                <p>
+
+                    Get a full risk assessment in seconds,
+                    right in your browser, on any device.
+
+                </p>
+
+            </div>
+
+
+            <div class="technology-card">
+
+                <i class="fa-solid fa-arrows-rotate"></i>
+
+                <h3>
+
+                    Continuously Refined
+
+                </h3>
+
+                <p>
+
+                    The underlying model is regularly
+                    re-evaluated against new data to keep
+                    accuracy high.
+
+                </p>
+
+            </div>
+
+
+            <div class="technology-card">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                <h3>
+
+                    Secure Accounts
+
+                </h3>
+
+                <p>
+
+                    Every account is protected with encrypted
+                    credentials, so your history stays yours
+                    alone.
+
+                </p>
+
+            </div>
+
+
+            <div class="technology-card">
+
+                <i class="fa-solid fa-mobile-screen-button"></i>
+
+                <h3>
+
+                    Works Everywhere
+
+                </h3>
+
+                <p>
+
+                    A responsive experience built for desktop,
+                    tablet, and mobile, with no installation
+                    required.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ========================================== -->
+<!-- WHY USE CARDIOPREDICT AI -->
+<!-- ========================================== -->
+
+<section class="why-section">
+
+
+    <div class="about-container">
+
+
+        <div class="why-grid">
+
+
+            <div class="why-content">
+
+
+                <span class="section-badge">
+
+                    <i class="fa-solid fa-lightbulb"></i>
+
+                    Our Purpose
+
+                </span>
+
+
+                <h2>
+
+                    Why CardioPredict AI?
+
+                </h2>
+
+
+                <p>
+
+                    Heart disease is one of the major health
+                    concerns worldwide. Early identification
+                    of potential risk factors can encourage
+                    individuals to seek appropriate medical
+                    evaluation.
+
+                </p>
+
+
+                <p>
+
+                    CardioPredict AI demonstrates how machine
+                    learning can be integrated into a web
+                    application to analyse medical data and
+                    provide an estimated risk assessment.
+
+                </p>
+
+
+                <div class="why-list">
+
+
+                    <div class="why-item">
+
+                        <i class="fa-solid fa-check-circle"></i>
+
+                        <span>
+
+                            Easy-to-use prediction interface
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="why-item">
+
+                        <i class="fa-solid fa-check-circle"></i>
+
+                        <span>
+
+                            Machine learning based prediction
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="why-item">
+
+                        <i class="fa-solid fa-check-circle"></i>
+
+                        <span>
+
+                            Estimated risk probability
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="why-item">
+
+                        <i class="fa-solid fa-check-circle"></i>
+
+                        <span>
+
+                            Secure user account and dashboard
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="why-image-card">
+
+
+                <div class="why-image-icon">
+
+                    <i class="fa-solid fa-heart-circle-plus"></i>
+
+                </div>
+
+
+                <h3>
+
+                    Technology for Better Awareness
+
+                </h3>
+
+
+                <p>
+
+                    Using machine learning technology to
+                    support awareness and educational
+                    understanding of heart disease risk.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ========================================== -->
+<!-- CALL TO ACTION -->
+<!-- ========================================== -->
+
+<section class="about-cta">
+
+
+    <div class="about-cta-content">
+
+
+        <i class="fa-solid fa-heart-pulse"></i>
+
 
         <h2>
 
-            Future Scope
+            Ready to Check Your Heart Disease Risk?
 
         </h2>
 
-        <ul>
 
-            <li>Integration with hospital management systems.</li>
+        <p>
 
-            <li>Support for multiclass heart disease prediction.</li>
+            Enter your medical information and get an
+            AI-based risk assessment.
 
-            <li>Real-time monitoring using wearable devices.</li>
+        </p>
 
-            <li>Cloud deployment for worldwide accessibility.</li>
 
-            <li>Doctor dashboard and patient history management.</li>
+        <a href="{{ url_for('prediction_page') }}"
+           class="about-cta-btn">
 
-        </ul>
+            <i class="fa-solid fa-arrow-right"></i>
+
+            Start Prediction
+
+        </a>
+
 
     </div>
 
+
 </section>
 
-<!-- ========================================= -->
+
+
+<!-- ========================================== -->
+<!-- MEDICAL DISCLAIMER -->
+<!-- ========================================== -->
+
+<section class="about-disclaimer">
+
+
+    <div class="disclaimer-container">
+
+
+        <i class="fa-solid fa-circle-exclamation"></i>
+
+
+        <div>
+
+
+            <h3>
+
+                Important Medical Disclaimer
+
+            </h3>
+
+
+            <p>
+
+                CardioPredict AI is a machine learning based
+                system intended for educational and research
+                purposes only. The prediction generated by
+                this application is not a medical diagnosis
+                and should not replace professional medical
+                advice, diagnosis or treatment.
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ========================================== -->
 <!-- FOOTER -->
-<!-- ========================================= -->
+<!-- ========================================== -->
 
 <footer>
 
     <div class="footer-container">
 
+
+        <!-- ========================================== -->
+        <!-- ABOUT -->
+        <!-- ========================================== -->
+
         <div class="footer-section">
+
 
             <h3>
 
-                CardioPredict AI
+                Heart Disease Risk Prediction
 
             </h3>
 
+
             <p>
 
-                Machine Learning based
-                healthcare prediction system
-                developed using Flask,
-                Python and XGBoost.
+                A machine learning based web application
+                that predicts the likelihood of heart disease
+                using patient medical data.
 
             </p>
 
+
         </div>
 
+
+
+        <!-- ========================================== -->
+        <!-- QUICK LINKS -->
+        <!-- ========================================== -->
+
         <div class="footer-section">
+
 
             <h3>
 
@@ -698,86 +1339,206 @@ learning model.
 
             </h3>
 
-            <ul>
-
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-
-                <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
-
-                <li><a href="{{ url_for('about') }}">About</a></li>
-
-                <li><a href="{{ url_for('contact') }}">Contact</a></li>
-
-            </ul>
-
-        </div>
-
-        <div class="footer-section">
-
-            <h3>
-
-                Technologies
-
-            </h3>
 
             <ul>
 
-                <li>Python</li>
 
-                <li>Flask</li>
+                <li>
 
-                <li>XGBoost</li>
+                    <a href="{{ url_for('home') }}">
 
-                <li>HTML5</li>
+                        Home
 
-                <li>CSS3</li>
+                    </a>
 
-                <li>JavaScript</li>
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('prediction_page') }}">
+
+                        Prediction
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('about') }}">
+
+                        About
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('contact') }}">
+
+                        Contact
+
+                    </a>
+
+                </li>
+
 
             </ul>
 
+
         </div>
+
+
+
+        <!-- ========================================== -->
+        <!-- CONTACT -->
+        <!-- ========================================== -->
 
         <div class="footer-section">
 
+
             <h3>
 
-                Follow Us
+                Connect With Us
 
             </h3>
 
-            <div class="social-icons">
 
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <div class="footer-contact">
 
-                <a href="#"><i class="fab fa-instagram"></i></a>
 
-                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <div class="contact-item">
 
-                <a href="#"><i class="fab fa-github"></i></a>
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+
+                    <span>
+
+                        Pune, Maharashtra, India
+
+                    </span>
+
+
+                </div>
+
+
+                <div class="contact-item">
+
+
+                    <i class="fa-solid fa-phone"></i>
+
+
+                    <span>
+
+                        +91 98865 00642
+
+                    </span>
+
+
+                </div>
+
+
+                <div class="contact-item">
+
+
+                    <i class="fa-solid fa-envelope"></i>
+
+
+                    <a href="mailto:codewithtanmay098@gmail.com">
+
+                        codewithtanmay098@gmail.com
+
+                    </a>
+
+
+                </div>
+
 
             </div>
 
+
+
+            <!-- SOCIAL ICONS -->
+
+            <div class="social-icons">
+
+
+                <a href="#">
+
+                    <i class="fab fa-instagram"></i>
+
+                </a>
+
+
+                <a href="#">
+
+                    <i class="fab fa-linkedin-in"></i>
+
+                </a>
+
+
+                <a href="#">
+
+                    <i class="fab fa-github"></i>
+
+                </a>
+
+
+                <a href="mailto:codewithtanmay098@gmail.com">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                </a>
+
+
+            </div>
+
+
+
+            <!-- CONTACT BUTTON -->
+
+            <a href="{{ url_for('contact') }}"
+               class="footer-btn">
+
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+
+                Send Message
+
+
+            </a>
+
+
         </div>
+
 
     </div>
 
+
+
     <hr>
+
+
 
     <p class="copyright">
 
-        © 2026 CardioPredict AI.
-        All Rights Reserved.
+        © 2026 CardioPredict AI. All Rights Reserved.
 
     </p>
 
+
 </footer>
 
-<!-- ========================================= -->
-<!-- JAVASCRIPT -->
-<!-- ========================================= -->
+
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 
 </body>
 

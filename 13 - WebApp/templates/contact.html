@@ -3,6 +3,25 @@
 
 <head>
 
+    <!-- THEME (applied before CSS loads to avoid a flash of the wrong theme) -->
+
+    <script>
+
+        (function(){
+
+            var saved = localStorage.getItem('theme');
+
+            if(saved === 'dark'){
+
+                document.documentElement.setAttribute('data-theme','dark');
+
+            }
+
+        })();
+
+    </script>
+
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -10,15 +29,22 @@
 
     <title>Contact | CardioPredict AI</title>
 
+
     <!-- ========================================= -->
-    <!-- CSS -->
+    <!-- MAIN CSS -->
     <!-- ========================================= -->
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 
+
+    <!-- ========================================= -->
+    <!-- CONTACT CSS -->
+    <!-- ========================================= -->
+
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/contact.css') }}">
+
 
     <!-- ========================================= -->
     <!-- FONT AWESOME -->
@@ -26,6 +52,7 @@
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 
     <!-- ========================================= -->
     <!-- GOOGLE FONT -->
@@ -43,15 +70,18 @@
 
 </head>
 
+
 <body>
 
-<!-- ========================================= -->
+
+<!-- ===================================================== -->
 <!-- HEADER -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
 
 <header>
 
     <nav class="navbar">
+
 
         <!-- LOGO -->
 
@@ -65,67 +95,162 @@
 
         </div>
 
+
         <!-- NAVIGATION -->
 
         <ul class="nav-links">
 
+
             <li>
+
                 <a href="{{ url_for('home') }}">
+
                     Home
+
                 </a>
+
             </li>
 
+
             <li>
+
                 <a href="{{ url_for('prediction_page') }}">
+
                     Prediction
+
                 </a>
+
             </li>
 
+
             <li>
+
                 <a href="{{ url_for('about') }}">
+
                     About
+
                 </a>
+
             </li>
 
+
             <li>
+
                 <a href="{{ url_for('contact') }}"
                    class="active">
+
                     Contact
+
                 </a>
+
             </li>
+
+
+            <!-- AUTHENTICATION -->
+
+            {% if current_user.is_authenticated %}
+
+            <li>
+
+                <a href="{{ url_for('dashboard') }}">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('logout') }}">
+
+                    Logout
+
+                </a>
+
+            </li>
+
+
+            {% else %}
+
+            <li>
+
+                <a href="{{ url_for('login') }}">
+
+                    Login
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('register') }}">
+
+                    Register
+
+                </a>
+
+            </li>
+
+            {% endif %}
+
 
         </ul>
 
+
+        <button id="theme-toggle" aria-label="Toggle dark mode" type="button">
+
+            <i class="fa-solid fa-moon"></i>
+
+        </button>
+
+
     </nav>
+
 
 </header>
 
-<!-- ========================================= -->
+
+
+<!-- ===================================================== -->
 <!-- PAGE TITLE -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
 
 <section class="page-title">
 
     <h1>
+
         Contact Us
+
     </h1>
 
     <p>
-        Have questions about the CardioPredict AI?
+
+        Have questions about CardioPredict AI?
         We would love to hear from you.
+
     </p>
 
 </section>
 
-<!-- ========================================= -->
+
+
+<!-- ===================================================== -->
 <!-- CONTACT INFORMATION -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
 
 <section class="contact-info">
 
     <div class="container">
 
+
         <div class="cards">
+
 
             <!-- ADDRESS -->
 
@@ -134,16 +259,24 @@
                 <i class="fa-solid fa-location-dot"></i>
 
                 <h3>
+
                     Address
+
                 </h3>
 
                 <p>
+
                     Pune, Maharashtra
+
                     <br>
+
                     India
+
                 </p>
 
             </div>
+
+
 
             <!-- PHONE -->
 
@@ -152,14 +285,20 @@
                 <i class="fa-solid fa-phone"></i>
 
                 <h3>
+
                     Phone
+
                 </h3>
 
                 <p>
+
                     +91 98865 00642
+
                 </p>
 
             </div>
+
+
 
             <!-- EMAIL -->
 
@@ -168,114 +307,154 @@
                 <i class="fa-solid fa-envelope"></i>
 
                 <h3>
+
                     Email
+
                 </h3>
 
                 <p>
-                    codewithtanmay098@email.com
+
+                    codewithtanmay098@gmail.com
+
                 </p>
 
             </div>
 
-            <!-- WORKING HOURS -->
+
+
+            <!-- SUPPORT AVAILABILITY -->
 
             <div class="card">
 
                 <i class="fa-solid fa-clock"></i>
 
                 <h3>
-                    Working Hours
+
+                    Support Availability
+
                 </h3>
 
                 <p>
-                    Monday - Saturday
+
+                    Available Online 24/7
+
                     <br>
-                    9:00 AM - 6:00 PM
+
+                    Replies within 24 hours
+
                 </p>
 
             </div>
+
 
         </div>
 
     </div>
 
 </section>
-<!-- ========================================= -->
-<!-- CONTACT FORM -->
-<!-- ========================================= -->
+
+
+
+<!-- ===================================================== -->
+<!-- CONTACT FORM SECTION -->
+<!-- ===================================================== -->
 
 <section class="contact-section">
 
     <div class="container">
 
+
         <div class="contact-wrapper">
 
-            <!-- ========================================= -->
+
+            <!-- ================================================= -->
             <!-- LEFT CONTENT -->
-            <!-- ========================================= -->
+            <!-- ================================================= -->
 
             <div class="contact-content">
 
+
                 <span class="section-tag">
+
                     Get In Touch
+
                 </span>
 
+
                 <h2>
+
                     We'd Love To Hear From You
+
                 </h2>
+
 
                 <p>
 
-                    If you have any questions regarding
-                    Heart Disease Risk Prediction,
-                    machine learning, or this project,
-                    feel free to contact us using the form.
-                    Our team will get back to you as soon
-                    as possible.
+                    Have a question about heart disease risk
+                    prediction or how our platform works?
+                    Fill out the form and our team will get
+                    back to you as soon as possible.
 
                 </p>
 
+
+                <!-- FEATURES -->
+
                 <div class="contact-features">
 
+
                     <div class="feature">
 
                         <i class="fa-solid fa-circle-check"></i>
 
                         <span>
+
                             Fast Response
+
                         </span>
 
                     </div>
+
 
                     <div class="feature">
 
                         <i class="fa-solid fa-circle-check"></i>
 
                         <span>
+
                             Professional Support
+
                         </span>
 
                     </div>
+
 
                     <div class="feature">
 
                         <i class="fa-solid fa-circle-check"></i>
 
                         <span>
-                            100% Secure Communication
+
+                            Secure Communication
+
                         </span>
 
                     </div>
+
 
                 </div>
 
+
             </div>
 
-            <!-- ========================================= -->
-            <!-- CONTACT FORM -->
-            <!-- ========================================= -->
 
-            <div class="contact-form">
+
+            <!-- ================================================= -->
+            <!-- CONTACT FORM -->
+            <!-- ================================================= -->
+
+            <div class="contact-form" id="contactForm">
+
 
                 <!-- SUCCESS MESSAGE -->
 
@@ -283,11 +462,15 @@
 
                 <div class="success-message">
 
+                    <i class="fa-solid fa-circle-check"></i>
+
                     {{ success }}
 
                 </div>
 
                 {% endif %}
+
+
 
                 <!-- ERROR MESSAGE -->
 
@@ -295,15 +478,19 @@
 
                 <div class="error-message">
 
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
                     {{ error }}
 
                 </div>
 
                 {% endif %}
 
-                <form
-                        action="{{ url_for('contact') }}"
-                        method="POST">
+
+
+                <form action="{{ url_for('contact') }}"
+                      method="POST">
+
 
                     <!-- NAME -->
 
@@ -311,18 +498,23 @@
 
                         <label for="name">
 
+                            <i class="fa-solid fa-user"></i>
+
                             Full Name
 
                         </label>
 
                         <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                placeholder="Enter your full name"
-                                required>
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required>
 
                     </div>
+
+
 
                     <!-- EMAIL -->
 
@@ -330,18 +522,23 @@
 
                         <label for="email">
 
+                            <i class="fa-solid fa-envelope"></i>
+
                             Email Address
 
                         </label>
 
                         <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="Enter your email"
-                                required>
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email address"
+                            autocomplete="email"
+                            required>
 
                     </div>
+
+
 
                     <!-- PHONE -->
 
@@ -349,17 +546,22 @@
 
                         <label for="phone">
 
+                            <i class="fa-solid fa-phone"></i>
+
                             Phone Number
 
                         </label>
 
                         <input
-                                type="tel"
-                                id="phone"
-                                name="phone"
-                                placeholder="Enter your phone number">
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="Enter your phone number"
+                            autocomplete="tel">
 
                     </div>
+
+
 
                     <!-- SUBJECT -->
 
@@ -367,181 +569,522 @@
 
                         <label for="subject">
 
+                            <i class="fa-solid fa-heading"></i>
+
                             Subject
 
                         </label>
 
                         <input
-                                type="text"
-                                id="subject"
-                                name="subject"
-                                placeholder="Enter subject"
-                                required>
+                            type="text"
+                            id="subject"
+                            name="subject"
+                            placeholder="Enter subject"
+                            required>
 
                     </div>
 
+
+
                     <!-- MESSAGE -->
 
-                    <div class="input-group">
+                    <div class="input-group message-group">
 
                         <label for="message">
+
+                            <i class="fa-solid fa-message"></i>
 
                             Message
 
                         </label>
 
                         <textarea
-                                id="message"
-                                name="message"
-                                rows="6"
-                                placeholder="Write your message here..."
-                                required></textarea>
+                            id="message"
+                            name="message"
+                            rows="6"
+                            placeholder="Write your message here..."
+                            required></textarea>
 
                     </div>
 
-                    <!-- BUTTONS -->
+
+
+                    <!-- FORM BUTTONS -->
 
                     <div class="form-buttons">
 
+
                         <button
-                                type="submit"
-                                class="btn-primary">
+                            type="submit"
+                            class="btn-primary">
 
                             <i class="fa-solid fa-paper-plane"></i>
 
-                            Send Message
+                            <span>
+
+                                Send Message
+
+                            </span>
 
                         </button>
 
+
                         <button
-                                type="reset"
-                                class="btn-secondary">
+                            type="reset"
+                            class="btn-secondary">
 
                             <i class="fa-solid fa-rotate-left"></i>
 
-                            Reset
+                            <span>
+
+                                Reset
+
+                            </span>
 
                         </button>
 
+
                     </div>
+
 
                 </form>
 
+
             </div>
+
 
         </div>
 
     </div>
 
 </section>
-<!-- ========================================= -->
-<!-- FOOTER -->
-<!-- ========================================= -->
 
-<footer class="footer">
+
+
+<!-- ===================================================== -->
+<!-- FAQ SECTION -->
+<!-- ===================================================== -->
+
+<section class="faq-section">
 
     <div class="container">
 
-        <div class="footer-content">
 
-            <div class="footer-logo">
+        <div class="section-heading">
 
-                <i class="fa-solid fa-heart-pulse"></i>
+            <h2>
 
-                <span>
+                Frequently Asked Questions
 
-                    CardioPredict AI
-
-                </span>
-
-            </div>
+            </h2>
 
             <p>
 
-                CardioPredict AI is an intelligent
-                Heart Disease Risk Prediction system
-                developed using Machine Learning and
-                Flask to assist users in understanding
-                their potential heart disease risk.
-
-            </p>
-
-            <div class="footer-links">
-
-                <a href="{{ url_for('home') }}">
-
-                    Home
-
-                </a>
-
-                <a href="{{ url_for('prediction_page') }}">
-
-                    Prediction
-
-                </a>
-
-                <a href="{{ url_for('about') }}">
-
-                    About
-
-                </a>
-
-                <a href="{{ url_for('contact') }}">
-
-                    Contact
-
-                </a>
-
-            </div>
-
-            <div class="social-icons">
-
-                <a href="#">
-
-                    <i class="fab fa-facebook-f"></i>
-
-                </a>
-
-                <a href="#">
-
-                    <i class="fab fa-instagram"></i>
-
-                </a>
-
-                <a href="#">
-
-                    <i class="fab fa-linkedin-in"></i>
-
-                </a>
-
-                <a href="#">
-
-                    <i class="fab fa-github"></i>
-
-                </a>
-
-            </div>
-
-            <p class="copyright">
-
-                © 2026 CardioPredict AI.
-                All Rights Reserved.
+                Find answers to common questions
+                about CardioPredict AI.
 
             </p>
 
         </div>
 
+
+        <div class="faq">
+
+
+            <h3>
+
+                <i class="fa-solid fa-circle-question"></i>
+
+                What is CardioPredict AI?
+
+            </h3>
+
+            <p>
+
+                CardioPredict AI is a machine learning-based
+                web application designed to estimate the risk
+                of heart disease using patient medical information.
+
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+
+            <h3>
+
+                <i class="fa-solid fa-circle-question"></i>
+
+                Is the prediction a medical diagnosis?
+
+            </h3>
+
+            <p>
+
+                No. The prediction is intended for educational
+                and research purposes only and should not replace
+                professional medical advice.
+
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+
+            <h3>
+
+                <i class="fa-solid fa-circle-question"></i>
+
+                How can I get in touch with your team?
+
+            </h3>
+
+            <p>
+
+                Simply use the contact form above and one
+                of our team members will respond directly
+                to your message.
+
+            </p>
+
+        </div>
+
+
     </div>
+
+</section>
+
+
+
+<!-- ===================================================== -->
+<!-- SOCIAL SECTION -->
+<!-- ===================================================== -->
+
+<section class="social-section">
+
+    <div class="container">
+
+
+        <h2>
+
+            Connect With Us
+
+        </h2>
+
+
+        <p>
+
+            Follow us on social media to stay updated
+            with the latest news and updates from
+            CardioPredict AI.
+
+        </p>
+
+
+        <div class="contact-social-icons">
+
+
+            <a href="#"
+               aria-label="Instagram">
+
+                <i class="fab fa-instagram"></i>
+
+            </a>
+
+
+            <a href="#"
+               aria-label="LinkedIn">
+
+                <i class="fab fa-linkedin-in"></i>
+
+            </a>
+
+
+            <a href="#"
+               aria-label="GitHub">
+
+                <i class="fab fa-github"></i>
+
+            </a>
+
+
+            <a href="mailto:codewithtanmay098@gmail.com"
+               aria-label="Email">
+
+                <i class="fa-solid fa-envelope"></i>
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================== -->
+<!-- FOOTER -->
+<!-- ========================================== -->
+
+<footer>
+
+    <div class="footer-container">
+
+
+        <!-- ========================================== -->
+        <!-- ABOUT -->
+        <!-- ========================================== -->
+
+        <div class="footer-section">
+
+            <h3>
+
+                CardioPredict AI
+
+            </h3>
+
+            <p>
+
+                A machine learning-based web application
+                that predicts the likelihood of heart disease
+                using patient medical data.
+
+            </p>
+
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- QUICK LINKS -->
+        <!-- ========================================== -->
+
+        <div class="footer-section">
+
+            <h3>
+
+                Quick Links
+
+            </h3>
+
+            <ul>
+
+                <li>
+
+                    <a href="{{ url_for('home') }}">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('prediction_page') }}">
+
+                        Prediction
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('about') }}">
+
+                        About
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('contact') }}">
+
+                        Contact
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- CONTACT -->
+        <!-- ========================================== -->
+
+        <div class="footer-section">
+
+            <h3>
+
+                Connect With Us
+
+            </h3>
+
+
+            <!-- CONTACT DETAILS -->
+
+            <div class="footer-contact">
+
+
+                <!-- LOCATION -->
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <span>
+
+                        Pune, Maharashtra, India
+
+                    </span>
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <span>
+
+                        +91 98865 00642
+
+                    </span>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <a href="mailto:codewithtanmay098@gmail.com">
+
+                        codewithtanmay098@gmail.com
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ========================================== -->
+            <!-- FOOTER SOCIAL ICONS -->
+            <!-- ========================================== -->
+
+            <div class="social-icons">
+
+
+                <!-- INSTAGRAM -->
+
+                <a href="#"
+                   aria-label="Instagram">
+
+                    <i class="fa-brands fa-instagram"></i>
+
+                </a>
+
+
+                <!-- LINKEDIN -->
+
+                <a href="#"
+                   aria-label="LinkedIn">
+
+                    <i class="fa-brands fa-linkedin-in"></i>
+
+                </a>
+
+
+                <!-- GITHUB -->
+
+                <a href="#"
+                   aria-label="GitHub">
+
+                    <i class="fa-brands fa-github"></i>
+
+                </a>
+
+
+                <!-- EMAIL -->
+
+                <a href="mailto:codewithtanmay098@gmail.com"
+                   aria-label="Email">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                </a>
+
+
+            </div>
+
+
+            <!-- ========================================== -->
+            <!-- FOOTER SEND MESSAGE BUTTON -->
+            <!-- ========================================== -->
+
+            <a href="#contactForm"
+               class="footer-message-btn">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                <span>
+
+                    Send Message
+
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER LINE -->
+
+    <hr>
+
+
+    <!-- COPYRIGHT -->
+
+    <p class="copyright">
+
+        © 2026 CardioPredict AI.
+        All Rights Reserved.
+
+    </p>
 
 </footer>
 
-<!-- ========================================= -->
+
+
+<!-- ===================================================== -->
 <!-- JAVASCRIPT -->
-<!-- ========================================= -->
+<!-- ===================================================== -->
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 <script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+
 
 </body>
 

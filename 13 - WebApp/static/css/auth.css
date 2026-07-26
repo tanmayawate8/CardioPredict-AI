@@ -1,0 +1,1302 @@
+/* =====================================================
+   CARDIOPREDICT AI
+   PROFESSIONAL AUTHENTICATION UI
+   LOGIN / REGISTER
+===================================================== */
+
+
+/* ===============================
+   GLOBAL AUTH BACKGROUND
+================================ */
+
+.professional-auth{
+
+    min-height:85vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:70px 20px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #eef7ff,
+        #ffffff
+    );
+
+}
+
+
+
+/* ===============================
+   MAIN CONTAINER
+================================ */
+
+
+.auth-container{
+
+
+    width:100%;
+
+    max-width:1200px;
+
+    display:grid;
+
+    grid-template-columns:1fr 450px;
+
+    gap:70px;
+
+    align-items:center;
+
+
+}
+
+
+
+
+
+/* ===============================
+   LEFT BRAND SECTION
+================================ */
+
+
+.auth-brand{
+
+
+    animation:slideLeft .8s ease;
+
+
+}
+
+
+.auth-brand h1{
+
+
+    font-size:48px;
+
+    line-height:1.2;
+
+    color:#14213d;
+
+    margin:25px 0;
+
+
+}
+
+
+
+.auth-brand p{
+
+
+    max-width:520px;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    color:#64748b;
+
+
+}
+
+
+
+
+
+/* HEART ICON */
+
+.heart-animation{
+
+
+    width:90px;
+
+    height:90px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+
+    background:
+
+    linear-gradient(
+    135deg,
+    #d90429,
+    #ef233c
+    );
+
+
+    color:white;
+
+    font-size:42px;
+
+
+    box-shadow:
+
+    0 20px 40px
+    rgba(217,4,41,.25);
+
+
+    animation:pulse 2s infinite;
+
+
+}
+
+
+
+
+
+/* FEATURES */
+
+
+.feature-box{
+
+
+    margin-top:40px;
+
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+
+}
+
+
+
+
+.feature-box div{
+
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+
+    font-size:16px;
+
+    color:#334155;
+
+
+}
+
+
+
+
+
+.feature-box i{
+
+
+    width:45px;
+
+    height:45px;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    background:white;
+
+
+    border-radius:12px;
+
+
+    color:#d90429;
+
+
+    box-shadow:
+    0 10px 25px
+    rgba(0,0,0,.08);
+
+
+}
+
+
+
+
+
+
+/* ===============================
+   AUTH CARD
+================================ */
+
+
+.professional-card{
+
+
+    background:
+
+    rgba(255,255,255,.85);
+
+
+    backdrop-filter:
+
+    blur(18px);
+
+
+
+    border-radius:28px;
+
+
+    padding:45px 38px;
+
+
+    box-shadow:
+
+    0 30px 70px
+    rgba(0,0,0,.12);
+
+
+    border:
+
+    1px solid rgba(255,255,255,.6);
+
+
+    animation:
+
+    slideRight .8s ease;
+
+
+}
+
+
+
+
+
+
+.login-icon{
+
+
+    width:70px;
+
+
+    height:70px;
+
+
+    margin:auto;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    border-radius:50%;
+
+
+    background:
+
+    linear-gradient(
+    135deg,
+    #ffe5e9,
+    #fff
+    );
+
+
+    color:#d90429;
+
+
+    font-size:30px;
+
+
+}
+
+
+
+
+
+
+
+.auth-card h2{
+
+
+    text-align:center;
+
+
+    margin-top:20px;
+
+
+    color:#14213d;
+
+
+    font-size:28px;
+
+
+}
+
+
+
+
+
+
+.auth-subtitle{
+
+
+    text-align:center;
+
+
+    color:#64748b;
+
+
+    margin:10px 0 30px;
+
+
+}
+
+
+
+
+
+
+
+
+/* ===============================
+   INPUT DESIGN
+================================ */
+
+
+.input-group{
+
+
+    margin-bottom:22px;
+
+
+}
+
+
+
+.input-group label{
+
+
+    display:block;
+
+
+    margin-bottom:8px;
+
+
+    color:#334155;
+
+
+    font-weight:500;
+
+
+}
+
+
+
+
+
+
+.input-box{
+
+
+    position:relative;
+
+
+}
+
+
+
+
+
+.input-box i{
+
+
+    position:absolute;
+
+
+    left:16px;
+
+
+    top:50%;
+
+
+    transform:translateY(-50%);
+
+
+    color:#94a3b8;
+
+
+}
+
+
+
+
+
+.input-box input{
+
+
+    width:100%;
+
+
+    padding:
+
+    15px 45px;
+
+
+    border-radius:14px;
+
+
+    border:1px solid #dbe3ec;
+
+
+    outline:none;
+
+
+    font-size:15px;
+
+
+    transition:.3s;
+
+
+    font-family:Poppins,sans-serif;
+
+
+}
+
+
+
+
+
+
+.input-box input:focus{
+
+
+    border-color:#d90429;
+
+
+    box-shadow:
+
+    0 0 0 4px
+    rgba(217,4,41,.12);
+
+
+}
+
+
+
+
+
+
+
+
+/* PASSWORD BUTTON */
+
+
+.password-toggle{
+
+
+    position:absolute;
+
+
+    right:15px;
+
+
+    top:50%;
+
+
+    transform:translateY(-50%);
+
+
+    border:none;
+
+
+    background:none;
+
+
+    cursor:pointer;
+
+
+    color:#64748b;
+
+
+}
+
+
+
+
+
+
+/* ===============================
+   LOGIN OPTIONS
+================================ */
+
+
+.login-options{
+
+
+    display:flex;
+
+
+    justify-content:space-between;
+
+
+    align-items:center;
+
+
+    margin-bottom:25px;
+
+
+    font-size:14px;
+
+
+}
+
+
+
+
+
+.login-options a{
+
+
+    text-decoration:none;
+
+
+    color:#d90429;
+
+
+    font-weight:500;
+
+
+}
+
+
+/* ===============================
+   PASSWORD STRENGTH METER
+================================ */
+
+
+.password-strength{
+
+
+    width:100%;
+
+
+    height:6px;
+
+
+    background:#e2e8f0;
+
+
+    border-radius:10px;
+
+
+    margin-top:10px;
+
+
+    overflow:hidden;
+
+
+}
+
+
+#strength-bar{
+
+
+    height:100%;
+
+
+    width:0%;
+
+
+    border-radius:10px;
+
+
+    background:#dc3545;
+
+
+    transition:.3s ease;
+
+
+}
+
+
+#strength-text{
+
+
+    margin-top:8px;
+
+
+    font-size:13px;
+
+
+    color:#64748b;
+
+
+}
+
+
+/* ===============================
+   TERMS & PRIVACY CHECKBOX
+================================ */
+
+
+.terms-box{
+
+
+    display:flex;
+
+
+    align-items:flex-start;
+
+
+    gap:10px;
+
+
+    margin-bottom:25px;
+
+
+    font-size:14px;
+
+
+    color:#64748b;
+
+
+    line-height:1.5;
+
+
+}
+
+
+.terms-box input{
+
+
+    margin-top:3px;
+
+
+    accent-color:#d90429;
+
+
+    cursor:pointer;
+
+
+}
+
+
+/* ===============================
+   DARK THEME OVERRIDES
+================================ */
+
+
+[data-theme="dark"] .professional-auth{
+
+    background:linear-gradient(135deg,#0f172a,#0f172a);
+
+}
+
+[data-theme="dark"] .auth-brand h1{
+
+    color:#f1f5f9;
+
+}
+
+[data-theme="dark"] .auth-brand p{
+
+    color:#94a3b8;
+
+}
+
+[data-theme="dark"] .feature-box div{
+
+    color:#cbd5e1;
+
+}
+
+[data-theme="dark"] .feature-box i{
+
+    background:#1e293b;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+
+}
+
+[data-theme="dark"] .professional-card{
+
+    background:rgba(30,41,59,.9);
+
+    border-color:rgba(51,65,85,.6);
+
+}
+
+[data-theme="dark"] .auth-card h2{
+
+    color:#f1f5f9;
+
+}
+
+[data-theme="dark"] .auth-subtitle,
+[data-theme="dark"] .auth-switch{
+
+    color:#94a3b8;
+
+}
+
+[data-theme="dark"] .input-group label{
+
+    color:#cbd5e1;
+
+}
+
+[data-theme="dark"] .input-box input{
+
+    background:#0f172a;
+
+    border-color:#334155;
+
+    color:#e2e8f0;
+
+}
+
+[data-theme="dark"] .google-login{
+
+    background:#1e293b;
+
+    border-color:#334155;
+
+    color:#cbd5e1;
+
+}
+
+[data-theme="dark"] .google-login:hover{
+
+    background:#0f172a;
+
+}
+
+[data-theme="dark"] .divider{
+
+    color:#64748b;
+
+}
+
+[data-theme="dark"] .divider:before,
+[data-theme="dark"] .divider:after{
+
+    background:#334155;
+
+}
+
+[data-theme="dark"] .security-note{
+
+    background:rgba(21,128,61,.15);
+
+    color:#4ade80;
+
+}
+
+
+
+
+
+
+
+/* ===============================
+   BUTTON
+================================ */
+
+
+.auth-submit{
+
+
+    width:100%;
+
+
+    padding:15px;
+
+
+    border:none;
+
+
+    border-radius:14px;
+
+
+    cursor:pointer;
+
+
+    color:white;
+
+
+    font-size:16px;
+
+
+    font-weight:600;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    gap:10px;
+
+
+    background:
+
+
+    linear-gradient(
+    135deg,
+    #d90429,
+    #ef233c
+    );
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+
+.auth-submit:hover{
+
+
+    transform:translateY(-3px);
+
+
+    box-shadow:
+
+    0 15px 30px
+    rgba(217,4,41,.25);
+
+
+}
+
+
+
+
+
+
+
+/* ===============================
+ GOOGLE BUTTON
+================================ */
+
+
+.divider{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:15px;
+
+
+    margin:25px 0;
+
+
+    color:#94a3b8;
+
+
+}
+
+
+
+
+
+.divider:before,
+.divider:after{
+
+
+    content:"";
+
+
+    height:1px;
+
+
+    flex:1;
+
+
+    background:#e2e8f0;
+
+
+}
+
+
+
+
+
+.google-login{
+
+
+    width:100%;
+
+
+    padding:14px;
+
+
+    border-radius:14px;
+
+
+    border:1px solid #dbe3ec;
+
+
+    background:white;
+
+
+    cursor:pointer;
+
+
+    font-weight:500;
+
+
+    font-size:15px;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    gap:10px;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+
+.google-login:hover{
+
+
+    background:#f8fafc;
+
+
+}
+
+
+
+
+
+
+.google-login i{
+
+
+    color:#db4437;
+
+
+}
+
+
+
+
+
+
+/* ===============================
+ SWITCH TEXT
+================================ */
+
+
+.auth-switch{
+
+
+    text-align:center;
+
+
+    margin-top:25px;
+
+
+    color:#64748b;
+
+
+}
+
+
+
+.auth-switch a{
+
+
+    color:#d90429;
+
+
+    font-weight:600;
+
+
+    text-decoration:none;
+
+
+}
+
+
+
+
+
+
+/* SECURITY NOTE */
+
+
+.security-note{
+
+
+    margin-top:25px;
+
+
+    padding:12px;
+
+
+    border-radius:12px;
+
+
+    background:#f1fdf6;
+
+
+    color:#15803d;
+
+
+    font-size:13px;
+
+
+    text-align:center;
+
+
+}
+
+
+
+
+
+
+/* ===============================
+ ALERTS
+================================ */
+
+
+.error-message,
+.success-message{
+
+
+    padding:13px;
+
+
+    border-radius:12px;
+
+
+    margin-bottom:20px;
+
+
+    font-size:14px;
+
+
+}
+
+
+.error-message{
+
+
+    background:#fee2e2;
+
+
+    color:#b91c1c;
+
+
+}
+
+
+
+.success-message{
+
+
+    background:#dcfce7;
+
+
+    color:#15803d;
+
+
+}
+
+
+
+
+
+
+/* ===============================
+ ANIMATIONS
+================================ */
+
+
+@keyframes pulse{
+
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+
+    50%{
+
+        transform:scale(1.08);
+
+    }
+
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+
+}
+
+
+
+@keyframes slideLeft{
+
+
+from{
+
+opacity:0;
+
+transform:translateX(-50px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateX(0);
+
+}
+
+}
+
+
+
+
+@keyframes slideRight{
+
+
+from{
+
+opacity:0;
+
+transform:translateX(50px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateX(0);
+
+}
+
+}
+
+
+
+
+
+/* ===============================
+ RESPONSIVE DESIGN
+================================ */
+
+
+
+@media(max-width:900px){
+
+
+.auth-container{
+
+
+grid-template-columns:1fr;
+
+
+}
+
+
+
+.auth-brand{
+
+
+text-align:center;
+
+
+}
+
+
+.auth-brand p{
+
+
+margin:auto;
+
+
+}
+
+
+.feature-box{
+
+
+align-items:center;
+
+
+}
+
+
+
+}
+
+
+
+
+
+@media(max-width:500px){
+
+
+.professional-card{
+
+
+padding:30px 22px;
+
+
+}
+
+
+
+.auth-brand h1{
+
+
+font-size:34px;
+
+
+}
+
+
+}

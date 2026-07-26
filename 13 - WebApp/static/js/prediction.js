@@ -159,27 +159,32 @@ function createLoadingOverlay() {
 
 function startPrediction(event) {
 
-    if (!predictionForm) {
+    if (!predictionForm) return;
 
-        return;
-
-    }
-
-    if (typeof validateForm === "function") {
-
-        const valid = validateForm(event);
-
-        if (!valid) {
-
-            return;
-
-        }
-
-    }
+    event.preventDefault();
 
     showLoading();
-
     disableSubmitButton();
+
+    const heading = loadingOverlay.querySelector("h2");
+    const paragraph = loadingOverlay.querySelector("p");
+
+    heading.innerHTML = "Collecting Patient Data...";
+    paragraph.innerHTML = "Please wait while we validate the patient's information.";
+
+    setTimeout(() => {
+        heading.innerHTML = "Running AI Prediction...";
+        paragraph.innerHTML = "Machine learning model is analysing the health parameters.";
+    }, 1200);
+
+    setTimeout(() => {
+        heading.innerHTML = '<i class="fa-solid fa-circle-check" style="color:#16a34a;"></i> Prediction Successful';
+        paragraph.innerHTML = "Opening your prediction report...";
+    }, 2800);
+
+    setTimeout(() => {
+        predictionForm.submit();
+    }, 4200);
 
 }
 
@@ -327,6 +332,7 @@ function animateExistingResult() {
     }
 
 }
+
 
 
 /*==========================================================
@@ -1090,6 +1096,7 @@ if (errorSection) {
     });
 
 }
+
 
 
 /*==========================================================

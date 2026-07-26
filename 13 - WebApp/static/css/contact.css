@@ -10,15 +10,19 @@ CONTACT PAGE
 
 }
 
-.contact-section .container{
+.contact-section .container,
+.contact-info .container,
+.faq-section .container,
+.social-section .container{
 
     width:90%;
 
     max-width:1200px;
 
-    margin:auto;
+    margin:0 auto;
 
 }
+
 
 /*=========================================================
 CONTACT WRAPPER
@@ -35,6 +39,7 @@ CONTACT WRAPPER
     align-items:center;
 
 }
+
 
 /*=========================================================
 LEFT CONTENT
@@ -88,6 +93,7 @@ LEFT CONTENT
 
 }
 
+
 /*=========================================================
 FEATURE LIST
 =========================================================*/
@@ -130,8 +136,9 @@ FEATURE LIST
 
 }
 
+
 /*=========================================================
-CONTACT INFO
+CONTACT INFORMATION
 =========================================================*/
 
 .contact-info{
@@ -142,21 +149,11 @@ CONTACT INFO
 
 }
 
-.contact-info .container{
-
-    width:90%;
-
-    max-width:1200px;
-
-    margin:auto;
-
-}
-
 .contact-info .cards{
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:repeat(4,1fr);
 
     gap:30px;
 
@@ -174,7 +171,7 @@ CONTACT INFO
 
     box-shadow:var(--shadow);
 
-    transition:.4s;
+    transition:.3s ease;
 
     border:1px solid #eef1f5;
 
@@ -214,7 +211,11 @@ CONTACT INFO
 
     font-size:15px;
 
+    word-break:break-word;
+
 }
+
+
 /*=========================================================
 CONTACT FORM
 =========================================================*/
@@ -231,7 +232,7 @@ CONTACT FORM
 
     border:1px solid #eef1f5;
 
-    transition:.4s;
+    transition:.3s ease;
 
 }
 
@@ -241,6 +242,7 @@ CONTACT FORM
 
 }
 
+
 /*=========================================================
 FORM
 =========================================================*/
@@ -249,11 +251,12 @@ FORM
 
     display:grid;
 
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(2,minmax(0,1fr));
 
     gap:25px;
 
 }
+
 
 /*=========================================================
 INPUT GROUP
@@ -265,13 +268,21 @@ INPUT GROUP
 
     flex-direction:column;
 
+    min-width:0;
+
 }
 
-.input-group:last-child{
+
+/*=========================================================
+MESSAGE FIELD
+=========================================================*/
+
+.input-group.message-group{
 
     grid-column:1/-1;
 
 }
+
 
 /*=========================================================
 LABEL
@@ -289,12 +300,20 @@ LABEL
 
 }
 
+.input-group label i{
+
+    color:var(--primary);
+
+    margin-right:7px;
+
+}
+
+
 /*=========================================================
 INPUTS
 =========================================================*/
 
 .input-group input,
-
 .input-group textarea{
 
     width:100%;
@@ -315,11 +334,12 @@ INPUTS
 
     font-family:inherit;
 
-    transition:.3s;
+    transition:.3s ease;
 
     box-sizing:border-box;
 
 }
+
 
 /*=========================================================
 TEXTAREA
@@ -333,24 +353,24 @@ TEXTAREA
 
 }
 
+
 /*=========================================================
 PLACEHOLDER
 =========================================================*/
 
 .input-group input::placeholder,
-
 .input-group textarea::placeholder{
 
     color:#9aa0a6;
 
 }
 
+
 /*=========================================================
-FOCUS EFFECT
+FOCUS
 =========================================================*/
 
 .input-group input:focus,
-
 .input-group textarea:focus{
 
     border-color:var(--primary);
@@ -359,8 +379,9 @@ FOCUS EFFECT
 
 }
 
+
 /*=========================================================
-BUTTONS
+FORM BUTTONS
 =========================================================*/
 
 .form-buttons{
@@ -373,17 +394,28 @@ BUTTONS
 
     align-items:center;
 
-    gap:20px;
+    gap:15px;
 
-    margin-top:10px;
+    margin-top:5px;
 
 }
+
 
 /*=========================================================
 PRIMARY BUTTON
 =========================================================*/
 
 .btn-primary{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    min-width:180px;
 
     background:var(--primary);
 
@@ -393,7 +425,9 @@ PRIMARY BUTTON
 
     border-radius:10px;
 
-    padding:15px 35px;
+    padding:14px 28px;
+
+    font-family:inherit;
 
     font-size:15px;
 
@@ -401,7 +435,9 @@ PRIMARY BUTTON
 
     cursor:pointer;
 
-    transition:.3s;
+    text-decoration:none;
+
+    transition:.3s ease;
 
 }
 
@@ -413,11 +449,22 @@ PRIMARY BUTTON
 
 }
 
+
 /*=========================================================
 SECONDARY BUTTON
 =========================================================*/
 
 .btn-secondary{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    min-width:130px;
 
     background:#ffffff;
 
@@ -427,7 +474,9 @@ SECONDARY BUTTON
 
     border-radius:10px;
 
-    padding:15px 35px;
+    padding:12px 28px;
+
+    font-family:inherit;
 
     font-size:15px;
 
@@ -435,7 +484,7 @@ SECONDARY BUTTON
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:.3s ease;
 
 }
 
@@ -449,11 +498,18 @@ SECONDARY BUTTON
 
 }
 
+
 /*=========================================================
 SUCCESS MESSAGE
 =========================================================*/
 
 .success-message{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
 
     background:#f0fff7;
 
@@ -473,11 +529,18 @@ SUCCESS MESSAGE
 
 }
 
+
 /*=========================================================
 ERROR MESSAGE
 =========================================================*/
 
 .error-message{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
 
     background:#fff5f5;
 
@@ -496,54 +559,10 @@ ERROR MESSAGE
     font-weight:600;
 
 }
-/*=========================================================
-GOOGLE MAP
-=========================================================*/
 
-.map-section{
-
-    background:#ffffff;
-
-    padding:80px 0;
-
-}
-
-.map-section .container{
-
-    width:90%;
-
-    max-width:1200px;
-
-    margin:auto;
-
-}
-
-.map-container{
-
-    margin-top:40px;
-
-    overflow:hidden;
-
-    border-radius:20px;
-
-    box-shadow:var(--shadow);
-
-    border:1px solid #eef1f5;
-
-}
-
-.map-container iframe{
-
-    width:100%;
-
-    height:450px;
-
-    border:none;
-
-}
 
 /*=========================================================
-FAQ SECTION
+FAQ
 =========================================================*/
 
 .faq-section{
@@ -554,13 +573,27 @@ FAQ SECTION
 
 }
 
-.faq-section .container{
+.section-heading{
 
-    width:90%;
+    text-align:center;
 
-    max-width:1200px;
+    margin-bottom:45px;
 
-    margin:auto;
+}
+
+.section-heading h2{
+
+    color:var(--secondary);
+
+    font-size:36px;
+
+    margin-bottom:15px;
+
+}
+
+.section-heading p{
+
+    color:#666;
 
 }
 
@@ -576,7 +609,7 @@ FAQ SECTION
 
     box-shadow:var(--shadow);
 
-    transition:.3s;
+    transition:.3s ease;
 
 }
 
@@ -592,7 +625,15 @@ FAQ SECTION
 
     margin-bottom:12px;
 
-    font-size:22px;
+    font-size:20px;
+
+}
+
+.faq h3 i{
+
+    color:var(--primary);
+
+    margin-right:8px;
 
 }
 
@@ -605,6 +646,7 @@ FAQ SECTION
     font-size:15px;
 
 }
+
 
 /*=========================================================
 SOCIAL SECTION
@@ -620,13 +662,11 @@ SOCIAL SECTION
 
 }
 
-.social-section .container{
+.social-section h2{
 
-    width:90%;
+    color:var(--secondary);
 
-    max-width:1200px;
-
-    margin:auto;
+    font-size:36px;
 
 }
 
@@ -642,7 +682,12 @@ SOCIAL SECTION
 
 }
 
-.social-icons{
+
+/*=========================================================
+CONTACT PAGE SOCIAL ICONS
+=========================================================*/
+
+.contact-social-icons{
 
     display:flex;
 
@@ -650,17 +695,17 @@ SOCIAL SECTION
 
     align-items:center;
 
-    gap:25px;
+    gap:20px;
 
     flex-wrap:wrap;
 
 }
 
-.social-icons a{
+.contact-social-icons a{
 
-    width:60px;
+    width:55px;
 
-    height:60px;
+    height:55px;
 
     display:flex;
 
@@ -674,29 +719,29 @@ SOCIAL SECTION
 
     color:#ffffff;
 
-    font-size:22px;
-
-    transition:.3s;
+    font-size:20px;
 
     text-decoration:none;
 
+    transition:.3s ease;
+
 }
 
-.social-icons a:hover{
+.contact-social-icons a:hover{
 
     background:var(--secondary);
 
-    transform:translateY(-8px);
+    transform:translateY(-6px);
 
 }
 
+
 /*=========================================================
-PAGE ANIMATION
+ANIMATION
 =========================================================*/
 
 .contact-info,
 .contact-section,
-.map-section,
 .faq-section,
 .social-section{
 
@@ -704,8 +749,9 @@ PAGE ANIMATION
 
 }
 
+
 /*=========================================================
-TABLET RESPONSIVE
+TABLET
 =========================================================*/
 
 @media(max-width:992px){
@@ -730,6 +776,12 @@ TABLET RESPONSIVE
 
     }
 
+    .contact-info .cards{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
     .contact-form{
 
         padding:35px;
@@ -738,19 +790,25 @@ TABLET RESPONSIVE
 
 }
 
+
 /*=========================================================
-MOBILE RESPONSIVE
+MOBILE
 =========================================================*/
 
 @media(max-width:768px){
 
     .contact-section,
     .contact-info,
-    .map-section,
     .faq-section,
     .social-section{
 
         padding:60px 20px;
+
+    }
+
+    .contact-info .cards{
+
+        grid-template-columns:1fr;
 
     }
 
@@ -766,9 +824,19 @@ MOBILE RESPONSIVE
 
     }
 
+    .input-group.message-group{
+
+        grid-column:auto;
+
+    }
+
     .form-buttons{
 
+        grid-column:auto;
+
         flex-direction:column;
+
+        width:100%;
 
     }
 
@@ -776,6 +844,8 @@ MOBILE RESPONSIVE
     .btn-secondary{
 
         width:100%;
+
+        min-width:0;
 
     }
 
@@ -785,19 +855,15 @@ MOBILE RESPONSIVE
 
     }
 
-    .map-container iframe{
+    .section-heading h2,
+    .social-section h2{
 
-        height:320px;
-
-    }
-
-    .social-icons{
-
-        gap:18px;
+        font-size:30px;
 
     }
 
 }
+
 
 /*=========================================================
 SMALL MOBILE
@@ -807,13 +873,15 @@ SMALL MOBILE
 
     .contact-content h2{
 
-        font-size:28px;
+        font-size:27px;
 
     }
 
     .section-tag{
 
         font-size:13px;
+
+        padding:7px 16px;
 
     }
 
@@ -828,15 +896,29 @@ SMALL MOBILE
 
         font-size:14px;
 
-    }
-
-    .map-container iframe{
-
-        height:250px;
+        padding:13px 15px;
 
     }
 
-    .social-icons a{
+    .faq{
+
+        padding:20px;
+
+    }
+
+    .faq h3{
+
+        font-size:18px;
+
+    }
+
+    .contact-social-icons{
+
+        gap:15px;
+
+    }
+
+    .contact-social-icons a{
 
         width:48px;
 
