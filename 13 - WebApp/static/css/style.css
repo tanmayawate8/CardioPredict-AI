@@ -2197,41 +2197,46 @@ MOBILE NAVBAR
         padding:15px;
     }
 
-    /* 1. TURN OFF sticky desktop hover for mobile */
-    .nav-links li a:hover {
-        color: var(--secondary); 
-        background: transparent;
+    /* 1. RESET STICKY DESKTOP STATES 
+       (This stops mobile browsers from holding onto the red color after tapping) */
+    .nav-links li a:hover,
+    .nav-links li a:focus,
+    .nav-links li a:focus-visible {
+        color: var(--secondary) !important;
+        background: transparent !important;
     }
 
-    /* 2. Light Mode: Only color it red if tapped (:active) or currently on that page (.active) */
+    /* 2. LIGHT MODE: Only color it red if actively tapping or JS adds .active */
     .nav-links li a:active,
     .nav-links li a.active {
-        background: #f8fafc;
+        background: #f8fafc !important;
         color: var(--primary) !important;
     }
     
-    /* 3. Dark Mode Dropdown Fixes */
+    /* 3. DARK MODE DROPDOWN FIXES */
     [data-theme="dark"] .nav-links {
         background-color: #1e293b !important;
         border-top: 1px solid #334155;
         box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     }
 
-    /* Standard Dark Mode Links */
+    /* Dark Mode Default Link */
     [data-theme="dark"] .nav-links a {
         color: #f1f5f9 !important;
         background-color: transparent !important; 
     }
 
-    /* TURN OFF dark mode sticky hover */
-    [data-theme="dark"] .nav-links a:hover {
+    /* Dark Mode: Reset Sticky States */
+    [data-theme="dark"] .nav-links li a:hover,
+    [data-theme="dark"] .nav-links li a:focus,
+    [data-theme="dark"] .nav-links li a:focus-visible {
         color: #f1f5f9 !important;
-        background-color: transparent !important; 
+        background: transparent !important;
     }
 
-    /* Dark Mode: Only color it red if tapped (:active) or currently on that page (.active) */
-    [data-theme="dark"] .nav-links a:active,
-    [data-theme="dark"] .nav-links a.active {
+    /* Dark Mode: Only color it red if actively tapping or JS adds .active */
+    [data-theme="dark"] .nav-links li a:active,
+    [data-theme="dark"] .nav-links li a.active {
         background-color: #0f172a !important; 
         color: var(--primary) !important;
     }
