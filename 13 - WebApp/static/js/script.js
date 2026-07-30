@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initializeThemeToggle();
     initializeNavigation();
+    initializeMobileMenu();
     initializeSmoothScroll();
     initializeScrollAnimation();
     initializeStatisticsCounter();
@@ -86,6 +87,48 @@ function initializeNavigation() {
         if (href && currentPage.includes(href)) {
 
             link.classList.add("active");
+
+        }
+
+    });
+
+}
+
+
+/*=========================================================
+  MOBILE MENU TOGGLE
+=========================================================*/
+
+function initializeMobileMenu() {
+
+    const toggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (!toggle || !navLinks) return;
+
+    toggle.addEventListener("click", () => {
+
+        navLinks.classList.toggle("active");
+
+    });
+
+    // Close the menu whenever a nav link is tapped
+    navLinks.querySelectorAll("a").forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            navLinks.classList.remove("active");
+
+        });
+
+    });
+
+    // Close the menu if the viewport is resized back to desktop width
+    window.addEventListener("resize", () => {
+
+        if (window.innerWidth > 768) {
+
+            navLinks.classList.remove("active");
 
         }
 
