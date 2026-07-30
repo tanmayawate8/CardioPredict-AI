@@ -2124,32 +2124,42 @@ MOBILE NAVBAR
 
 @media (max-width:768px){
 
+    /* 1. Force the navbar into a strict single row */
     .navbar{
         padding:15px 20px;
         position:relative;
         display:flex !important;
         flex-direction:row !important;
-        justify-content:flex-start !important;
+        flex-wrap:nowrap !important;
         align-items:center !important;
+        justify-content:flex-start !important;
     }
 
-    /* 1. Menu Toggle (Hamburger) on the far left */
+    /* 2. Hamburger menu on the far left */
     .menu-toggle{
         display:block !important;
         order: 1 !important;
         margin-right: 15px !important;
+        flex-shrink: 0 !important; /* Prevents button from squishing */
     }
 
-    /* 2. Logo in the middle-left, pushing the theme toggle to the right */
+    /* 3. Logo next to hamburger, strictly preventing text wrap */
     .navbar .logo {
         order: 2 !important;
-        margin: 0 auto 0 0 !important;
+        margin: 0 auto 0 0 !important; /* Pushes the theme toggle to the right */
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        white-space: nowrap !important; /* Stops text from breaking to next line */
+        font-size: 20px !important;
     }
 
-    /* 3. Theme Toggle (Dark/Light) on the far right */
+    /* 4. Theme Toggle on the far right */
     #theme-toggle {
         order: 3 !important;
         margin-right: 0 !important;
+        margin-left: auto !important; /* Anchors it to the right edge */
+        flex-shrink: 0 !important;
     }
 
     /* Dropdown Menu Layout */
@@ -2201,11 +2211,12 @@ MOBILE NAVBAR
 
     [data-theme="dark"] .nav-links a {
         color: #f1f5f9 !important;
+        background-color: transparent !important; /* Fixes mismatched block colors */
     }
 
     [data-theme="dark"] .nav-links a:hover,
     [data-theme="dark"] .nav-links a.active {
-        background-color: #0f172a !important;
+        background-color: #0f172a !important; /* Uniform active background */
         color: var(--primary) !important;
     }
 
