@@ -2162,7 +2162,7 @@ MOBILE NAVBAR
         flex-shrink: 0 !important;
     }
 
-    /* Dropdown Menu Layout */
+   /* Dropdown Menu Layout */
     .nav-links{
         position:absolute !important;
         top:100% !important;
@@ -2197,27 +2197,42 @@ MOBILE NAVBAR
         padding:15px;
     }
 
-    .nav-links li a:hover{
-        background:#f8fafc;
-        color:var(--primary);
+    /* 1. TURN OFF sticky desktop hover for mobile */
+    .nav-links li a:hover {
+        color: var(--secondary); 
+        background: transparent;
+    }
+
+    /* 2. Light Mode: Only color it red if tapped (:active) or currently on that page (.active) */
+    .nav-links li a:active,
+    .nav-links li a.active {
+        background: #f8fafc;
+        color: var(--primary) !important;
     }
     
-    /* Dark Mode Dropdown Fixes */
+    /* 3. Dark Mode Dropdown Fixes */
     [data-theme="dark"] .nav-links {
         background-color: #1e293b !important;
         border-top: 1px solid #334155;
         box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     }
 
+    /* Standard Dark Mode Links */
     [data-theme="dark"] .nav-links a {
         color: #f1f5f9 !important;
-        background-color: transparent !important; /* Fixes mismatched block colors */
+        background-color: transparent !important; 
     }
 
-    [data-theme="dark"] .nav-links a:hover,
+    /* TURN OFF dark mode sticky hover */
+    [data-theme="dark"] .nav-links a:hover {
+        color: #f1f5f9 !important;
+        background-color: transparent !important; 
+    }
+
+    /* Dark Mode: Only color it red if tapped (:active) or currently on that page (.active) */
+    [data-theme="dark"] .nav-links a:active,
     [data-theme="dark"] .nav-links a.active {
-        background-color: #0f172a !important; /* Uniform active background */
+        background-color: #0f172a !important; 
         color: var(--primary) !important;
     }
-
 }
