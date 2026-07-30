@@ -421,3 +421,22 @@ window.addEventListener("load", () => {
     console.log("Website Loaded Successfully");
 
 });
+document.addEventListener("DOMContentLoaded", function () {
+    // 1. Select all the links inside the navigation menu
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    // 2. Listen for a tap/click on any of those links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            
+            // 3. Instantly remove the 'active' class (the red color) from ALL links
+            navLinks.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // 4. Instantly add the 'active' class ONLY to the link you just tapped
+            this.classList.add('active');
+            
+        });
+    });
+});
