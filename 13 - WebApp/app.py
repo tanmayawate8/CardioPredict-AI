@@ -31,7 +31,7 @@ app.config.from_object(Config)
 
 # Add Google OAuth Credentials (Replace with real ones later)
 app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
-app.config['GOOGLE_CLIENT_SECRET'] = "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"
+app.config['GOOGLE_CLIENT_SECRET'] = "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"
 
 # ============================================================
 # INITIALIZE EXTENSIONS & OAUTH
