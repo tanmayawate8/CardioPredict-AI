@@ -217,6 +217,9 @@ def login():
 # ============================================================
 # GOOGLE OAUTH LOGIN ROUTES
 # ============================================================
+# ============================================================
+# GOOGLE OAUTH LOGIN ROUTES
+# ============================================================
 @app.route('/login/google')
 def google_login():
     redirect_uri = url_for('google_authorize', _external=True)
@@ -239,19 +242,13 @@ def google_authorize():
         user = User.query.filter_by(email=email).first()
 
         if not user:
-            # Generate a secure random password for Google-created accounts
-            alphabet = string.ascii_letters + string.digits + string.punctuation
-            random_password = ''.join(secrets.choice(alphabet) for i in range(20))
+            # NEW PROFESSIONAL FLOW: Save info to session and redirect to setup
+            session['google_email'] = email
+            session['google_name'] = name
+            return redirect(url_for('google_setup'))
 
-            user = User(username=name, email=email)
-            user.set_password(random_password)
-
-            db.session.add(user)
-            db.session.commit()
-            flash("Account created successfully with Google!", "success")
-        else:
-            flash(f"Welcome back, {user.username}!", "success")
-
+        # EXISTING USER FLOW: Log them in instantly
+        flash(f"Welcome back, {user.username}!", "success")
         login_user(user, remember=True)
 
         if session.get("pending_prediction"):
@@ -263,6 +260,59 @@ def google_authorize():
         flash(f"Authentication failed: {str(e)}", "error")
         return redirect(url_for('login'))
 
+
+# ============================================================
+# GOOGLE ACCOUNT SETUP (PROFESSIONAL ONBOARDING)
+# ============================================================
+@app.route('/google-setup', methods=['GET', 'POST'])
+def google_setup():
+    # If they somehow got here without Google Auth, send them to register
+    if 'google_email' not in session:
+        return redirect(url_for('register'))
+
+    email = session['google_email']
+    name = session['google_name']
+
+    # Auto-generate a clean suggested username (removes spaces from Google name)
+    suggested_username = name.replace(" ", "")
+
+    if request.method == 'POST':
+        username = request.form.get('username').strip()
+
+        if not username:
+            return render_template('google_setup.html', email=email, suggested_username=suggested_username,
+                                   error="Username is required.")
+
+        # Check if they picked a username that someone else is already using
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            return render_template('google_setup.html', email=email, suggested_username=username,
+                                   error="Username is already taken. Please choose another.")
+
+        # Generate a secure random password for Google-created accounts
+        alphabet = string.ascii_letters + string.digits + string.punctuation
+        random_password = ''.join(secrets.choice(alphabet) for i in range(20))
+
+        new_user = User(username=username, email=email)
+        new_user.set_password(random_password)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        # Clear the setup session data
+        session.pop('google_email', None)
+        session.pop('google_name', None)
+
+        # Log them in and finalize
+        login_user(new_user, remember=True)
+        flash("Account created successfully with Google!", "success")
+
+        if session.get("pending_prediction"):
+            return redirect(url_for("save_pending_prediction"))
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('google_setup.html', email=email, suggested_username=suggested_username)
 
 # ============================================================
 # DASHBOARD
