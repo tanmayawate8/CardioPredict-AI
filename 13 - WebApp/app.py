@@ -13,6 +13,11 @@ import pandas as pd
 import pickle
 from pathlib import Path
 import os
+import secrets
+import string
+
+# Import Authlib for Google Login
+from authlib.integrations.flask_client import OAuth
 
 from config import Config
 from extensions import db, login_manager
@@ -24,11 +29,26 @@ from models import User, Prediction
 app = Flask(__name__)
 app.config.from_object(Config)
 
+# Add Google OAuth Credentials (Replace with real ones later)
+app.config['GOOGLE_CLIENT_ID'] = "YOUR_CLIENT_ID.apps.googleusercontent.com"
+app.config['GOOGLE_CLIENT_SECRET'] = "YOUR_CLIENT_SECRET"
+
 # ============================================================
-# INITIALIZE EXTENSIONS
+# INITIALIZE EXTENSIONS & OAUTH
 # ============================================================
 db.init_app(app)
 login_manager.init_app(app)
+
+oauth = OAuth(app)
+google = oauth.register(
+    name='google',
+    client_id=app.config.get('GOOGLE_CLIENT_ID'),
+    client_secret=app.config.get('GOOGLE_CLIENT_SECRET'),
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    client_kwargs={
+        'scope': 'openid email profile'
+    }
+)
 
 
 @login_manager.user_loader
@@ -93,7 +113,7 @@ def about():
 
 
 # ============================================================
-# CONTACT PAGE & FORMSPREE INTEGRATION
+# CONTACT PAGE
 # ============================================================
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
@@ -118,7 +138,7 @@ def contact():
 
 
 # ==========================================
-# REGISTER
+# REGISTER (STANDARD)
 # ==========================================
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -164,7 +184,7 @@ def register():
 
 
 # ============================================================
-# LOGIN
+# LOGIN (STANDARD)
 # ============================================================
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -192,6 +212,56 @@ def login():
         return redirect(url_for("dashboard"))
 
     return render_template("login.html")
+
+
+# ============================================================
+# GOOGLE OAUTH LOGIN ROUTES
+# ============================================================
+@app.route('/login/google')
+def google_login():
+    redirect_uri = url_for('google_authorize', _external=True)
+    return oauth.google.authorize_redirect(redirect_uri)
+
+
+@app.route('/login/google/authorize')
+def google_authorize():
+    try:
+        token = oauth.google.authorize_access_token()
+        user_info = token.get('userinfo')
+
+        if not user_info:
+            flash("Google login failed. Please try again.", "error")
+            return redirect(url_for('login'))
+
+        email = user_info.get('email').lower()
+        name = user_info.get('name')
+
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            # Generate a secure random password for Google-created accounts
+            alphabet = string.ascii_letters + string.digits + string.punctuation
+            random_password = ''.join(secrets.choice(alphabet) for i in range(20))
+
+            user = User(username=name, email=email)
+            user.set_password(random_password)
+
+            db.session.add(user)
+            db.session.commit()
+            flash("Account created successfully with Google!", "success")
+        else:
+            flash(f"Welcome back, {user.username}!", "success")
+
+        login_user(user, remember=True)
+
+        if session.get("pending_prediction"):
+            return redirect(url_for("save_pending_prediction"))
+
+        return redirect(url_for('dashboard'))
+
+    except Exception as e:
+        flash(f"Authentication failed: {str(e)}", "error")
+        return redirect(url_for('login'))
 
 
 # ============================================================
@@ -270,10 +340,7 @@ def update_profile():
 def delete_account():
     user = User.query.get(current_user.id)
     try:
-        # Delete all predictions associated with the user first
         Prediction.query.filter_by(user_id=user.id).delete()
-
-        # Delete the user account
         db.session.delete(user)
         db.session.commit()
 
@@ -287,6 +354,9 @@ def delete_account():
         return redirect(url_for("dashboard"))
 
 
+# ============================================================
+# VIEW REPORT
+# ============================================================
 @app.route("/report/<int:prediction_id>")
 @login_required
 def view_report(prediction_id):
@@ -310,9 +380,6 @@ def prediction_page():
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
-        # ====================================================
-        # GET FORM VALUES
-        # ====================================================
         Age = int(request.form.get("Age"))
         Sex_original = request.form.get("Sex")
         ChestPainType_original = request.form.get("ChestPainType")
@@ -325,9 +392,6 @@ def predict():
         Oldpeak = float(request.form.get("Oldpeak"))
         ST_Slope_original = request.form.get("ST_Slope")
 
-        # ====================================================
-        # VALIDATE CATEGORICAL INPUTS
-        # ====================================================
         if Sex_original not in valid_sex:
             raise ValueError("Invalid gender selected.")
         if ChestPainType_original not in valid_cp:
@@ -339,9 +403,6 @@ def predict():
         if ST_Slope_original not in valid_slope:
             raise ValueError("Invalid ST slope selected.")
 
-        # ====================================================
-        # VALIDATE NUMERICAL INPUTS (SECURITY FIX)
-        # ====================================================
         if not (1 <= Age <= 120):
             raise ValueError("Age must be between 1 and 120.")
         if not (50 <= RestingBP <= 300):
@@ -355,18 +416,12 @@ def predict():
         if not (-5.0 <= Oldpeak <= 10.0):
             raise ValueError("Oldpeak must be between -5.0 and 10.0.")
 
-        # ====================================================
-        # APPLY LABEL ENCODERS
-        # ====================================================
         Sex = encoders["Sex"].transform([Sex_original])[0]
         ChestPainType = encoders["ChestPainType"].transform([ChestPainType_original])[0]
         RestingECG = encoders["RestingECG"].transform([RestingECG_original])[0]
         ExerciseAngina = encoders["ExerciseAngina"].transform([ExerciseAngina_original])[0]
         ST_Slope = encoders["ST_Slope"].transform([ST_Slope_original])[0]
 
-        # ====================================================
-        # CREATE MODEL INPUT DATAFRAME
-        # ====================================================
         patient = pd.DataFrame(
             [[Age, Sex, ChestPainType, RestingBP, Cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak,
               ST_Slope]],
@@ -374,15 +429,9 @@ def predict():
                      "ExerciseAngina", "Oldpeak", "ST_Slope"]
         )
 
-        # ====================================================
-        # APPLY STANDARD SCALER
-        # ====================================================
         numerical_columns = ["Age", "RestingBP", "Cholesterol", "FastingBS", "MaxHR", "Oldpeak"]
         patient[numerical_columns] = scaler.transform(patient[numerical_columns])
 
-        # ====================================================
-        # MACHINE LEARNING PREDICTION
-        # ====================================================
         prediction_value = model.predict(patient)[0]
 
         if hasattr(model, "predict_proba"):
@@ -399,17 +448,11 @@ def predict():
         else:
             confidence = float(prediction_value)
 
-        # ====================================================
-        # CONVERT RESULT TO TEXT
-        # ====================================================
         if int(prediction_value) == 1:
             result = "High Risk"
         else:
             result = "Low Risk"
 
-        # ====================================================
-        # HUMAN-READABLE PATIENT INFORMATION
-        # ====================================================
         chest_pain_labels = {
             "ATA": "Atypical Angina (ATA)",
             "NAP": "Non-Anginal Pain (NAP)",
@@ -431,9 +474,6 @@ def predict():
             "ST Slope": ST_Slope_original
         }
 
-        # ====================================================
-        # SAVE PREDICTION IN SESSION
-        # ====================================================
         session["pending_prediction"] = {
             "Age": Age,
             "Sex": "Male" if Sex_original == "M" else "Female",
@@ -450,9 +490,6 @@ def predict():
             "probability": round(confidence * 100, 2)
         }
 
-        # ====================================================
-        # RENDER RESULT
-        # ====================================================
         return render_template(
             "prediction.html",
             prediction=result,
@@ -535,7 +572,7 @@ def save_pending_prediction():
 def logout():
     logout_user()
     flash("You have been logged out.", "success")
-    return redirect(url_for("dashboard"))
+    return redirect(url_for("home"))
 
 
 # ============================================================
