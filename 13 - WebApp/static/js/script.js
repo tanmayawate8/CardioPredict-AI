@@ -399,7 +399,7 @@ function updateFooterYear() {
     const year = new Date().getFullYear();
 
     copyright.innerHTML =
-        `© ${year} Heart Disease Risk Prediction. All Rights Reserved.`;
+        `© ${year} CardioPredict AI. All Rights Reserved.`;
 
 }
 

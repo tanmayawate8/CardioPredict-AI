@@ -30,9 +30,9 @@ def run_test(name, payload, success_keyword):
     try:
         response = requests.post(URL, data=payload)
         if success_keyword in response.text:
-            print(f"✅ PASSED | {name}")
+            print(f"PASSED | {name}")
         else:
-            print(f"❌ FAILED | {name}")
+            print(f"FAILED | {name}")
             print(f"   -> Expected '{success_keyword}' but server did something else.")
     except Exception as e:
         print(f"⚠️ ERROR | Could not connect: {e}")

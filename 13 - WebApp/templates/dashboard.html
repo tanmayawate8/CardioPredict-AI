@@ -167,6 +167,21 @@
 
 <section class="dashboard">
 
+    <!-- ========================================= -->
+    <!-- FLASH MESSAGES -->
+    <!-- ========================================= -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash-msg flash-{{ 'success' if category == 'success' else 'error' }}">
+                        <i class="fa-solid fa-{{ 'circle-check' if category == 'success' else 'circle-exclamation' }}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 
     <!-- ========================================= -->
     <!-- WELCOME CARD -->
@@ -190,6 +205,10 @@
                 and prediction history.
 
             </p>
+
+            <button id="openSettingsBtn" class="settings-btn">
+                <i class="fa-solid fa-gear"></i> Profile Settings
+            </button>
 
         </div>
 
@@ -536,6 +555,69 @@
     </div>
 
 
+    <!-- ========================================= -->
+    <!-- PROFILE SETTINGS MODAL -->
+    <!-- ========================================= -->
+
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Profile Settings</h2>
+                <button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <form action="{{ url_for('update_profile') }}" method="POST">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" value="{{ current_user.username }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" value="{{ current_user.email }}" required>
+                </div>
+                
+                <hr class="modal-divider">
+                
+                <div class="form-group">
+                    <label>Current Password <small style="color:#94a3b8; font-weight:normal;">(Leave blank to keep current)</small></label>
+                    <input type="password" name="current_password" placeholder="Enter current password">
+                </div>
+                
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" name="new_password" placeholder="Enter new password">
+                </div>
+                
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" name="confirm_password" placeholder="Confirm new password">
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" id="cancelModalBtn">Cancel</button>
+                    <button type="submit" class="btn-save">Save Changes</button>
+                </div>
+            </form>
+
+            <!-- ========================================= -->
+            <!-- DANGER ZONE -->
+            <!-- ========================================= -->
+            <div class="danger-zone">
+                <h3>Danger Zone</h3>
+                <p>Once you delete your account, there is no going back. All your medical prediction history will be permanently erased.</p>
+                
+                <form action="{{ url_for('delete_account') }}" method="POST" onsubmit="return confirm('Are you absolutely sure you want to permanently delete your account? This action cannot be undone.');" style="margin:0;">
+                    <button type="submit" class="btn-danger">
+                        <i class="fa-solid fa-trash-can"></i> Delete Account
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
 </section>
 
 
@@ -768,6 +850,32 @@
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
+<script>
+    // PROFILE SETTINGS MODAL LOGIC
+    const profileModal = document.getElementById('profileModal');
+    const openSettingsBtn = document.getElementById('openSettingsBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelModalBtn = document.getElementById('cancelModalBtn');
+
+    function openModal() {
+        profileModal.classList.add('active');
+    }
+
+    function closeModal() {
+        profileModal.classList.remove('active');
+    }
+
+    openSettingsBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    cancelModalBtn.addEventListener('click', closeModal);
+
+    // Close modal if user clicks outside of the box
+    window.addEventListener('click', (e) => {
+        if (e.target === profileModal) {
+            closeModal();
+        }
+    });
+</script>
 
 </body>
 

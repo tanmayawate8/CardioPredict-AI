@@ -206,6 +206,87 @@ def dashboard():
     return render_template("dashboard.html", predictions=predictions)
 
 
+# ============================================================
+# UPDATE PROFILE
+# ============================================================
+@app.route("/update_profile", methods=["POST"])
+@login_required
+def update_profile():
+    username = request.form.get("username", "").strip()
+    email = request.form.get("email", "").strip().lower()
+    current_password = request.form.get("current_password", "")
+    new_password = request.form.get("new_password", "")
+    confirm_password = request.form.get("confirm_password", "")
+
+    user = User.query.get(current_user.id)
+
+    try:
+        # Check and update Username
+        if username and username != user.username:
+            if User.query.filter_by(username=username).first():
+                flash("Username is already taken.", "error")
+                return redirect(url_for("dashboard"))
+            user.username = username
+
+        # Check and update Email
+        if email and email != user.email:
+            if User.query.filter_by(email=email).first():
+                flash("Email is already registered.", "error")
+                return redirect(url_for("dashboard"))
+            user.email = email
+
+        # Password Update Logic
+        if current_password or new_password or confirm_password:
+            if not current_password:
+                flash("Please enter your current password to set a new one.", "error")
+                return redirect(url_for("dashboard"))
+            if not user.check_password(current_password):
+                flash("Incorrect current password.", "error")
+                return redirect(url_for("dashboard"))
+            if new_password != confirm_password:
+                flash("New passwords do not match.", "error")
+                return redirect(url_for("dashboard"))
+            if len(new_password) < 6:
+                flash("New password must be at least 6 characters.", "error")
+                return redirect(url_for("dashboard"))
+
+            user.set_password(new_password)
+
+        db.session.commit()
+        flash("Profile updated successfully!", "success")
+
+    except Exception as e:
+        db.session.rollback()
+        flash("An error occurred while updating your profile.", "error")
+
+    return redirect(url_for("dashboard"))
+
+
+# ============================================================
+# DELETE ACCOUNT
+# ============================================================
+@app.route("/delete_account", methods=["POST"])
+@login_required
+def delete_account():
+    user = User.query.get(current_user.id)
+    try:
+        # Delete all predictions associated with the user first
+        Prediction.query.filter_by(user_id=user.id).delete()
+
+        # Delete the user account
+        db.session.delete(user)
+        db.session.commit()
+
+        logout_user()
+        flash("Your account and all associated data have been permanently deleted.", "success")
+        return redirect(url_for("home"))
+
+    except Exception as e:
+        db.session.rollback()
+        flash("An error occurred while deleting your account.", "error")
+        return redirect(url_for("dashboard"))
+
+
 @app.route("/report/<int:prediction_id>")
 @login_required
 def view_report(prediction_id):

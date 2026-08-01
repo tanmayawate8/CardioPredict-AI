@@ -159,41 +159,42 @@
 
 .form-intro {
 
-    margin-bottom: 34px;
+    margin-bottom: 40px; /* Increased bottom margin for breathing room */
     padding-bottom: 24px;
     border-bottom: 1px solid var(--line, #E2E6ED);
+    text-align: center; /* Centers the text block perfectly */
 
 }
 
 .form-eyebrow {
 
-    display: block;
-    margin-bottom: 8px;
+    display: inline-block; /* Changed from block to inline-block for proper centering */
+    margin-bottom: 12px; /* Slightly increased bottom margin */
     color: var(--primary, #d90429);
     font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-size: 14px; /* Increased size from 12px */
+    font-weight: 700; /* Increased weight for presence */
+    letter-spacing: 0.1em; /* Widened tracking for a professional look */
     text-transform: uppercase;
 
 }
 
 .form-intro h2 {
 
-    margin: 0 0 8px;
+    margin: 0 0 12px; /* Adjusted bottom margin */
     color: var(--secondary, #16233F);
     font-family: var(--font-display);
-    font-size: 24px;
+    font-size: 32px; /* Increased size from 24px for prominence */
     font-weight: 700;
 
 }
 
 .form-description {
 
-    max-width: 620px;
-    margin: 0;
+    max-width: 650px; /* Slightly wider to accommodate centered text */
+    margin: 0 auto; /* Centers the paragraph block itself */
     color: #6c757d;
-    font-size: 14.5px;
+    font-size: 16px; /* Increased size from 14.5px for readability */
     line-height: 1.7;
 
 }

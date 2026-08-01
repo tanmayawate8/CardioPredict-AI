@@ -137,7 +137,7 @@ Dark Theme Overrides
 
     --dark:#0f172a;
 
-    --text:#cbd5e1;
+    --text:#e2e8f0; /* Perfect lighter text for readability */
 
     --text-muted:#94a3b8;
 
@@ -153,13 +153,13 @@ Dark Theme Overrides
 
     background:#0f172a;
 
-    color:#cbd5e1;
+    color:#e2e8f0;
 
 }
 
 [data-theme="dark"] section h2{
 
-    color:#f1f5f9;
+    color:#ffffff;
 
 }
 
@@ -181,7 +181,7 @@ Dark Theme Overrides
 [data-theme="dark"] .section-heading h2,
 [data-theme="dark"] .social-section h2{
 
-    color:#f1f5f9;
+    color:#ffffff; /* Pure white headings for stark contrast */
 
 }
 
@@ -190,7 +190,7 @@ Dark Theme Overrides
 [data-theme="dark"] .contact-info .card p,
 [data-theme="dark"] section p{
 
-    color:#94a3b8;
+    color:#cbd5e1; /* Clearer text inside elements */
 
 }
 
@@ -216,13 +216,13 @@ Dark Theme Overrides
 
 [data-theme="dark"] .contact-content h2{
 
-    color:#f1f5f9;
+    color:#ffffff;
 
 }
 
 [data-theme="dark"] .contact-content p{
 
-    color:#94a3b8;
+    color:#cbd5e1;
 
 }
 
@@ -765,7 +765,7 @@ Common Cards
 }
 
 /*=========================================================
-FOOTER
+FOOTER — COMPACT & OPTIMIZED
 =========================================================*/
 
 footer{
@@ -774,7 +774,7 @@ footer{
 
     color:#ffffff;
 
-    padding:70px 0 20px;
+    padding:50px 0 15px;
 
 }
 
@@ -788,17 +788,18 @@ footer{
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    /* Perfectly proportions the footer to bring Quick Links and Contact together */
+    grid-template-columns: 2.5fr 1fr 1.5fr; 
 
-    gap:40px;
+    gap:30px; 
 
 }
 
 .footer-section h3{
 
-    font-size:24px;
+    font-size:20px;
 
-    margin-bottom:20px;
+    margin-bottom:12px;
 
     color:#ffffff;
 
@@ -808,7 +809,11 @@ footer{
 
     color:#dddddd;
 
-    line-height:1.8;
+    line-height:1.6;
+
+    font-size:14.5px;
+    
+    max-width:400px;
 
 }
 
@@ -820,7 +825,7 @@ footer{
 
 .footer-section ul li{
 
-    margin-bottom:12px;
+    margin-bottom:8px; 
 
 }
 
@@ -830,6 +835,8 @@ footer{
 
     transition:.3s;
 
+    font-size:14.5px;
+
 }
 
 .footer-section ul li a:hover,
@@ -837,15 +844,7 @@ footer{
 
     color:var(--primary);
 
-    padding-left:8px;
-
-}
-
-.footer-section ul li a:focus-visible{
-
-    outline:2px solid var(--primary);
-
-    outline-offset:3px;
+    padding-left:6px;
 
 }
 
@@ -853,17 +852,17 @@ footer{
 
     display:flex;
 
-    gap:15px;
+    gap:12px;
 
-    margin-top:20px;
+    margin-top:14px; 
 
 }
 
 .footer-section .social-icons a{
 
-    width:45px;
+    width:38px; 
 
-    height:45px;
+    height:38px;
 
     display:flex;
 
@@ -877,7 +876,7 @@ footer{
 
     color:#ffffff;
 
-    font-size:20px;
+    font-size:16px;
 
     transition:.4s;
 
@@ -888,21 +887,7 @@ footer{
 
     background:var(--primary);
 
-    transform:translateY(-5px);
-
-}
-
-.footer-section .social-icons a:focus-visible{
-
-    outline:2px solid #ffffff;
-
-    outline-offset:3px;
-
-}
-
-.footer-section .social-icons a:active{
-
-    transform:translateY(-2px);
+    transform:translateY(-3px);
 
 }
 
@@ -916,9 +901,9 @@ FOOTER CONTACT DETAILS
 
     flex-direction:column;
 
-    gap:14px;
+    gap:10px; 
 
-    margin-bottom:22px;
+    margin-bottom:15px;
 
 }
 
@@ -928,23 +913,25 @@ FOOTER CONTACT DETAILS
 
     align-items:center;
 
-    gap:12px;
+    gap:10px;
 
     color:#dddddd;
 
-    line-height:1.6;
+    line-height:1.5;
+
+    font-size:14.5px;
 
 }
 
 .contact-item i{
 
-    width:20px;
+    width:18px;
 
     text-align:center;
 
     color:var(--primary);
 
-    font-size:16px;
+    font-size:15px;
 
     flex-shrink:0;
 
@@ -975,19 +962,19 @@ FOOTER SEND MESSAGE BUTTON
 
     align-items:center;
 
-    gap:10px;
+    gap:8px;
 
-    margin-top:22px;
+    margin-top:14px; 
 
     background:var(--primary);
 
     color:#ffffff;
 
-    padding:12px 26px;
+    padding:10px 22px; 
 
-    border-radius:10px;
+    border-radius:8px;
 
-    font-size:15px;
+    font-size:14px;
 
     font-weight:600;
 
@@ -1002,12 +989,12 @@ FOOTER SEND MESSAGE BUTTON
 
     background:var(--primary-dark);
 
-    transform:translateY(-3px);
+    transform:translateY(-2px);
 }
 
 footer hr{
 
-    margin:50px auto 20px;
+    margin:25px auto 15px; 
 
     width:90%;
 
@@ -1021,7 +1008,7 @@ footer .copyright{
 
     color:#cccccc;
 
-    font-size:15px;
+    font-size:14px;
 
 }
 

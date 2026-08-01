@@ -184,10 +184,14 @@ HERO MONITOR (signature element)
 
 }
 
+/*=========================================================
+HERO MONITOR (signature element)
+=========================================================*/
+
 .monitor-panel .monitor-label{
 
     font-family:var(--font-mono);
-    font-size:12px;
+    font-size:14px; /* Increased from 12px for better readability */
     letter-spacing:0.12em;
     text-transform:uppercase;
     color:rgba(242,244,243,0.55);
@@ -197,25 +201,27 @@ HERO MONITOR (signature element)
 .monitor-panel .monitor-reading{
 
     font-family:var(--font-mono);
-    font-size:15px;
+    font-size:18px; /* Increased from 15px for the word "accuracy" */
     color:var(--paper);
     display:flex;
     align-items:baseline;
-    gap:6px;
+    gap:8px; /* Slightly wider gap */
 
 }
 
 .monitor-panel .monitor-reading b{
 
-    font-size:26px;
+    font-size:42px; /* Increased from 26px to make the 91.85% perfectly pop */
+    font-weight:700;
     color:#fff;
+    line-height:1; /* Keeps the large text perfectly aligned vertically */
 
 }
 
 .monitor-panel .monitor-reading .pulse-dot{
 
-    width:8px;
-    height:8px;
+    width:12px;  /* Increased from 8px to match larger text */
+    height:12px; /* Increased from 8px to match larger text */
     border-radius:50%;
     background:var(--signal);
     margin-right:4px;
@@ -278,9 +284,13 @@ INFORMATION SECTION
 
 .information{ background:var(--paper-raised); }
 
-.information .container > .eyebrow,
-.information h2{ display:block; }
+.information .container > .eyebrow {
+    display: inline-flex; /* Keeps the red dot and text perfectly spaced */
+}
 
+.information h2 {
+    display: block;
+}
 .information h2{
 
     font-size:36px;
@@ -527,20 +537,20 @@ HOW IT WORKS
 
 }
 
-.step span::before{ content:"LEAD "; }
+.step span::before{ content:"STEP "; }
 
 .step h3{ color:var(--ink); margin-bottom:12px; font-size:19px; }
 
 .step p{ color:var(--ink-soft); font-size:15px; line-height:1.6; }
 
 /*=========================================================
-CALL TO ACTION
+CALL TO ACTION (Centered)
 =========================================================*/
 
 .cta{
 
     background:var(--signal);
-    text-align:left;
+    text-align:center;
     color:#fff;
 
 }
@@ -548,6 +558,7 @@ CALL TO ACTION
 .cta .container{
 
     max-width:900px;
+    margin: 0 auto;
 
 }
 
@@ -557,7 +568,7 @@ CALL TO ACTION
 
     color:rgba(255,255,255,0.88);
     max-width:640px;
-    margin:0 0 32px;
+    margin:0 auto 32px;
 
 }
 
@@ -682,9 +693,7 @@ HOME PAGE MOBILE RESPONSIVE
 }
 
 /*=========================================================
-FOOTER — MISSING COMPONENTS
-(style.css styles footer/.footer-container/.footer-section/
-.social-icons, but never defined these — adding them here)
+FOOTER COMPONENTS (Home specific footer adjustments)
 =========================================================*/
 
 .footer-contact{
@@ -753,11 +762,9 @@ FOOTER — MISSING COMPONENTS
     .footer-btn:hover{ transform:none; }
 
 }
+
 /*=========================================================
 DARK THEME OVERRIDES
-(the monitor panel and statistics section are already
-styled as permanent dark instrument panels by design,
-so they're intentionally left untouched here)
 =========================================================*/
 
 [data-theme="dark"] body{
@@ -865,4 +872,7 @@ so they're intentionally left untouched here)
 
     background-color:#111827;
 
+}
+[data-theme="dark"] .btn {
+    color: #ffffff;
 }

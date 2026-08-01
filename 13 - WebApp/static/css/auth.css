@@ -228,6 +228,48 @@
 }
 
 
+/* ===============================
+   WHY AWARENESS CARD (AUTH BRAND PANEL)
+================================ */
+
+.auth-brand-card {
+    min-height: 320px;
+    padding: 35px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 20px;
+    color: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, var(--primary, #d90429), var(--secondary, #003049));
+    margin-top: 35px;
+}
+
+.auth-brand-card-icon {
+    font-size: 52px;
+    margin-bottom: 20px;
+}
+
+.auth-brand-card h3 {
+    font-size: 21px;
+    margin-bottom: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.auth-brand-card p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+    font-size: 14.5px;
+    max-width: 420px;
+}
+
+[data-theme="dark"] .auth-brand-card {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+
 
 
 
