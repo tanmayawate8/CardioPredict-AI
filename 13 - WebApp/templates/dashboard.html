@@ -1,219 +1,928 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- THEME SCRIPT -->
-    <script>
-        (function(){
-            var saved = localStorage.getItem('theme');
-            if(saved === 'dark'){
-                document.documentElement.setAttribute('data-theme','dark');
-            }
-        })();
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | CardioPredict AI</title>
-    
-    <!-- CSS Links -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
-    <!-- Font Awesome & Google Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        .dashboard-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .section-box { background: var(--card-bg, #ffffff); border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .history-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .history-table th, .history-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color, #e2e8f0); }
-        .badge { padding: 5px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
-        .badge-high { background: #fee2e2; color: #b91c1c; }
-        .badge-low { background: #d1fae5; color: #047857; }
-        .btn-small { background: var(--primary-color, #d90429); color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 0.9rem; border: none; cursor: pointer; }
-        
-        /* Form Styling */
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; margin-bottom: 5px; font-weight: 500; }
-        .input-group input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: var(--input-bg, #ffffff); color: var(--text-color, #333); }
-        .btn-update { background: #2563eb; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
-    </style>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Dashboard | CardioPredict AI
+    </title>
+
+    <!-- ========================================= -->
+    <!-- MAIN CSS -->
+    <!-- ========================================= -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- ========================================= -->
+    <!-- DASHBOARD CSS -->
+    <!-- ========================================= -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <!-- ========================================= -->
+    <!-- FONT AWESOME -->
+    <!-- ========================================= -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- ========================================= -->
+    <!-- GOOGLE FONT -->
+    <!-- ========================================= -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
 </head>
 
-<body>
-    <!-- ================= HEADER ================= -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <i class="fa-solid fa-heart-pulse"></i>
-                <span>CardioPredict AI</span>
-            </div>
-            
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <ul class="nav-links">
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-            </ul>
-            
-            <button id="theme-toggle" aria-label="Toggle dark mode" type="button">
-                <i class="fa-solid fa-moon"></i>
-            </button>
-        </nav>
-    </header>
 
-    <!-- ================= DASHBOARD CONTENT ================= -->
-    <main class="dashboard-container">
-        
-        <!-- Flash Messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
+<body>
+
+
+<!-- ========================================= -->
+<!-- HEADER / NAVBAR -->
+<!-- ========================================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            <span>
+                CardioPredict AI
+            </span>
+
+        </div>
+<button class="menu-toggle" id="menu-toggle">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+        <!-- NAVIGATION -->
+
+        <ul class="nav-links">
+
+            <li>
+
+                <a href="{{ url_for('home') }}">
+
+                    Home
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('prediction_page') }}">
+
+                    Prediction
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('about') }}">
+
+                    About
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('contact') }}">
+
+                    Contact
+
+                </a>
+
+            </li>
+
+
+            <!-- LOGGED IN USER -->
+
+            {% if current_user.is_authenticated %}
+
+            <li>
+
+                <span class="nav-user">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    {{ current_user.username }}
+
+                </span>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('logout') }}">
+
+                    Logout
+
+                </a>
+
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ========================================= -->
+<!-- DASHBOARD -->
+<!-- ========================================= -->
+
+<section class="dashboard">
+
+    <!-- ========================================= -->
+    <!-- FLASH MESSAGES -->
+    <!-- ========================================= -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}" style="padding: 15px; margin-bottom: 20px; border-radius: 6px; 
-                        {% if category == 'error' %} background: #fee2e2; color: #b91c1c; 
-                        {% elif category == 'success' %} background: #d1fae5; color: #047857; 
-                        {% else %} background: #e0f2fe; color: #0369a1; {% endif %}">
+                    <div class="flash-msg flash-{{ 'success' if category == 'success' else 'error' }}">
+                        <i class="fa-solid fa-{{ 'circle-check' if category == 'success' else 'circle-exclamation' }}"></i>
                         {{ message }}
                     </div>
                 {% endfor %}
-            {% endif %}
-        {% endwith %}
+            </div>
+        {% endif %}
+    {% endwith %}
 
-        <div class="dashboard-header">
-            <h1>Welcome, {{ current_user.username }}!</h1>
-            <a href="{{ url_for('prediction_page') }}" class="btn-small" style="padding: 10px 20px; font-weight: bold;">
-                <i class="fa-solid fa-plus"></i> New Prediction
-            </a>
+    <!-- ========================================= -->
+    <!-- WELCOME CARD -->
+    <!-- ========================================= -->
+
+    <div class="welcome-card">
+
+        <div>
+
+            <h1>
+
+                Welcome,
+                {{ current_user.username }}
+
+            </h1>
+
+
+            <p>
+
+                Manage your heart health reports
+                and prediction history.
+
+            </p>
+
+            <button id="openSettingsBtn" class="settings-btn">
+                <i class="fa-solid fa-gear"></i> Profile Settings
+            </button>
+
         </div>
 
-        <!-- ================= PREDICTION HISTORY SECTION ================= -->
-        <section class="section-box">
-            <h2><i class="fa-solid fa-file-medical"></i> Your Prediction History</h2>
-            
-            <!-- CHECK IF ACCOUNT IS DISABLED -->
-            {% if current_user.is_disabled %}
-                <div class="disabled-card" style="text-align: center; padding: 40px; background: #fff1f2; border: 2px solid #fda4af; border-radius: 12px; margin-top: 20px;">
-                    <i class="fa-solid fa-user-lock" style="font-size: 3.5rem; color: #be123c; margin-bottom: 15px;"></i>
-                    <h2 style="color: #9f1239; margin-bottom: 10px;">Account is Disabled</h2>
-                    <p style="color: #4c0519; margin-bottom: 25px; font-size: 1.1rem;">Your health records and prediction history are currently hidden.</p>
-                    
-                    <form action="{{ url_for('enable_account') }}" method="POST">
-                        <button type="submit" style="background: #10b981; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);">
-                            <i class="fa-solid fa-unlock"></i> Re-Enable Account
-                        </button>
-                    </form>
-                </div>
-            
-            <!-- IF ACCOUNT IS ACTIVE, SHOW NORMAL RESULTS -->
-            {% else %}
-                {% if predictions %}
-                    <div style="overflow-x: auto;">
-                        <table class="history-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Age / Sex</th>
-                                    <th>Result</th>
-                                    <th>Confidence</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for prediction in predictions %}
-                                <tr>
-                                    <td>{{ prediction.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
-                                    <td>{{ prediction.age }} / {{ prediction.sex }}</td>
-                                    <td>
-                                        <span class="badge {% if prediction.result == 'High Risk' %}badge-high{% else %}badge-low{% endif %}">
-                                            {{ prediction.result }}
-                                        </span>
-                                    </td>
-                                    <td>{{ prediction.probability }}%</td>
-                                    <td>
-                                        <a href="{{ url_for('view_report', prediction_id=prediction.id) }}" class="btn-small">View Report</a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                {% else %}
-                    <div style="text-align: center; padding: 40px; color: #64748b; background: #f8fafc; border-radius: 8px; margin-top: 20px;">
-                        <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; margin-bottom: 10px;"></i>
-                        <p style="font-size: 1.1rem;">You haven't saved any predictions yet.</p>
-                    </div>
-                {% endif %}
-            {% endif %}
-        </section>
 
-        <!-- ================= PROFILE SETTINGS SECTION ================= -->
-        <section class="section-box">
-            <h2><i class="fa-solid fa-user-gear"></i> Profile Settings</h2>
+        <!-- PROFILE ICON -->
+
+        <div class="profile-icon">
+
+            <i class="fa-solid fa-user"></i>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================================= -->
+    <!-- STAT CARDS -->
+    <!-- ========================================= -->
+
+    <div class="stats-container">
+
+
+        <!-- TOTAL PREDICTIONS -->
+
+        <div class="stat-card">
+
+            <i class="fa-solid fa-file-medical"></i>
+
+            <h3>
+
+                {{ predictions|length }}
+
+            </h3>
+
+            <p>
+
+                Total Predictions
+
+            </p>
+
+        </div>
+
+
+
+        <!-- CURRENT STATUS -->
+
+        <div class="stat-card">
+
+            <i class="fa-solid fa-heart-circle-check"></i>
+
+            <h3>
+
+                {% if predictions %}
+
+                    {{ predictions[0].result }}
+
+                {% else %}
+
+                    N/A
+
+                {% endif %}
+
+            </h3>
+
+            <p>
+
+                Latest Risk Status
+
+            </p>
+
+        </div>
+
+
+
+        <!-- ACCOUNT STATUS -->
+
+        <div class="stat-card">
+
+            {% if current_user.is_disabled %}
+            <i class="fa-solid fa-user-lock" style="color: #b91c1c;"></i>
+            <h3 style="color: #b91c1c;">Disabled</h3>
+            {% else %}
+            <i class="fa-solid fa-user-check"></i>
+            <h3>Active</h3>
+            {% endif %}
+
+            <p>
+
+                Account Status
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================================= -->
+    <!-- PREDICTION HISTORY -->
+    <!-- ========================================= -->
+
+    <div class="history-card">
+
+
+        <!-- SECTION TITLE -->
+
+        <div class="section-title">
+
+            <h2>
+
+                Prediction History
+
+            </h2>
+
+            {% if not current_user.is_disabled %}
+            <a href="{{ url_for('prediction_page') }}">
+
+                <i class="fa-solid fa-plus"></i>
+
+                New Prediction
+
+            </a>
+            {% endif %}
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- IF ACCOUNT IS DISABLED -->
+        <!-- ========================================= -->
+        {% if current_user.is_disabled %}
+
+        <div class="empty">
+
+            <i class="fa-solid fa-user-lock"></i>
+
+            <h3>
+                Account is Disabled
+            </h3>
+
+            <p>
+                Your health records and prediction history are currently hidden.
+            </p>
+
+            <form action="{{ url_for('enable_account') }}" method="POST">
+                <button type="submit" style="margin-top: 20px; background: #10b981; color: white; padding: 12px 25px; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-family: inherit;">
+                    <i class="fa-solid fa-unlock"></i> Re-Enable Account
+                </button>
+            </form>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- IF PREDICTIONS EXIST -->
+        <!-- ========================================= -->
+
+        {% elif predictions %}
+
+
+        <div class="table-wrapper">
+
+
+            <table>
+
+
+                <!-- TABLE HEADER -->
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Age
+                        </th>
+
+                        <th>
+                            Risk Result
+                        </th>
+
+                        <th>
+                            Probability
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <!-- TABLE BODY -->
+
+                <tbody>
+
+
+                    {% for prediction in predictions %}
+
+
+                    <tr>
+
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            {{ prediction.created_at.strftime('%d %b %Y') }}
+
+                        </td>
+
+
+
+                        <!-- AGE -->
+
+                        <td>
+
+                            {{ prediction.age }}
+
+                        </td>
+
+
+
+                        <!-- RESULT -->
+
+                        <td>
+
+
+                            {% if prediction.result == "High Risk" %}
+
+
+                                <span class="high">
+
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                                    High Risk
+
+                                </span>
+
+
+                            {% elif prediction.result == "Medium Risk" %}
+
+
+                                <span class="medium">
+
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                                    Medium Risk
+
+                                </span>
+
+
+                            {% else %}
+
+
+                                <span class="low">
+
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                    Low Risk
+
+                                </span>
+
+
+                            {% endif %}
+
+
+                        </td>
+
+
+
+                        <!-- PROBABILITY -->
+
+                        <td>
+
+                            {{ prediction.probability }}%
+
+                        </td>
+
+
+
+                        <!-- VIEW REPORT -->
+
+                        <td>
+
+
+                            <a href="{{ url_for('view_report', prediction_id=prediction.id) }}"
+                               class="view-btn">
+
+
+                                <i class="fa-solid fa-file-medical"></i>
+
+
+                                View Report
+
+
+                            </a>
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- NO PREDICTIONS -->
+        <!-- ========================================= -->
+
+        {% else %}
+
+
+        <div class="empty">
+
+
+            <i class="fa-solid fa-file-medical"></i>
+
+
+            <h3>
+
+                No Predictions Yet
+
+            </h3>
+
+
+            <p>
+
+                You have not made any heart disease
+                risk predictions yet.
+
+            </p>
+
+
+            <a href="{{ url_for('prediction_page') }}">
+
+                <i class="fa-solid fa-heart-pulse"></i>
+
+                Make Your First Prediction
+
+            </a>
+
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- PROFILE SETTINGS MODAL -->
+    <!-- ========================================= -->
+
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Profile Settings</h2>
+                <button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
             
-            <form action="{{ url_for('update_profile') }}" method="POST" style="margin-top: 20px; max-width: 500px;">
-                <div class="input-group">
+            <form action="{{ url_for('update_profile') }}" method="POST">
+                <div class="form-group">
                     <label>Username</label>
                     <input type="text" name="username" value="{{ current_user.username }}" required>
                 </div>
-                <div class="input-group">
+                
+                <div class="form-group">
                     <label>Email Address</label>
                     <input type="email" name="email" value="{{ current_user.email }}" required>
                 </div>
                 
-                <h3 style="margin-top: 25px; margin-bottom: 15px; font-size: 1.1rem;">Change Password (Optional)</h3>
-                <div class="input-group">
-                    <label>Current Password</label>
-                    <input type="password" name="current_password" placeholder="Required if changing password">
-                </div>
-                <div class="input-group">
-                    <label>New Password</label>
-                    <input type="password" name="new_password">
-                </div>
-                <div class="input-group">
-                    <label>Confirm New Password</label>
-                    <input type="password" name="confirm_password">
+                <hr class="modal-divider">
+                
+                <div class="form-group">
+                    <label>Current Password <small style="color:#94a3b8; font-weight:normal;">(Leave blank to keep current)</small></label>
+                    <input type="password" name="current_password" placeholder="Enter current password">
                 </div>
                 
-                <button type="submit" class="btn-update"><i class="fa-solid fa-floppy-disk"></i> Update Profile</button>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" name="new_password" placeholder="Enter new password">
+                </div>
+                
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" name="confirm_password" placeholder="Confirm new password">
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" id="cancelModalBtn">Cancel</button>
+                    <button type="submit" class="btn-save">Save Changes</button>
+                </div>
             </form>
 
-            <hr style="margin: 40px 0 25px 0; border: none; border-top: 1px solid #e2e8f0;">
-
-            <!-- ================= DANGER ZONE (ACCOUNT ACTIONS) ================= -->
-            <h3 style="color: #e11d48; margin-bottom: 15px;"><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone</h3>
-            
-            <div class="account-actions" style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <!-- ========================================= -->
+            <!-- DANGER ZONE -->
+            <!-- ========================================= -->
+            <div class="danger-zone">
+                <h3>Account Status & Danger Zone</h3>
+                <p>Manage your account visibility or permanently erase your data.</p>
                 
-                <!-- DISABLE ACCOUNT BUTTON (Only show if account is currently active) -->
-                {% if not current_user.is_disabled %}
-                <form action="{{ url_for('disable_account') }}" method="POST" onsubmit="return confirm('Are you sure you want to disable your account? Your prediction data will be hidden until you enable it again.');">
-                    <button type="submit" style="background: #f59e0b; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                        <i class="fa-solid fa-eye-slash"></i> Disable Account
-                    </button>
-                </form>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+                    
+                    {% if current_user.is_disabled %}
+                    <!-- ACTIVATE ACCOUNT -->
+                    <form action="{{ url_for('enable_account') }}" method="POST" style="margin:0;">
+                        <button type="submit" class="btn-danger" style="color: #15803d; border-color: #bbf7d0; background: #dcfce7;">
+                            <i class="fa-solid fa-unlock"></i> Activate Account
+                        </button>
+                    </form>
+                    {% else %}
+                    <!-- DISABLE ACCOUNT -->
+                    <form action="{{ url_for('disable_account') }}" method="POST" onsubmit="return confirm('Are you sure you want to disable your account? Your prediction data will be hidden until you activate it again.');" style="margin:0;">
+                        <button type="submit" class="btn-danger" style="color: #92400e; border-color: #fef3c7; background: #fffbeb;">
+                            <i class="fa-solid fa-eye-slash"></i> Disable Account
+                        </button>
+                    </form>
+                    {% endif %}
+
+                    <!-- DELETE ACCOUNT -->
+                    <form action="{{ url_for('delete_account') }}" method="POST" onsubmit="return confirm('Are you absolutely sure you want to permanently delete your account? This action cannot be undone.');" style="margin:0;">
+                        <button type="submit" class="btn-danger">
+                            <i class="fa-solid fa-trash-can"></i> Delete Account
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- COMMON FOOTER -->
+<!-- ========================================= -->
+
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+        <!-- ========================================= -->
+        <!-- ABOUT -->
+        <!-- ========================================= -->
+
+        <div class="footer-section">
+
+            <div class="footer-logo">
+
+                <i class="fa-solid fa-heart-pulse"></i>
+
+                <span>
+                    CardioPredict AI
+                </span>
+
+            </div>
+
+            <p>
+                CardioPredict AI is an intelligent
+                heart disease risk prediction system
+                developed using Machine Learning and
+                XGBoost to help users understand their
+                potential heart disease risk.
+            </p>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- QUICK LINKS -->
+        <!-- ========================================= -->
+
+        <div class="footer-section">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <ul class="footer-links">
+
+                <li>
+                    <a href="{{ url_for('home') }}">
+                        <i class="fa-solid fa-house"></i>
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('prediction_page') }}">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                        Prediction
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('about') }}">
+                        <i class="fa-solid fa-circle-info"></i>
+                        About
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('contact') }}">
+                        <i class="fa-solid fa-envelope"></i>
+                        Contact
+                    </a>
+                </li>
+
+                {% if current_user.is_authenticated %}
+
+                <li>
+                    <a href="{{ url_for('dashboard') }}">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                </li>
+
                 {% endif %}
 
-                <!-- PERMANENT DELETE BUTTON -->
-                <form action="{{ url_for('delete_account') }}" method="POST" onsubmit="return confirm('WARNING: This will permanently delete your account and all saved predictions. This cannot be undone. Continue?');">
-                    <button type="submit" style="background: #e11d48; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                        <i class="fa-solid fa-trash-can"></i> Permanently Delete
-                    </button>
-                </form>
-                
+            </ul>
+
+        </div>
+
+
+        <!-- ========================================= -->
+        <!-- CONTACT -->
+        <!-- ========================================= -->
+
+        <div class="footer-section">
+
+            <h3>
+                Connect With Us
+            </h3>
+
+            <div class="footer-contact">
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <span>
+                        Pune, Maharashtra, India
+                    </span>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <span>
+                        +91 98865 00642
+                    </span>
+
+                </div>
+
+
+                <div class="contact-item">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <a href="mailto:codewithtanmay098@gmail.com">
+
+                        codewithtanmay098@gmail.com
+
+                    </a>
+
+                </div>
+
             </div>
-        </section>
 
-    </main>
 
-    <!-- ================= FOOTER ================= -->
-    <footer style="text-align: center; padding: 20px 0; margin-top: auto; border-top: 1px solid var(--border-color, #e2e8f0);">
-        <p style="font-size: 0.9rem; color: #64748b;">© 2026 CardioPredict AI. All Rights Reserved.</p>
-    </footer>
+            <!-- ========================================= -->
+            <!-- SOCIAL ICONS -->
+            <!-- ========================================= -->
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+            <div class="footer-social">
+
+                <a href="#"
+                   aria-label="Instagram">
+
+                    <i class="fa-brands fa-instagram"></i>
+
+                </a>
+
+
+                <a href="#"
+                   aria-label="LinkedIn">
+
+                    <i class="fa-brands fa-linkedin-in"></i>
+
+                </a>
+
+
+                <a href="#"
+                   aria-label="GitHub">
+
+                    <i class="fa-brands fa-github"></i>
+
+                </a>
+
+
+                <a href="mailto:codewithtanmay098@gmail.com"
+                   aria-label="Email">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- SEND MESSAGE BUTTON -->
+            <!-- ========================================= -->
+
+            <a href="{{ url_for('contact') }}"
+               class="footer-btn">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                <span>
+                    Send Message
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- FOOTER BOTTOM -->
+    <!-- ========================================= -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 CardioPredict AI.
+            All Rights Reserved.
+        </p>
+
+        <p>
+            Built with
+            <i class="fa-solid fa-heart"></i>
+            using Machine Learning
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<!-- ========================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================= -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+    // PROFILE SETTINGS MODAL LOGIC
+    const profileModal = document.getElementById('profileModal');
+    const openSettingsBtn = document.getElementById('openSettingsBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelModalBtn = document.getElementById('cancelModalBtn');
+
+    function openModal() {
+        profileModal.classList.add('active');
+    }
+
+    function closeModal() {
+        profileModal.classList.remove('active');
+    }
+
+    openSettingsBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    cancelModalBtn.addEventListener('click', closeModal);
+
+    // Close modal if user clicks outside of the box
+    window.addEventListener('click', (e) => {
+        if (e.target === profileModal) {
+            closeModal();
+        }
+    });
+</script>
+
 </body>
+
 </html>
