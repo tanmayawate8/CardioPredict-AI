@@ -18,6 +18,7 @@ import string
 
 # Import Authlib for Google Login
 from authlib.integrations.flask_client import OAuth
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from config import Config
 from extensions import db, login_manager
@@ -27,11 +28,15 @@ from models import User, Prediction
 # CREATE FLASK APPLICATION
 # ============================================================
 app = Flask(__name__)
+
+# Tell Flask it is behind a proxy (like Render) to fix HTTPS redirects
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+
 app.config.from_object(Config)
 
-# Add Google OAuth Credentials (Replace with real ones later)
-app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
-app.config['GOOGLE_CLIENT_SECRET'] = "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"
+# Add Google OAuth Credentials (Replace with your live credentials)
+app.config['GOOGLE_CLIENT_ID'] = "YOUR_CLIENT_ID.apps.googleusercontent.com"
+app.config['GOOGLE_CLIENT_SECRET'] = "YOUR_CLIENT_SECRET"
 
 # ============================================================
 # INITIALIZE EXTENSIONS & OAUTH
@@ -275,6 +280,7 @@ def google_authorize():
         flash(f"Authentication failed: {str(e)}", "error")
         return redirect(url_for('login'))
 
+
 # ============================================================
 # GOOGLE ACCOUNT SETUP (PROFESSIONAL ONBOARDING)
 # ============================================================
@@ -328,6 +334,7 @@ def google_setup():
 
     return render_template('google_setup.html', email=email, suggested_username=suggested_username)
 
+
 # ============================================================
 # DASHBOARD
 # ============================================================
@@ -352,7 +359,7 @@ def update_profile():
     new_password = request.form.get("new_password", "")
     confirm_password = request.form.get("confirm_password", "")
 
-    user = User.query.get(current_user.id)
+    user = db.session.get(User, current_user.id)
 
     try:
         # Check and update Username
@@ -402,7 +409,7 @@ def update_profile():
 @app.route("/delete_account", methods=["POST"])
 @login_required
 def delete_account():
-    user = User.query.get(current_user.id)
+    user = db.session.get(User, current_user.id)
     try:
         Prediction.query.filter_by(user_id=user.id).delete()
         db.session.delete(user)
