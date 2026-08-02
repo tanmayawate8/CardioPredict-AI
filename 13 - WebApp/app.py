@@ -16,7 +16,7 @@ import os
 import secrets
 import string
 
-# Import Authlib for Google Login
+# Import Authlib for Google Login and ProxyFix for Render Deployment
 from authlib.integrations.flask_client import OAuth
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -34,9 +34,9 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 app.config.from_object(Config)
 
-# Add Google OAuth Credentials (Replace with your live credentials)
-app.config['GOOGLE_CLIENT_ID'] = "YOUR_CLIENT_ID.apps.googleusercontent.com"
-app.config['GOOGLE_CLIENT_SECRET'] = "YOUR_CLIENT_SECRET"
+# Add Google OAuth Credentials (Preserved as requested)
+app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
+app.config['GOOGLE_CLIENT_SECRET'] = "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"
 
 # ============================================================
 # INITIALIZE EXTENSIONS & OAUTH
@@ -47,8 +47,8 @@ login_manager.init_app(app)
 oauth = OAuth(app)
 google = oauth.register(
     name='google',
-    client_id=app.config.get('472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com'),
-    client_secret=app.config.get('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'),
+    client_id=app.config.get('GOOGLE_CLIENT_ID'),
+    client_secret=app.config.get('GOOGLE_CLIENT_SECRET'),
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     client_kwargs={
         'scope': 'openid email profile'
@@ -280,7 +280,6 @@ def google_authorize():
         flash(f"Authentication failed: {str(e)}", "error")
         return redirect(url_for('login'))
 
-
 # ============================================================
 # GOOGLE ACCOUNT SETUP (PROFESSIONAL ONBOARDING)
 # ============================================================
@@ -333,7 +332,6 @@ def google_setup():
         return redirect(url_for('dashboard'))
 
     return render_template('google_setup.html', email=email, suggested_username=suggested_username)
-
 
 # ============================================================
 # DASHBOARD
