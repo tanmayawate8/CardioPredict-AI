@@ -233,14 +233,14 @@ def google_login():
     # Save whether they clicked from 'login' or 'register' into the session
     session['google_action'] = request.args.get('action', 'login')
 
-    # 3. FORCE HTTPS REDIRECT URI FOR RENDER
-    # This ensures Google doesn't block the request due to an HTTP/HTTPS mismatch
+    # FORCE HTTPS REDIRECT URI FOR RENDER
     if 'onrender.com' in request.host:
         redirect_uri = url_for('google_authorize', _external=True, _scheme='https')
     else:
         redirect_uri = url_for('google_authorize', _external=True)
 
     return oauth.google.authorize_redirect(redirect_uri)
+
 
 @app.route('/login/google/authorize')
 def google_authorize():
@@ -274,14 +274,14 @@ def google_authorize():
 
         # SCENARIO 2: ACCOUNT ALREADY EXISTS
         if action == 'register':
-            # NEW RULE: If they click register but already exist, tell them to login
+            # Block them from registering again and tell them to login
             flash("Account already exists. Please login instead.", "error")
             return redirect(url_for('login'))
         else:
             # They clicked from the Login page, so welcome them back
             flash(f"Welcome back, {user.username}!", "success")
 
-        # Log them in securely (This now only happens if they came from the Login page)
+        # Log them in securely
         login_user(user, remember=True)
 
         # Handle pending predictions
@@ -293,6 +293,8 @@ def google_authorize():
     except Exception as e:
         flash(f"Authentication failed: {str(e)}", "error")
         return redirect(url_for('login'))
+
+
 # ============================================================
 # GOOGLE ACCOUNT SETUP (PROFESSIONAL ONBOARDING)
 # ============================================================
@@ -356,9 +358,14 @@ def google_setup():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    predictions = Prediction.query.filter_by(
-        user_id=current_user.id
-    ).order_by(Prediction.created_at.desc()).all()
+    # If disabled, send an empty list so results don't show
+    if current_user.is_disabled:
+        predictions = []
+    else:
+        predictions = Prediction.query.filter_by(
+            user_id=current_user.id
+        ).order_by(Prediction.created_at.desc()).all()
+
     return render_template("dashboard.html", predictions=predictions)
 
 
@@ -419,6 +426,32 @@ def update_profile():
 
 
 # ============================================================
+# DISABLE ACCOUNT
+# ============================================================
+@app.route("/disable_account", methods=["POST"])
+@login_required
+def disable_account():
+    user = db.session.get(User, current_user.id)
+    user.is_disabled = True
+    db.session.commit()
+    flash("Your account has been disabled. Your results are now hidden.", "info")
+    return redirect(url_for("dashboard"))
+
+
+# ============================================================
+# ENABLE ACCOUNT
+# ============================================================
+@app.route("/enable_account", methods=["POST"])
+@login_required
+def enable_account():
+    user = db.session.get(User, current_user.id)
+    user.is_disabled = False
+    db.session.commit()
+    flash("Account restored! Your data is visible again.", "success")
+    return redirect(url_for("dashboard"))
+
+
+# ============================================================
 # DELETE ACCOUNT
 # ============================================================
 @app.route("/delete_account", methods=["POST"])
@@ -446,6 +479,11 @@ def delete_account():
 @app.route("/report/<int:prediction_id>")
 @login_required
 def view_report(prediction_id):
+    # Do not allow viewing reports if disabled
+    if current_user.is_disabled:
+        flash("You cannot view reports while your account is disabled.", "error")
+        return redirect(url_for("dashboard"))
+
     prediction = Prediction.query.filter_by(
         id=prediction_id, user_id=current_user.id
     ).first_or_404()
@@ -613,6 +651,11 @@ def save_prediction():
 @app.route("/save-pending-prediction")
 @login_required
 def save_pending_prediction():
+    # Block saving if the account is disabled
+    if current_user.is_disabled:
+        flash("You cannot save predictions while your account is disabled.", "error")
+        return redirect(url_for("dashboard"))
+
     pending = session.get("pending_prediction")
 
     if not pending:

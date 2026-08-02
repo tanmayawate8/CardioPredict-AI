@@ -43,6 +43,14 @@ class User(db.Model, UserMixin):
         nullable=False
     )
 
+    # ==========================================
+    # ACCOUNT STATUS FLAG (NEW)
+    # ==========================================
+    is_disabled = db.Column(
+        db.Boolean,
+        default=False
+    )
+
     created_at = db.Column(
         db.DateTime,
         default=datetime.utcnow
