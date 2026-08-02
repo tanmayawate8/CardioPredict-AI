@@ -34,6 +34,11 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 app.config.from_object(Config)
 
+# --- ADD THESE TWO LINES TO FIX THE CSRF MISMATCH ---
+app.config['SECRET_KEY'] = 'CardioPredict_Secure_Static_Key_2026'
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+# ----------------------------------------------------
+
 # Add Google OAuth Credentials (Preserved live keys)
 app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
 app.config['GOOGLE_CLIENT_SECRET'] = "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"
