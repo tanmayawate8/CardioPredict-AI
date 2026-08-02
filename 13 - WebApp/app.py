@@ -242,7 +242,6 @@ def google_login():
 
     return oauth.google.authorize_redirect(redirect_uri)
 
-
 @app.route('/login/google/authorize')
 def google_authorize():
     try:
@@ -275,11 +274,14 @@ def google_authorize():
 
         # SCENARIO 2: ACCOUNT ALREADY EXISTS
         if action == 'register':
-            flash(f"Account already exists! Welcome back, {user.username}.", "success")
+            # NEW RULE: If they click register but already exist, tell them to login
+            flash("Account already exists. Please login instead.", "error")
+            return redirect(url_for('login'))
         else:
+            # They clicked from the Login page, so welcome them back
             flash(f"Welcome back, {user.username}!", "success")
 
-        # Log them in securely
+        # Log them in securely (This now only happens if they came from the Login page)
         login_user(user, remember=True)
 
         # Handle pending predictions
@@ -291,8 +293,6 @@ def google_authorize():
     except Exception as e:
         flash(f"Authentication failed: {str(e)}", "error")
         return redirect(url_for('login'))
-
-
 # ============================================================
 # GOOGLE ACCOUNT SETUP (PROFESSIONAL ONBOARDING)
 # ============================================================
