@@ -217,11 +217,11 @@ def login():
 # ============================================================
 # GOOGLE OAUTH LOGIN ROUTES
 # ============================================================
-# ============================================================
-# GOOGLE OAUTH LOGIN ROUTES
-# ============================================================
 @app.route('/login/google')
 def google_login():
+    # Save whether they clicked from 'login' or 'register' into the session
+    session['google_action'] = request.args.get('action', 'login')
+
     redirect_uri = url_for('google_authorize', _external=True)
     return oauth.google.authorize_redirect(redirect_uri)
 
@@ -241,16 +241,31 @@ def google_authorize():
 
         user = User.query.filter_by(email=email).first()
 
-        if not user:
-            # NEW PROFESSIONAL FLOW: Save info to session and redirect to setup
-            session['google_email'] = email
-            session['google_name'] = name
-            return redirect(url_for('google_setup'))
+        # Check the action we saved earlier
+        action = session.get('google_action', 'login')
 
-        # EXISTING USER FLOW: Log them in instantly
-        flash(f"Welcome back, {user.username}!", "success")
+        # SCENARIO 1: ACCOUNT DOES NOT EXIST
+        if not user:
+            if action == 'login':
+                # Block them and show the error message on the login page
+                flash("Account does not exist. Please register first.", "error")
+                return redirect(url_for('login'))
+            else:
+                # They clicked from Register, so send them to the setup page
+                session['google_email'] = email
+                session['google_name'] = name
+                return redirect(url_for('google_setup'))
+
+        # SCENARIO 2: ACCOUNT ALREADY EXISTS
+        if action == 'register':
+            flash(f"Account already exists! Welcome back, {user.username}.", "success")
+        else:
+            flash(f"Welcome back, {user.username}!", "success")
+
+        # Log them in securely
         login_user(user, remember=True)
 
+        # Handle pending predictions
         if session.get("pending_prediction"):
             return redirect(url_for("save_pending_prediction"))
 
@@ -259,7 +274,6 @@ def google_authorize():
     except Exception as e:
         flash(f"Authentication failed: {str(e)}", "error")
         return redirect(url_for('login'))
-
 
 # ============================================================
 # GOOGLE ACCOUNT SETUP (PROFESSIONAL ONBOARDING)
