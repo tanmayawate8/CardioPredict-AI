@@ -76,6 +76,17 @@ def load_user(user_id):
 with app.app_context():
     db.create_all()
 
+    from sqlalchemy import text
+
+    try:
+        with db.engine.connect() as conn:
+            conn.execute(text("ALTER TABLE users ADD COLUMN IF NOT EXISTS is_disabled BOOLEAN DEFAULT FALSE;"))
+            conn.commit()
+            print("Database auto-updated successfully!")
+    except Exception as e:
+        print("Database check complete. Error (if any):", e)
+    # ------------------------------
+
 # ============================================================
 # LOAD AI MODEL, SCALER, AND ENCODERS
 # ============================================================
