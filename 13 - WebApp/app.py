@@ -20,6 +20,9 @@ import string
 from authlib.integrations.flask_client import OAuth
 from werkzeug.middleware.proxy_fix import ProxyFix
 
+# Import text for raw SQL execution (used for DB upgrade)
+from sqlalchemy import text
+
 from config import Config
 from extensions import db, login_manager
 from models import User, Prediction
@@ -702,6 +705,21 @@ def logout():
     logout_user()
     flash("You have been logged out.", "success")
     return redirect(url_for("home"))
+
+
+# ============================================================
+# TEMPORARY DATABASE UPGRADE ROUTE (RUN THIS ONCE)
+# ============================================================
+@app.route("/upgrade-db")
+def upgrade_db():
+    try:
+        with db.engine.connect() as conn:
+            # This SQL command adds the missing column safely to your live database
+            conn.execute(text("ALTER TABLE users ADD COLUMN is_disabled BOOLEAN DEFAULT FALSE;"))
+            conn.commit()
+        return "Database upgraded successfully! The is_disabled column was added. You can now use the app."
+    except Exception as e:
+        return f"Error (The column might already exist or another issue occurred): {str(e)}"
 
 
 # ============================================================
