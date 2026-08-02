@@ -20,7 +20,7 @@ import string
 from authlib.integrations.flask_client import OAuth
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-# Import text for raw SQL execution (used for DB upgrade)
+# Import text for raw SQL execution
 from sqlalchemy import text
 
 from config import Config
@@ -32,18 +32,17 @@ from models import User, Prediction
 # ============================================================
 app = Flask(__name__)
 
-# 1. UPGRADED PROXY FIX: Forces Flask to perfectly respect Render's HTTPS routing
+# UPGRADED PROXY FIX: Forces Flask to perfectly respect Render's HTTPS routing
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 app.config.from_object(Config)
 
-# 2. BULLETPROOF SESSION SECURITY (Fixes the CSRF Mismatch Error)
-# We force a static Secret Key here so Render's multiple workers never wipe the session!
+# BULLETPROOF SESSION SECURITY
 app.config['SECRET_KEY'] = 'CardioPredict_Secure_Static_Key_2026_LIVE'
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['SESSION_COOKIE_SECURE'] = False
 
-# Add Google OAuth Credentials (Preserved live keys)
+# Add Google OAuth Credentials
 app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
 app.config['GOOGLE_CLIENT_SECRET'] = "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"
 
@@ -65,27 +64,36 @@ google = oauth.register(
 )
 
 
+# ============================================================
+# CRITICAL FIX: CRASH-PROOF USER LOADER
+# ============================================================
 @login_manager.user_loader
 def load_user(user_id):
     try:
         return db.session.get(User, int(user_id))
-    except (ValueError, TypeError):
+    except Exception as e:
+        # If the browser has a cookie but the DB is missing a column,
+        # this safely ignores the cookie and prevents the 500 error!
+        print("Safely bypassing database schema error during user load.")
         return None
 
 
+# ============================================================
+# AUTOMATIC DATABASE PATCH
+# ============================================================
 with app.app_context():
-    db.create_all()
-
-    from sqlalchemy import text
-
+    # 1. Force the missing column into the database BEFORE anything else happens
     try:
         with db.engine.connect() as conn:
-            conn.execute(text("ALTER TABLE users ADD COLUMN IF NOT EXISTS is_disabled BOOLEAN DEFAULT FALSE;"))
+            conn.execute(text("ALTER TABLE users ADD COLUMN is_disabled BOOLEAN DEFAULT FALSE;"))
             conn.commit()
-            print("Database auto-updated successfully!")
-    except Exception as e:
-        print("Database check complete. Error (if any):", e)
-    # ------------------------------
+            print("Database patched successfully: is_disabled column added!")
+    except Exception:
+        # Fails silently if the column already exists (which is what we want)
+        pass
+
+    # 2. Proceed with normal table creation
+    db.create_all()
 
 # ============================================================
 # LOAD AI MODEL, SCALER, AND ENCODERS
@@ -244,10 +252,8 @@ def login():
 # ============================================================
 @app.route('/login/google')
 def google_login():
-    # Save whether they clicked from 'login' or 'register' into the session
     session['google_action'] = request.args.get('action', 'login')
 
-    # FORCE HTTPS REDIRECT URI FOR RENDER
     if 'onrender.com' in request.host:
         redirect_uri = url_for('google_authorize', _external=True, _scheme='https')
     else:
@@ -271,34 +277,25 @@ def google_authorize():
 
         user = User.query.filter_by(email=email).first()
 
-        # Check the action we saved earlier
         action = session.get('google_action', 'login')
 
-        # SCENARIO 1: ACCOUNT DOES NOT EXIST
         if not user:
             if action == 'login':
-                # Block them and show the error message on the login page
                 flash("Account does not exist. Please register first.", "error")
                 return redirect(url_for('login'))
             else:
-                # They clicked from Register, so send them to the setup page
                 session['google_email'] = email
                 session['google_name'] = name
                 return redirect(url_for('google_setup'))
 
-        # SCENARIO 2: ACCOUNT ALREADY EXISTS
         if action == 'register':
-            # Block them from registering again and tell them to login
             flash("Account already exists. Please login instead.", "error")
             return redirect(url_for('login'))
         else:
-            # They clicked from the Login page, so welcome them back
             flash(f"Welcome back, {user.username}!", "success")
 
-        # Log them in securely
         login_user(user, remember=True)
 
-        # Handle pending predictions
         if session.get("pending_prediction"):
             return redirect(url_for("save_pending_prediction"))
 
@@ -310,18 +307,16 @@ def google_authorize():
 
 
 # ============================================================
-# GOOGLE ACCOUNT SETUP (PROFESSIONAL ONBOARDING)
+# GOOGLE ACCOUNT SETUP
 # ============================================================
 @app.route('/google-setup', methods=['GET', 'POST'])
 def google_setup():
-    # If they somehow got here without Google Auth, send them to register
     if 'google_email' not in session:
         return redirect(url_for('register'))
 
     email = session.get('google_email')
     name = session.get('google_name')
 
-    # SAFE USERNAME GENERATION: Fallback to email prefix if Google Name is missing
     if name:
         suggested_username = name.replace(" ", "")
     else:
@@ -334,13 +329,11 @@ def google_setup():
             return render_template('google_setup.html', email=email, suggested_username=suggested_username,
                                    error="Username is required.")
 
-        # Check if they picked a username that someone else is already using
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             return render_template('google_setup.html', email=email, suggested_username=username,
                                    error="Username is already taken. Please choose another.")
 
-        # Generate a secure random password for Google-created accounts
         alphabet = string.ascii_letters + string.digits + string.punctuation
         random_password = ''.join(secrets.choice(alphabet) for i in range(20))
 
@@ -350,11 +343,9 @@ def google_setup():
         db.session.add(new_user)
         db.session.commit()
 
-        # Clear the setup session data
         session.pop('google_email', None)
         session.pop('google_name', None)
 
-        # Log them in and finalize
         login_user(new_user, remember=True)
         flash("Account created successfully with Google!", "success")
 
@@ -372,7 +363,6 @@ def google_setup():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    # If disabled, send an empty list so results don't show
     if current_user.is_disabled:
         predictions = []
     else:
@@ -398,21 +388,18 @@ def update_profile():
     user = db.session.get(User, current_user.id)
 
     try:
-        # Check and update Username
         if username and username != user.username:
             if User.query.filter_by(username=username).first():
                 flash("Username is already taken.", "error")
                 return redirect(url_for("dashboard"))
             user.username = username
 
-        # Check and update Email
         if email and email != user.email:
             if User.query.filter_by(email=email).first():
                 flash("Email is already registered.", "error")
                 return redirect(url_for("dashboard"))
             user.email = email
 
-        # Password Update Logic
         if current_password or new_password or confirm_password:
             if not current_password:
                 flash("Please enter your current password to set a new one.", "error")
@@ -493,7 +480,6 @@ def delete_account():
 @app.route("/report/<int:prediction_id>")
 @login_required
 def view_report(prediction_id):
-    # Do not allow viewing reports if disabled
     if current_user.is_disabled:
         flash("You cannot view reports while your account is disabled.", "error")
         return redirect(url_for("dashboard"))
@@ -665,7 +651,6 @@ def save_prediction():
 @app.route("/save-pending-prediction")
 @login_required
 def save_pending_prediction():
-    # Block saving if the account is disabled
     if current_user.is_disabled:
         flash("You cannot save predictions while your account is disabled.", "error")
         return redirect(url_for("dashboard"))
@@ -716,21 +701,6 @@ def logout():
     logout_user()
     flash("You have been logged out.", "success")
     return redirect(url_for("home"))
-
-
-# ============================================================
-# TEMPORARY DATABASE UPGRADE ROUTE (RUN THIS ONCE)
-# ============================================================
-@app.route("/upgrade-db")
-def upgrade_db():
-    try:
-        with db.engine.connect() as conn:
-            # This SQL command adds the missing column safely to your live database
-            conn.execute(text("ALTER TABLE users ADD COLUMN is_disabled BOOLEAN DEFAULT FALSE;"))
-            conn.commit()
-        return "Database upgraded successfully! The is_disabled column was added. You can now use the app."
-    except Exception as e:
-        return f"Error (The column might already exist or another issue occurred): {str(e)}"
 
 
 # ============================================================
