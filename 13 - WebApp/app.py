@@ -34,7 +34,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 app.config.from_object(Config)
 
-# Add Google OAuth Credentials (Preserved as requested)
+# Add Google OAuth Credentials (Preserved live keys)
 app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
 app.config['GOOGLE_CLIENT_SECRET'] = "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"
 
@@ -289,11 +289,14 @@ def google_setup():
     if 'google_email' not in session:
         return redirect(url_for('register'))
 
-    email = session['google_email']
-    name = session['google_name']
+    email = session.get('google_email')
+    name = session.get('google_name')
 
-    # Auto-generate a clean suggested username (removes spaces from Google name)
-    suggested_username = name.replace(" ", "")
+    # SAFE USERNAME GENERATION: Fallback to email prefix if Google Name is missing
+    if name:
+        suggested_username = name.replace(" ", "")
+    else:
+        suggested_username = email.split("@")[0] if email else "User"
 
     if request.method == 'POST':
         username = request.form.get('username').strip()
