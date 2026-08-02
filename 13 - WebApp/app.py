@@ -29,15 +29,16 @@ from models import User, Prediction
 # ============================================================
 app = Flask(__name__)
 
-# Tell Flask it is behind a proxy (like Render) to fix HTTPS redirects
-app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+# 1. UPGRADED PROXY FIX: Forces Flask to perfectly respect Render's HTTPS routing
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 app.config.from_object(Config)
 
-# --- ADD THESE TWO LINES TO FIX THE CSRF MISMATCH ---
-app.config['SECRET_KEY'] = 'CardioPredict_Secure_Static_Key_2026'
+# 2. BULLETPROOF SESSION SECURITY (Fixes the CSRF Mismatch Error)
+# We force a static Secret Key here so Render's multiple workers never wipe the session!
+app.config['SECRET_KEY'] = 'CardioPredict_Secure_Static_Key_2026_LIVE'
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-# ----------------------------------------------------
+app.config['SESSION_COOKIE_SECURE'] = False
 
 # Add Google OAuth Credentials (Preserved live keys)
 app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
@@ -232,7 +233,13 @@ def google_login():
     # Save whether they clicked from 'login' or 'register' into the session
     session['google_action'] = request.args.get('action', 'login')
 
-    redirect_uri = url_for('google_authorize', _external=True)
+    # 3. FORCE HTTPS REDIRECT URI FOR RENDER
+    # This ensures Google doesn't block the request due to an HTTP/HTTPS mismatch
+    if 'onrender.com' in request.host:
+        redirect_uri = url_for('google_authorize', _external=True, _scheme='https')
+    else:
+        redirect_uri = url_for('google_authorize', _external=True)
+
     return oauth.google.authorize_redirect(redirect_uri)
 
 
@@ -284,6 +291,7 @@ def google_authorize():
     except Exception as e:
         flash(f"Authentication failed: {str(e)}", "error")
         return redirect(url_for('login'))
+
 
 # ============================================================
 # GOOGLE ACCOUNT SETUP (PROFESSIONAL ONBOARDING)
@@ -340,6 +348,7 @@ def google_setup():
         return redirect(url_for('dashboard'))
 
     return render_template('google_setup.html', email=email, suggested_username=suggested_username)
+
 
 # ============================================================
 # DASHBOARD
