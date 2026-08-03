@@ -280,7 +280,7 @@
     });
 
     // Profile Modal Logic
-    const profileModal = document.getElementById('profileModal');
+const profileModal = document.getElementById('profileModal');
     const openSettingsBtn = document.getElementById('openSettingsBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const cancelModalBtn = document.getElementById('cancelModalBtn');
@@ -292,18 +292,12 @@
     closeModalBtn.addEventListener('click', closeModal);
     cancelModalBtn.addEventListener('click', closeModal);
 
+    // Close modal if user clicks outside of the box
     window.addEventListener('click', (e) => {
-        if (e.target === profileModal) closeModal();
+        if (e.target === profileModal) {
+            closeModal();
+        }
     });
-
-    // Mobile Menu
-    const menuBtn = document.getElementById('menu-toggle');
-    const navUl = document.getElementById('navLinks');
-    if(menuBtn && navUl) {
-        menuBtn.addEventListener('click', () => {
-            navUl.classList.toggle('active');
-        });
-    }
 </script>
 </body>
 </html>
