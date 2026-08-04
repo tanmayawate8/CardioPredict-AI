@@ -23,21 +23,26 @@
 <body>
 
 <header>
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fa-solid fa-heart-pulse"></i>
-            <span>CardioPredict AI</span>
-        </div>
-
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <button id="theme-toggle" aria-label="Toggle dark mode" type="button" class="theme-btn">
+    <nav class="navbar" style="display: flex; justify-content: space-between; align-items: center;">
+        
+        <!-- LEFT CORNER: Theme Button + Logo -->
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <button id="theme-toggle" aria-label="Toggle dark mode" type="button" class="theme-btn" style="display: flex; align-items: center;">
                 <i class="fa-solid fa-moon"></i>
             </button>
-            <button class="menu-toggle" id="menu-toggle">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+
+            <div class="logo" style="margin: 0;">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <span>CardioPredict AI</span>
+            </div>
         </div>
 
+        <!-- RIGHT CORNER: Mobile Menu Toggle -->
+        <button class="menu-toggle" id="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <!-- NAVIGATION LINKS -->
         <ul class="nav-links" id="navLinks">
             <li><a href="{{ url_for('home') }}">Home</a></li>
             <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
