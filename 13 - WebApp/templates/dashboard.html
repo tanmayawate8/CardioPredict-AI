@@ -23,38 +23,37 @@
 <body>
 
 <header>
-    <nav class="navbar" style="display: flex; justify-content: space-between; align-items: center;">
-        
-        <!-- LEFT CORNER: Logo -->
-        <div class="logo" style="margin: 0;">
-            <i class="fa-solid fa-heart-pulse"></i>
-            <span>CardioPredict AI</span>
-        </div>
+    <nav class="navbar">
+    <!-- LOGO (Left) -->
+    <div class="logo">
+        <i class="fa-solid fa-heart-pulse"></i>
+        <span>CardioPredict AI</span>
+    </div>
 
-        <!-- RIGHT CORNER: Nav Links + Theme Button + Mobile Menu Toggle -->
-        <div style="display: flex; align-items: center; gap: 15px;">
-            
-            <ul class="nav-links" id="navLinks">
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                {% if current_user.is_authenticated %}
-                <li><span class="nav-user"><i class="fa-solid fa-user"></i> {{ current_user.username }}</span></li>
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                {% endif %}
-            </ul>
+    <!-- NAVIGATION LINKS (Pushed Right via CSS) -->
+    <ul class="nav-links" id="navLinks">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        {% if current_user.is_authenticated %}
+        <li><span class="nav-user"><i class="fa-solid fa-user"></i> {{ current_user.username }}</span></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+    </ul>
 
-            <button id="theme-toggle" aria-label="Toggle dark mode" type="button" class="theme-btn">
-                <i class="fa-solid fa-moon"></i>
-            </button>
+    <!-- DARK THEME BUTTON (Right Corner) -->
+    <button id="theme-toggle" aria-label="Toggle dark mode" type="button" class="theme-btn">
+        <i class="fa-solid fa-moon"></i>
+    </button>
 
-            <button class="menu-toggle" id="menu-toggle">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            
-        </div>
-    </nav>
+    <!-- MOBILE MENU BUTTON (Hidden on Desktop) -->
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+</nav>
 </header>
 
 <section class="dashboard">
