@@ -375,7 +375,7 @@ SMALL MOBILE
 }
 
 /*=========================================================
-DASHBOARD FOOTER
+DASHBOARD FOOTER (Light Mode Defaults)
 =========================================================*/
 .site-footer{ margin-top:70px; background:#0f172a; color:#fff; width:100%; }
 .site-footer .footer-container{ max-width:1400px; margin:auto; padding:60px 8%; display:grid; grid-template-columns:repeat(3,minmax(250px,1fr)); gap:45px; align-items:flex-start; }
@@ -406,56 +406,60 @@ DASHBOARD FOOTER
 @media (max-width:768px){ .site-footer{ margin-top:50px; } .site-footer .footer-container{ grid-template-columns:1fr; text-align:center; padding:45px 25px; } .site-footer .footer-logo, .site-footer .footer-links a, .site-footer .contact-item, .site-footer .footer-social{ justify-content:center; text-align:center; } .site-footer .footer-btn{ width:100%; } }
 @media (max-width:480px){ .site-footer .footer-container{ padding:35px 18px; } .site-footer .footer-logo{ font-size:22px; } .site-footer .footer-section h3{ font-size:20px; } .site-footer .footer-btn{ padding:13px; font-size:14px; } }
 
+
 /*=========================================================
 TRUE BLACK DARK THEME OVERRIDES + ANIMATIONS
 =========================================================*/
 
-/* 1. SMOOTH ANIMATION FOR THEME SWITCHING */
-body, .navbar, .welcome-card, .stat-card, .history-card, 
-.modal-content, .site-footer, th, td, .theme-btn, 
+/* Smooth Animations for all Theme Elements */
+body, .dashboard, .navbar, .welcome-card, .stat-card, .history-card, 
+.modal-content, .site-footer, th, td, tr, .theme-btn, 
 .btn-cancel, .btn-save, .btn-danger, .btn-activate, .btn-disable {
-    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease !important;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
 }
 
-/* 2. TRUE BLACK BACKGROUNDS */
-[data-theme="dark"] body { background: #000000; color: #e0e0e0; }
-[data-theme="dark"] .dashboard { background: #000000; }
+/* Pitch Black Background */
+[data-theme="dark"] body, 
+[data-theme="dark"] .dashboard { 
+    background: #000000 !important; 
+    color: #e2e8f0; 
+}
 
-/* Navbar True Black */
-[data-theme="dark"] .navbar { background: #0a0a0a; border-bottom: 1px solid #1a1a1a; }
+/* Navbar */
+[data-theme="dark"] .navbar { 
+    background: #0a0a0a !important; 
+    border-bottom: 1px solid #1a1a1a !important; 
+}
 [data-theme="dark"] .logo span, 
 [data-theme="dark"] .nav-links a, 
-[data-theme="dark"] .nav-user { color: #ffffff; }
-[data-theme="dark"] .nav-links a:hover { color: #d90429; background: #111111; }
+[data-theme="dark"] .nav-user { color: #ffffff !important; }
+[data-theme="dark"] .nav-links a:hover { color: #d90429 !important; background: #111111 !important; }
 [data-theme="dark"] .menu-toggle, 
 [data-theme="dark"] .theme-btn { color: #ffffff !important; }
-@media (max-width: 768px) {
-    [data-theme="dark"] .nav-links { background: #0a0a0a; border-bottom: 1px solid #1a1a1a; }
-}
 
-/* Dashboard Cards True Black */
+/* Dashboard Cards */
 [data-theme="dark"] .welcome-card,
 [data-theme="dark"] .stat-card,
 [data-theme="dark"] .history-card { 
-    background: #0a0a0a; 
-    border-color: #1a1a1a; 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.8); 
+    background: #0a0a0a !important; 
+    border: 1px solid #1a1a1a !important; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important; 
 }
 [data-theme="dark"] .welcome-card h1,
 [data-theme="dark"] .stat-card h3,
 [data-theme="dark"] .section-title h2,
-[data-theme="dark"] .empty h3 { color: #ffffff; }
+[data-theme="dark"] .empty h3 { color: #ffffff !important; }
 [data-theme="dark"] .welcome-card p,
 [data-theme="dark"] .stat-card p,
-[data-theme="dark"] .empty p { color: #888888; }
+[data-theme="dark"] .empty p { color: #94a3b8 !important; }
 
-/* 3. FIX THE WHITE TABLE ROW BUG */
-[data-theme="dark"] .table-wrapper { background: #0a0a0a; }
+/* Fully Fixed Table (Strips white rows) */
+[data-theme="dark"] .table-wrapper { background: #0a0a0a !important; }
 [data-theme="dark"] table, 
 [data-theme="dark"] tbody tr, 
 [data-theme="dark"] tbody tr:nth-child(even), 
 [data-theme="dark"] tbody tr:nth-child(odd) { 
-    background: transparent !important; /* Strips out the white row bug */
+    background: transparent !important; 
 }
 [data-theme="dark"] th { 
     background: #111111 !important; 
@@ -472,31 +476,45 @@ body, .navbar, .welcome-card, .stat-card, .history-card,
 }
 
 /* Risk Badges */
-[data-theme="dark"] .low { background: rgba(21, 128, 61, 0.15); color: #4ade80; }
-[data-theme="dark"] .medium { background: rgba(180, 83, 9, 0.15); color: #fbbf24; }
-[data-theme="dark"] .high { background: rgba(185, 28, 28, 0.15); color: #f87171; }
+[data-theme="dark"] .low { background: rgba(21, 128, 61, 0.15) !important; color: #4ade80 !important; }
+[data-theme="dark"] .medium { background: rgba(180, 83, 9, 0.15) !important; color: #fbbf24 !important; }
+[data-theme="dark"] .high { background: rgba(185, 28, 28, 0.15) !important; color: #f87171 !important; }
 
-/* Modal True Black */
-[data-theme="dark"] .modal-content { background: #0a0a0a; border: 1px solid #1a1a1a; }
-[data-theme="dark"] .modal-header h2 { color: #ffffff; }
-[data-theme="dark"] .form-group label { color: #aaaaaa; }
-[data-theme="dark"] .form-group input { background: #000000; border-color: #222222; color: #ffffff; }
-[data-theme="dark"] .settings-btn { background: #111111; color: #ffffff; border-color: #222222; }
-[data-theme="dark"] .settings-btn:hover { border-color: #d90429; }
-[data-theme="dark"] .modal-divider { border-top-color: #222222; }
-[data-theme="dark"] .btn-cancel { background: #1a1a1a; color: #cccccc; }
-[data-theme="dark"] .btn-cancel:hover { background: #222222; }
+/* Professional Dark Footer */
+[data-theme="dark"] .site-footer { 
+    background: #050505 !important; 
+    border-top: 1px solid #1a1a1a !important; 
+}
+[data-theme="dark"] .site-footer .footer-logo h2,
+[data-theme="dark"] .site-footer .footer-section h3,
+[data-theme="dark"] .site-footer .footer-logo span { color: #ffffff !important; }
+[data-theme="dark"] .site-footer .footer-section p,
+[data-theme="dark"] .site-footer .footer-links a,
+[data-theme="dark"] .site-footer .contact-item span,
+[data-theme="dark"] .site-footer .contact-item a,
+[data-theme="dark"] .site-footer .footer-bottom p { color: #94a3b8 !important; }
+[data-theme="dark"] .site-footer .footer-social a { background: #111111 !important; border: 1px solid #222222 !important; color: #ffffff !important; }
+[data-theme="dark"] .site-footer .footer-social a:hover { background: #d90429 !important; border-color: #d90429 !important; }
+[data-theme="dark"] .site-footer .footer-bottom { border-top-color: #1a1a1a !important; }
+
+/* Modals & Buttons */
+[data-theme="dark"] .modal-content { background: #0a0a0a !important; border: 1px solid #1a1a1a !important; }
+[data-theme="dark"] .modal-header h2 { color: #ffffff !important; }
+[data-theme="dark"] .form-group label { color: #aaaaaa !important; }
+[data-theme="dark"] .form-group input { background: #000000 !important; border-color: #222222 !important; color: #ffffff !important; }
+[data-theme="dark"] .settings-btn { background: #111111 !important; color: #ffffff !important; border-color: #222222 !important; }
+[data-theme="dark"] .settings-btn:hover { border-color: #d90429 !important; }
+[data-theme="dark"] .modal-divider { border-top-color: #222222 !important; }
+[data-theme="dark"] .btn-cancel { background: #1a1a1a !important; color: #cccccc !important; border: 1px solid #333333 !important; }
+[data-theme="dark"] .btn-cancel:hover { background: #222222 !important; }
 
 /* Danger Zone */
-[data-theme="dark"] .danger-zone { border-top-color: #222222; }
-[data-theme="dark"] .btn-danger { background: #0a0a0a; border-color: #550000; color: #f87171; }
-[data-theme="dark"] .btn-danger:hover { background: #b91c1c; border-color: #b91c1c; color: #ffffff; }
+[data-theme="dark"] .danger-zone { border-top-color: #222222 !important; }
+[data-theme="dark"] .btn-danger { background: #0a0a0a !important; border-color: #550000 !important; color: #f87171 !important; }
+[data-theme="dark"] .btn-danger:hover { background: #b91c1c !important; border-color: #b91c1c !important; color: #ffffff !important; }
 
-[data-theme="dark"] .btn-activate { background: rgba(21, 128, 61, 0.1); color: #4ade80; border-color: #15803d; }
-[data-theme="dark"] .btn-activate:hover { background: #15803d; color: #ffffff; border-color: #15803d; }
+[data-theme="dark"] .btn-activate { background: rgba(21, 128, 61, 0.1) !important; color: #4ade80 !important; border-color: #15803d !important; }
+[data-theme="dark"] .btn-activate:hover { background: #15803d !important; color: #ffffff !important; border-color: #15803d !important; }
 
-[data-theme="dark"] .btn-disable { background: rgba(180, 83, 9, 0.1); color: #fbbf24; border-color: #92400e; }
-[data-theme="dark"] .btn-disable:hover { background: #92400e; color: #ffffff; border-color: #92400e; }
-
-/* Footer Overrides */
-[data-theme="dark"] .site-footer { background: #000000; border-top: 1px solid #111111; }
+[data-theme="dark"] .btn-disable { background: rgba(180, 83, 9, 0.1) !important; color: #fbbf24 !important; border-color: #92400e !important; }
+[data-theme="dark"] .btn-disable:hover { background: #92400e !important; color: #ffffff !important; border-color: #92400e !important; }
