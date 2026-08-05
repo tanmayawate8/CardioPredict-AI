@@ -157,89 +157,68 @@ HERO MONITOR (signature element)
 =========================================================*/
 
 .hero-monitor{
-
     flex:1;
     display:flex;
     justify-content:center;
-
 }
 
 .monitor-panel{
-
     width:100%;
-    max-width:480px;
+    max-width:520px;
     background:var(--ink);
-    border-radius:20px;
-    padding:28px 26px 24px;
+    border-radius:22px;
+    padding:34px 32px 28px;
     box-shadow:0 25px 60px rgba(15,36,54,0.28), 0 0 0 1px rgba(255,255,255,0.04);
-
 }
 
 .monitor-panel .monitor-head{
-
     display:flex;
     align-items:center;
     justify-content:space-between;
-    margin-bottom:18px;
-
+    margin-bottom:20px;
 }
 
-/*=========================================================
-HERO MONITOR (signature element)
-=========================================================*/
-
 .monitor-panel .monitor-label{
-
     font-family:var(--font-mono);
-    font-size:14px; /* Increased from 12px for better readability */
+    font-size:15px;
     letter-spacing:0.12em;
     text-transform:uppercase;
     color:rgba(242,244,243,0.55);
-
 }
 
 .monitor-panel .monitor-reading{
-
     font-family:var(--font-mono);
-    font-size:18px; /* Increased from 15px for the word "accuracy" */
+    font-size:20px;
     color:var(--paper);
     display:flex;
     align-items:baseline;
-    gap:8px; /* Slightly wider gap */
-
+    gap:10px;
 }
 
 .monitor-panel .monitor-reading b{
-
-    font-size:42px; /* Increased from 26px to make the 91.85% perfectly pop */
+    font-size:48px;
     font-weight:700;
     color:#fff;
-    line-height:1; /* Keeps the large text perfectly aligned vertically */
-
+    line-height:1; 
 }
 
 .monitor-panel .monitor-reading .pulse-dot{
-
-    width:12px;  /* Increased from 8px to match larger text */
-    height:12px; /* Increased from 8px to match larger text */
+    width:14px;
+    height:14px;
     border-radius:50%;
     background:var(--signal);
-    margin-right:4px;
+    margin-right:5px;
     animation:dotBeat 1.1s ease-in-out infinite;
-
 }
 
 @keyframes dotBeat{
-
     0%,100%{ opacity:1; transform:scale(1); }
     45%{ opacity:0.35; transform:scale(0.8); }
-
 }
 
 .ecg-trace{ width:100%; height:auto; display:block; }
 
 .ecg-trace path{
-
     fill:none;
     stroke:var(--signal);
     stroke-width:2.5;
@@ -248,34 +227,27 @@ HERO MONITOR (signature element)
     stroke-dasharray:900;
     stroke-dashoffset:900;
     animation:draw 3.2s linear infinite;
-
 }
 
 .ecg-trace .grid-line{
-
     stroke:rgba(242,244,243,0.08);
     stroke-width:1;
-
 }
 
 @keyframes draw{
-
     0%{ stroke-dashoffset:900; }
     70%{ stroke-dashoffset:0; }
     100%{ stroke-dashoffset:-30; }
-
 }
 
 .monitor-panel .monitor-foot{
-
     display:flex;
     justify-content:space-between;
-    margin-top:16px;
+    margin-top:20px;
     font-family:var(--font-mono);
-    font-size:12px;
+    font-size:13px;
     color:rgba(242,244,243,0.45);
     letter-spacing:0.04em;
-
 }
 
 /*=========================================================
@@ -387,14 +359,6 @@ FEATURE SECTION
 
 }
 
-.feature-box:hover{
-
-    transform:translateY(-6px);
-    box-shadow:var(--shadow);
-    border-color:transparent;
-
-}
-
 .feature-box i{
 
     font-size:26px;
@@ -455,8 +419,6 @@ STATISTICS SECTION — "MODEL READOUT"
 
 }
 
-.stat-card:hover{ background:rgba(242,244,243,0.04); transform:none; }
-
 .stat-card i{
 
     font-size:22px;
@@ -516,8 +478,6 @@ HOW IT WORKS
     transition:.3s;
 
 }
-
-.step:hover{ transform:none; background:var(--paper); }
 
 .step span{
 
@@ -583,19 +543,44 @@ CALL TO ACTION (Centered)
 .cta .btn:hover{ background:transparent; color:#fff; }
 
 /*=========================================================
-COMMON ANIMATION
+UNIFIED SCROLL & HOVER ANIMATIONS (ALL CARDS)
 =========================================================*/
 
+/* 1. Initial Hidden State (Waits for you to scroll) */
 .card,
 .feature-box,
 .stat-card,
-.step{ animation:fadeUp .6s ease; }
+.step { 
+    opacity: 0; 
+    transform: translateY(35px) !important; 
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out, background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
 
-@keyframes fadeUp{
+/* 2. Slide Up Elegantly When Scrolled Into View */
+.card.show,
+.feature-box.show,
+.stat-card.show,
+.step.show { 
+    opacity: 1; 
+    transform: translateY(0) !important; 
+}
 
-    from{ opacity:0; transform:translateY(24px); }
-    to{ opacity:1; transform:translateY(0); }
+/* 3. The Hover Lift applied to ALL Cards */
+.card.show:hover,
+.feature-box.show:hover,
+.stat-card.show:hover,
+.step.show:hover { 
+    transform: translateY(-10px) !important; 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+    border-color: transparent !important;
+}
 
+/* 4. Dark Mode Hover Depth */
+[data-theme="dark"] .card.show:hover,
+[data-theme="dark"] .feature-box.show:hover,
+[data-theme="dark"] .stat-card.show:hover,
+[data-theme="dark"] .step.show:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
 }
 
 /*=========================================================
@@ -606,8 +591,14 @@ ACCESSIBILITY
 
     .pulse-divider,
     .ecg-trace path,
-    .pulse-dot,
-    .card, .feature-box, .stat-card, .step{ animation:none !important; }
+    .pulse-dot { animation:none !important; }
+
+    .card, .feature-box, .stat-card, .step {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
 
 }
 
@@ -629,7 +620,7 @@ HOME PAGE MOBILE RESPONSIVE
 
     .hero{ width:92%; margin:100px auto 50px; gap:40px; }
     .hero-content h1{ font-size:44px; }
-    .monitor-panel{ max-width:420px; }
+    .monitor-panel{ max-width:460px; }
 
     .cards{ grid-template-columns:repeat(2,1fr); }
     .feature-grid{ grid-template-columns:repeat(2,1fr); gap:20px; }
@@ -840,7 +831,7 @@ DARK THEME OVERRIDES
 
 [data-theme="dark"] .cards .card:hover{
 
-    background:#243244;
+    background:#243244 !important;
 
 }
 
@@ -852,7 +843,7 @@ DARK THEME OVERRIDES
 
 [data-theme="dark"] .step:hover{
 
-    background:#1e293b;
+    background:#1e293b !important;
 
 }
 
@@ -873,6 +864,56 @@ DARK THEME OVERRIDES
     background-color:#111827;
 
 }
-[data-theme="dark"] .btn {
-    color: #ffffff;
+/*=========================================================
+CTA SECTION (DARK MODE FIX)
+=========================================================*/
+[data-theme="dark"] .cta {
+    background: #1e293b !important; /* Elegant dark navy */
+    border-top: 1px solid #334155 !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] .cta h2 {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .cta p {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .cta .btn {
+    background: #d90429 !important; /* Vibrant Red Button */
+    color: #ffffff !important;      /* White Text */
+    border: 2px solid #d90429 !important;
+}
+
+[data-theme="dark"] .cta .btn:hover {
+    background: transparent !important;
+    color: #ff4d6d !important;
+    border-color: #ff4d6d !important;
+}
+/*=========================================================
+CUSTOM BRAND LOGO
+=========================================================*/
+.custom-logo {
+    height: 42px; /* Perfect height to match the text */
+    width: auto;
+    border-radius: 8px; /* Gives the image soft, premium curved edges */
+    object-fit: contain;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Soft shadow */
+}
+
+/* Make it look like a sleek App Icon in Dark Mode */
+[data-theme="dark"] .custom-logo {
+    background: #ffffff; /* Keeps the white background clean */
+    padding: 2px; /* Slight border effect */
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1); /* Soft glowing shadow in dark mode */
+}
+
+/* Adjust mobile sizing */
+@media (max-width: 768px) {
+    .custom-logo {
+        height: 35px;
+    }
 }

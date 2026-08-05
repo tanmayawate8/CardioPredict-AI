@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- DARK THEME AUTO-LOAD SCRIPT -->
     <script>
         (function(){
             if(localStorage.getItem('theme') === 'dark'){
@@ -13,9 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | CardioPredict AI</title>
 
-    <!-- Cache-busting added to ensure the browser loads your new CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}?v=3.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=4.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}?v=4.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -24,36 +22,36 @@
 
 <header>
     <nav class="navbar">
-    <!-- LOGO (Left) -->
-    <div class="logo">
-        <i class="fa-solid fa-heart-pulse"></i>
-        <span>CardioPredict AI</span>
-    </div>
+        <!-- LOGO (Left) -->
+        <div class="logo">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span>CardioPredict AI</span>
+        </div>
 
-    <!-- NAVIGATION LINKS (Pushed Right via CSS) -->
-    <ul class="nav-links" id="navLinks">
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
-        <li><a href="{{ url_for('about') }}">About</a></li>
-        <li><a href="{{ url_for('contact') }}">Contact</a></li>
-        {% if current_user.is_authenticated %}
-        <li><span class="nav-user"><i class="fa-solid fa-user"></i> {{ current_user.username }}</span></li>
-        <li><a href="{{ url_for('logout') }}">Logout</a></li>
-        {% else %}
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        {% endif %}
-    </ul>
+        <!-- NAVIGATION LINKS (Pushed Right via CSS) -->
+        <ul class="nav-links" id="navLinks">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            {% if current_user.is_authenticated %}
+            <li><span class="nav-user"><i class="fa-solid fa-user"></i> {{ current_user.username }}</span></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+        </ul>
 
-    <!-- DARK THEME BUTTON (Right Corner) -->
-    <button id="theme-toggle" aria-label="Toggle dark mode" type="button" class="theme-btn">
-        <i class="fa-solid fa-moon"></i>
-    </button>
+        <!-- DARK THEME BUTTON (Right Corner) -->
+        <button id="theme-toggle" aria-label="Toggle dark mode" type="button" class="theme-btn">
+            <i class="fa-solid fa-moon"></i>
+        </button>
 
-    <!-- MOBILE MENU BUTTON (Hidden on Desktop) -->
-    <button class="menu-toggle" id="menuToggle">
-        <i class="fa-solid fa-bars"></i>
-    </button>
-</nav>
+        <!-- MOBILE MENU BUTTON (Hidden on Desktop) -->
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
 </header>
 
 <section class="dashboard">
@@ -70,14 +68,18 @@
             </div>
         {% endif %}
     {% endwith %}
-
-    <div class="welcome-card">
-        <div>
+<div class="welcome-card">
+        <div class="welcome-info">
+            <!-- Profile icon moved above the Welcome text -->
+            <div class="profile-icon"><i class="fa-solid fa-user"></i></div>
             <h1>Welcome, {{ current_user.username }}</h1>
             <p>Manage your heart health reports and prediction history.</p>
+        </div>
+        
+        <div class="welcome-actions">
+            <!-- Settings button isolated to the right side -->
             <button id="openSettingsBtn" class="settings-btn"><i class="fa-solid fa-gear"></i> Profile Settings</button>
         </div>
-        <div class="profile-icon"><i class="fa-solid fa-user"></i></div>
     </div>
 
     <div class="stats-container">
@@ -218,27 +220,33 @@
     </div>
 </section>
 
-<footer class="site-footer">
+<!-- =========================================================
+PERFECTLY MATCHED GLOBAL FOOTER
+========================================================= -->
+<footer>
     <div class="footer-container">
         <div class="footer-section">
-            <div class="footer-logo">
-                <i class="fa-solid fa-heart-pulse"></i>
-                <span>CardioPredict AI</span>
-            </div>
+            <h3>
+                <div class="logo" style="color:#ffffff; margin-bottom:15px; font-size:24px;">
+                    <i class="fa-solid fa-heart-pulse" style="color:var(--primary);"></i> CardioPredict AI
+                </div>
+            </h3>
             <p>CardioPredict AI is an intelligent heart disease risk prediction system developed using Machine Learning and XGBoost to help users understand their potential heart disease risk.</p>
         </div>
+        
         <div class="footer-section">
             <h3>Quick Links</h3>
-            <ul class="footer-links">
-                <li><a href="{{ url_for('home') }}"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="{{ url_for('prediction_page') }}"><i class="fa-solid fa-heart-pulse"></i> Prediction</a></li>
-                <li><a href="{{ url_for('about') }}"><i class="fa-solid fa-circle-info"></i> About</a></li>
-                <li><a href="{{ url_for('contact') }}"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
                 {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('dashboard') }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
                 {% endif %}
             </ul>
         </div>
+        
         <div class="footer-section">
             <h3>Connect With Us</h3>
             <div class="footer-contact">
@@ -246,23 +254,23 @@
                 <div class="contact-item"><i class="fa-solid fa-phone"></i><span>+91 98865 00642</span></div>
                 <div class="contact-item"><i class="fa-solid fa-envelope"></i><a href="mailto:codewithtanmay098@gmail.com">codewithtanmay098@gmail.com</a></div>
             </div>
-            <div class="footer-social">
+            <div class="social-icons">
                 <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                 <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
                 <a href="mailto:codewithtanmay098@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <a href="{{ url_for('contact') }}" class="footer-btn"><i class="fa-solid fa-paper-plane"></i><span>Send Message</span></a>
+            <a href="{{ url_for('contact') }}" class="footer-message-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</a>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>© 2026 CardioPredict AI. All Rights Reserved.</p>
-        <p>Built with <i class="fa-solid fa-heart"></i> using Machine Learning</p>
-    </div>
+    
+    <hr>
+    
+    <p class="copyright">© 2026 CardioPredict AI. All Rights Reserved.</p>
 </footer>
 
 <!-- External Script runs theme logic -->
-<script src="{{ url_for('static', filename='js/script.js') }}?v=3.0"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}?v=4.0"></script>
 
 <!-- Only Dashboard-specific Modal Logic here -->
 <script>
@@ -274,11 +282,10 @@
     function openModal() { profileModal.classList.add('active'); }
     function closeModal() { profileModal.classList.remove('active'); }
 
-    openSettingsBtn.addEventListener('click', openModal);
-    closeModalBtn.addEventListener('click', closeModal);
-    cancelModalBtn.addEventListener('click', closeModal);
+    if (openSettingsBtn) openSettingsBtn.addEventListener('click', openModal);
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+    if (cancelModalBtn) cancelModalBtn.addEventListener('click', closeModal);
 
-    // Close modal if user clicks outside of the box
     window.addEventListener('click', (e) => {
         if (e.target === profileModal) {
             closeModal();

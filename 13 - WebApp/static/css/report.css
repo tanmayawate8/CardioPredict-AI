@@ -1,7 +1,33 @@
 /* =========================================================
+                    NAVBAR ALIGNMENT FIX
+========================================================= */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.nav-links {
+    margin-left: auto !important;
+}
+
+.theme-btn {
+    background: none;
+    border: none;
+    color: #14213d;
+    font-size: 22px;
+    cursor: pointer;
+    margin-left: 25px;
+}
+
+@media (max-width: 768px) {
+    .nav-links { margin-left: 0 !important; }
+    .theme-btn { margin-left: auto; margin-right: 15px; }
+}
+
+/* =========================================================
                     REPORT PAGE
 ========================================================= */
-
 .report-section{
     background:#f5f8fc;
     padding:70px 0;
@@ -17,14 +43,12 @@
 /* =========================================================
                     REPORT HEADER
 ========================================================= */
-
 .report-header{
     background:#ffffff;
     border-radius:20px;
     padding:35px;
     margin-bottom:30px;
     box-shadow:var(--shadow);
-
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -33,21 +57,18 @@
 
 .report-header-content{
     flex:1;
+    text-align: left; /* Strict text alignment */
 }
 
 .section-tag{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-
     padding:8px 18px;
     margin-bottom:18px;
-
     border-radius:30px;
-
     background:#ffe8ec;
     color:var(--primary);
-
     font-size:14px;
     font-weight:600;
 }
@@ -64,11 +85,8 @@
     line-height:1.8;
     font-size:15px;
     max-width:600px;
+    margin: 0;
 }
-
-/* =========================================================
-                    REPORT ACTIONS
-========================================================= */
 
 .report-actions{
     display:flex;
@@ -84,87 +102,52 @@
     align-items:center;
     justify-content:center;
     gap:10px;
-
     min-width:170px;
-
     padding:14px 24px;
-
     border-radius:10px;
-
     font-size:15px;
     font-weight:600;
-
     text-decoration:none;
-
     cursor:pointer;
-
     transition:all .3s ease;
 }
 
-.print-btn{
-    background:var(--primary);
-    color:#ffffff;
-    border:none;
-}
+.print-btn{ background:var(--primary); color:#ffffff; border:none; }
+.print-btn:hover{ background:var(--secondary); transform:translateY(-3px); box-shadow:0 12px 25px rgba(0,0,0,.12); }
 
-.print-btn:hover{
-    background:var(--secondary);
-    transform:translateY(-3px);
-    box-shadow:0 12px 25px rgba(0,0,0,.12);
-}
-
-.back-btn{
-    background:#ffffff;
-    color:var(--secondary);
-    border:2px solid #e5e7eb;
-}
-
-.back-btn:hover{
-    background:#f8fafc;
-    border-color:var(--primary);
-    transform:translateY(-3px);
-}
+.back-btn{ background:#ffffff; color:var(--secondary); border:2px solid #e5e7eb; }
+.back-btn:hover{ background:#f8fafc; border-color:var(--primary); transform:translateY(-3px); }
 
 /* =========================================================
                     RESULT CARD
 ========================================================= */
-
 .result-card{
     background:#ffffff;
-
     border-radius:20px;
-
     padding:35px;
-
     margin-bottom:30px;
-
     display:flex;
     align-items:center;
     gap:25px;
-
     box-shadow:var(--shadow);
 }
 
 .result-icon{
     width:85px;
     height:85px;
-
     min-width:85px;
-
     border-radius:50%;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     background:#ffe8ec;
     color:var(--primary);
-
     font-size:36px;
 }
 
 .result-content{
     flex:1;
+    text-align: left; /* Strict alignment */
 }
 
 .result-content h2{
@@ -177,9 +160,7 @@
     display:inline-flex;
     align-items:center;
     justify-content:center;
-
     margin-bottom:15px;
-
     font-size:18px;
     font-weight:600;
 }
@@ -188,956 +169,323 @@
     color:#666;
     line-height:1.8;
     font-size:15px;
+    margin: 0;
 }
+
 /* =========================================================
-                    REPORT CARD
+                    REPORT CARD & DETAILS
 ========================================================= */
-
 .report-card{
-
     background:#ffffff;
-
     border-radius:20px;
-
     padding:35px;
-
     margin-bottom:30px;
-
     box-shadow:var(--shadow);
 }
 
 .card-title{
-
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
     margin-bottom:30px;
-
     color:var(--secondary);
-
     font-size:24px;
-
     font-weight:700;
-
     line-height:1.3;
 }
 
 .card-title i{
-
     color:var(--primary);
-
     font-size:24px;
-
     flex-shrink:0;
 }
 
-/* =========================================================
-                    DETAILS GRID
-========================================================= */
-
 .details-grid{
-
     display:grid;
-
     grid-template-columns:repeat(2,minmax(0,1fr));
-
     gap:20px;
 }
 
 .detail-item{
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
-    gap:20px;
-
+    gap:15px;
     padding:20px 22px;
-
     background:#f8fafc;
-
     border:1px solid #edf2f7;
-
     border-radius:14px;
-
     transition:all .3s ease;
 }
 
 .detail-item:hover{
-
     transform:translateY(-3px);
-
     box-shadow:0 12px 25px rgba(0,0,0,.06);
-
     border-color:#dbe4ee;
 }
 
 .detail-item span{
-
     color:#6b7280;
-
     font-size:15px;
-
     font-weight:500;
+    flex-shrink: 0; /* Prevents the label from squishing */
 }
 
 .detail-item strong{
-
     color:var(--secondary);
-
     font-size:16px;
-
     font-weight:700;
-
     text-align:right;
-
-    word-break:break-word;
+    word-wrap: break-word; /* Perfect text wrapping for long data */
+    max-width: 60%;
+    line-height: 1.4;
 }
 
 /* =========================================================
-                    PREDICTION INFO
+                    PREDICTION INFO BOXES
 ========================================================= */
-
 .prediction-info{
-
     display:grid;
-
     grid-template-columns:repeat(4,minmax(0,1fr));
-
     gap:20px;
 }
 
 .info-box{
-
     background:#f8fafc;
-
     border:1px solid #edf2f7;
-
     border-radius:16px;
-
     padding:25px 20px;
-
     text-align:center;
-
     transition:all .3s ease;
 }
 
 .info-box:hover{
-
     transform:translateY(-4px);
-
     box-shadow:0 14px 28px rgba(0,0,0,.08);
-
     border-color:#dbe4ee;
 }
 
 .info-box span{
-
     display:block;
-
     margin-bottom:12px;
-
     color:#6b7280;
-
     font-size:14px;
-
     font-weight:500;
 }
 
 .info-box strong{
-
     display:block;
-
     color:var(--primary);
-
     font-size:22px;
-
     font-weight:700;
-
     line-height:1.2;
 }
 
 /* =========================================================
-                    RISK STATUS
+                    RISK STATUS BADGES
 ========================================================= */
-
-.low,
-.medium,
-.high{
-
+.low, .medium, .high{
     display:inline-flex;
-
     align-items:center;
-
     justify-content:center;
-
     gap:8px;
-
     padding:8px 18px;
-
     border-radius:30px;
-
     font-size:14px;
-
     font-weight:600;
-
     white-space:nowrap;
 }
 
-.low{
-
-    background:#dcfce7;
-
-    color:#15803d;
-}
-
-.medium{
-
-    background:#fef3c7;
-
-    color:#92400e;
-}
-
-.high{
-
-    background:#fee2e2;
-
-    color:#b91c1c;
-}
+.low{ background:#dcfce7; color:#15803d; }
+.medium{ background:#fef3c7; color:#92400e; }
+.high{ background:#fee2e2; color:#b91c1c; }
 
 /* =========================================================
                     DISCLAIMER
 ========================================================= */
-
 .disclaimer{
-
     display:flex;
-
     align-items:flex-start;
-
     gap:18px;
-
     margin-top:25px;
-
     padding:28px;
-
     background:#fff8e6;
-
     border-left:5px solid #f59e0b;
-
     border-radius:16px;
 }
 
 .disclaimer > i{
-
     color:#f59e0b;
-
     font-size:28px;
-
     flex-shrink:0;
 }
 
 .disclaimer-content{
-
     flex:1;
+    text-align: left; /* Ensure strict left alignment */
 }
 
 .disclaimer h3{
-
     color:#92400e;
-
     font-size:20px;
-
     margin-bottom:10px;
 }
 
 .disclaimer p{
-
     color:#6b5b3e;
-
     font-size:15px;
-
     line-height:1.8;
+    margin: 0;
 }
 
 /* =========================================================
                     REPORT PAGE — RESPONSIVE
 ========================================================= */
-
 @media (max-width:992px){
-
-    .prediction-info{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-    }
-
+    .prediction-info{ grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
 
 @media (max-width:768px){
-
-    .report-section{
-        padding:45px 0;
-    }
-
-    .report-header{
-        flex-direction:column;
-        align-items:flex-start;
-        padding:28px;
-        gap:22px;
-    }
-
-    .report-actions{
-        justify-content:flex-start;
-        width:100%;
-    }
-
-    .print-btn,
-    .back-btn{
-        flex:1;
-        min-width:140px;
-    }
-
-    .report-header h1{
-        font-size:26px;
-    }
-
-    .report-header p{
-        max-width:100%;
-    }
-
-    .result-card{
-        flex-direction:column;
-        text-align:center;
-        padding:28px;
-    }
-
-    .result-icon{
-        width:70px;
-        height:70px;
-        min-width:70px;
-        font-size:30px;
-    }
-
-    .result-content h2{
-        font-size:24px;
-    }
-
-    .report-card{
-        padding:28px;
-    }
-
-    .card-title{
-        font-size:20px;
-    }
-
-    .details-grid{
-        grid-template-columns:1fr;
-    }
-
-    .detail-item{
-        padding:16px 18px;
-    }
-
-    .prediction-info{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-        gap:15px;
-    }
-
-    .disclaimer{
-        flex-direction:column;
-        padding:22px;
-        gap:12px;
-    }
-
-    .disclaimer h3{
-        font-size:18px;
-    }
-
+    .report-section{ padding:45px 0; }
+    .report-header{ flex-direction:column; align-items:flex-start; padding:28px; gap:22px; }
+    .report-actions{ justify-content:flex-start; width:100%; }
+    .print-btn, .back-btn{ flex:1; min-width:140px; }
+    .report-header h1{ font-size:26px; }
+    .report-header p{ max-width:100%; }
+    
+    .result-card{ flex-direction:column; text-align:center; padding:28px; }
+    .result-icon{ width:70px; height:70px; min-width:70px; font-size:30px; }
+    .result-content{ text-align: center; } /* Center on mobile */
+    .result-content h2{ font-size:24px; }
+    
+    .report-card{ padding:28px; }
+    .card-title{ font-size:20px; }
+    .details-grid{ grid-template-columns:1fr; }
+    .detail-item{ padding:16px 18px; }
+    
+    .prediction-info{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+    
+    .disclaimer{ flex-direction:column; padding:22px; gap:12px; }
+    .disclaimer h3{ font-size:18px; }
 }
 
 @media (max-width:480px){
-
-    .report-header{
-        padding:22px;
-    }
-
-    .report-header h1{
-        font-size:22px;
-    }
-
-    .section-tag{
-        font-size:13px;
-        padding:7px 14px;
-    }
-
-    .report-actions{
-        flex-direction:column;
-    }
-
-    .print-btn,
-    .back-btn{
-        width:100%;
-        min-width:0;
-    }
-
-    .result-card{
-        padding:22px;
-    }
-
-    .result-content h2{
-        font-size:21px;
-    }
-
-    .result-content p{
-        font-size:14px;
-    }
-
-    .report-card{
-        padding:22px;
-    }
-
-    .detail-item{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:6px;
-        padding:15px;
-    }
-
-    .detail-item strong{
-        text-align:left;
-    }
-
-    .prediction-info{
-        grid-template-columns:1fr;
-    }
-
-    .info-box{
-        padding:20px 15px;
-    }
-
-    .disclaimer{
-        padding:18px;
-    }
-
-    .disclaimer h3{
-        font-size:17px;
-    }
-
-    .disclaimer p{
-        font-size:14px;
-    }
-
+    .report-header{ padding:22px; }
+    .report-header h1{ font-size:22px; }
+    .section-tag{ font-size:13px; padding:7px 14px; }
+    .report-actions{ flex-direction:column; }
+    .print-btn, .back-btn{ width:100%; min-width:0; }
+    
+    .result-card{ padding:22px; }
+    .result-content h2{ font-size:21px; }
+    .result-content p{ font-size:14px; }
+    
+    .report-card{ padding:22px; }
+    
+    /* Ensure perfect text wrapping on tiny screens */
+    .detail-item{ flex-direction:column; align-items:flex-start; gap:6px; padding:15px; }
+    .detail-item strong{ text-align:left; max-width: 100%; }
+    
+    .prediction-info{ grid-template-columns:1fr; }
+    .info-box{ padding:20px 15px; }
+    
+    .disclaimer{ padding:18px; }
+    .disclaimer h3{ font-size:17px; }
+    .disclaimer p{ font-size:14px; }
 }
 
 /*=========================================================
-                PROFESSIONAL FOOTER
+DARK THEME OVERRIDES FOR REPORT (MATCHES HOME PAGE)
 =========================================================*/
-
-.site-footer{
-    width:100%;
-    margin-top:70px;
-    background:#0f172a;
-    color:#ffffff;
-    overflow:hidden;
-}
-
-.site-footer *{
-    box-sizing:border-box;
-}
-
-/*=========================================================
-                FOOTER CONTAINER
-=========================================================*/
-
-.site-footer .footer-container{
-    max-width:1300px;
-    margin:0 auto;
-    padding:70px 40px;
-    display:grid;
-    grid-template-columns:2fr 1fr 1.3fr;
-    gap:60px;
-    align-items:flex-start;
-}
-
-/*=========================================================
-                FOOTER SECTIONS
-=========================================================*/
-
-.site-footer .footer-section{
-    display:flex;
-    flex-direction:column;
-}
-
-.site-footer .footer-logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:20px;
-}
-
-.site-footer .footer-logo i{
-    font-size:32px;
-    color:#ff4d6d;
-}
-
-.site-footer .footer-logo h2{
-    color:#ffffff;
-    font-size:26px;
-    font-weight:700;
-    margin:0;
-}
-
-.site-footer .footer-section h3{
-    color:#ffffff;
-    font-size:22px;
-    margin-bottom:20px;
-}
-
-.site-footer .footer-section p{
-    color:#cbd5e1;
-    line-height:1.9;
-    font-size:15px;
-}
-
-/*=========================================================
-                QUICK LINKS
-=========================================================*/
-
-.site-footer .footer-links{
-    list-style:none;
-    padding:0;
-    margin:0;
-}
-
-.site-footer .footer-links li{
-    margin-bottom:16px;
-}
-
-.site-footer .footer-links a{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:#cbd5e1;
-    text-decoration:none;
-    transition:.3s;
-}
-
-.site-footer .footer-links a i{
-    color:#ff4d6d;
-    width:18px;
-}
-
-.site-footer .footer-links a:hover{
-    color:#ffffff;
-    transform:translateX(6px);
-}
-
-/*=========================================================
-                CONTACT INFO
-=========================================================*/
-
-.site-footer .footer-contact{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-}
-
-.site-footer .contact-item{
-    display:flex;
-    align-items:flex-start;
-    gap:12px;
-}
-
-.site-footer .contact-item i{
-    color:#ff4d6d;
-    margin-top:4px;
-    min-width:20px;
-}
-
-.site-footer .contact-item span,
-.site-footer .contact-item a{
-    color:#cbd5e1;
-    text-decoration:none;
-    line-height:1.8;
-    word-break:break-word;
-}
-
-.site-footer .contact-item a:hover{
-    color:#ffffff;
-}
-
-/*=========================================================
-                FOOTER BUTTON
-=========================================================*/
-
-.site-footer .footer-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    margin-top:22px;
-    width:fit-content;
-    padding:14px 24px;
-    border-radius:10px;
-    background:#d90429;
-    color:#ffffff;
-    text-decoration:none;
-    font-weight:600;
-    transition:.3s;
-}
-
-.site-footer .footer-btn:hover{
-    background:#ffffff;
-    color:#0f172a;
-}
-
-/*=========================================================
-                SOCIAL ICONS
-=========================================================*/
-
-.site-footer .footer-social{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    margin:18px 0 28px;
-    flex-wrap:wrap;
-}
-
-.site-footer .footer-social a{
-    width:46px;
-    height:46px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    border-radius:50%;
-    background:rgba(255,255,255,.08);
-    color:#fff;
-    transition:.3s ease;
-}
-
-.site-footer .footer-social a:hover{
-    background:#d90429;
-    transform:translateY(-4px);
-}
-
-.footer-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    padding:14px 26px;
-    background:#d90429;
-    color:#fff;
-    border-radius:10px;
-    font-weight:600;
-    margin-top:5px;
-}
-
-.footer-btn:hover{
-    background:#fff;
-    color:#0f172a;
-}
-
-/*=========================================================
-                FOOTER BOTTOM
-=========================================================*/
-
-.site-footer .footer-bottom{
-    border-top:1px solid rgba(255,255,255,.12);
-    padding:22px 20px;
-    text-align:center;
-}
-
-.site-footer .footer-bottom p{
-    margin:8px 0;
-    color:#cbd5e1;
-    font-size:14px;
-}
-
-.site-footer .footer-bottom i{
-    color:#ff4d6d;
-}
-
-/*=========================================================
-                TABLET
-=========================================================*/
-
-@media (max-width:992px){
-
-.site-footer .footer-container{
-    grid-template-columns:1fr 1fr;
-    gap:40px;
-    padding:55px 30px;
-}
-
-}
-
-/*=========================================================
-                MOBILE
-=========================================================*/
-
-@media (max-width:768px){
-
-.site-footer .footer-container{
-    grid-template-columns:1fr;
-    text-align:center;
-    gap:40px;
-    padding:50px 20px;
-}
-
-.site-footer .footer-logo{
-    justify-content:center;
-}
-
-.site-footer .footer-links a{
-    justify-content:center;
-}
-
-.site-footer .footer-contact{
-    align-items:center;
-}
-
-.site-footer .contact-item{
-    justify-content:center;
-    text-align:center;
-}
-
-.site-footer .footer-btn{
-    width:100%;
-}
-
-.site-footer .footer-social{
-    justify-content:center;
-}
-
-}
-
-/*=========================================================
-                SMALL MOBILE
-=========================================================*/
-
-@media (max-width:480px){
-
-.site-footer .footer-container{
-    padding:35px 18px;
-}
-
-.site-footer .footer-logo h2{
-    font-size:22px;
-}
-
-.site-footer .footer-section h3{
-    font-size:20px;
-}
-
-.site-footer .footer-section p,
-.site-footer .footer-links a,
-.site-footer .contact-item span,
-.site-footer .contact-item a{
-    font-size:14px;
-}
-
-.site-footer .footer-social a{
-    width:42px;
-    height:42px;
-}
-
-.site-footer .footer-bottom p{
-    font-size:13px;
-}
-
-}
-
-/*=========================================================
-                MOBILE NAVBAR
-=========================================================*/
-
-.menu-toggle{
-    display:none;
-    background:none;
-    border:none;
-    color:var(--secondary);
-    font-size:28px;
-    cursor:pointer;
-}
-
-@media (max-width:768px){
-
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    z-index:9999;
-}
-
-.navbar{
-    width:100%;
-    padding:15px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.menu-toggle{
-    display:block;
-}
-
-.nav-links{
-    position:absolute;
-    top:100%;
-    left:0;
-    width:100%;
-    background:#ffffff;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:0;
-    max-height:0;
-    overflow:hidden;
-    transition:.35s ease;
-    box-shadow:0 12px 30px rgba(0,0,0,.08);
-}
-
-.nav-links.active{
-    max-height:550px;
-    padding:10px 0;
-}
-
-.nav-links li{
-    width:100%;
-}
-
-.nav-links li a,
-.nav-user{
-    display:block;
-    width:100%;
-    padding:16px;
-    text-align:center;
-}
-
-.nav-links li a:hover{
-    background:#f8fafc;
-    color:var(--primary);
-}
-
-}
-/*=========================================================
-ULTRA-PREMIUM DARK THEME (CARBON GRADING)
-=========================================================*/
-
-/* Smooth Animations */
-body, .dashboard, .navbar, .welcome-card, .stat-card, .history-card, 
-.modal-content, .site-footer, th, td, tr, .theme-btn, 
-.btn-cancel, .btn-save, .btn-danger, .btn-activate, .btn-disable {
+body, .report-section, .report-header, .result-card, .report-card, .detail-item, .info-box {
     transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
 }
 
-/* 1. Carbon Base Background */
-[data-theme="dark"] body, 
-[data-theme="dark"] .dashboard { 
-    background: #09090b !important; 
-    color: #e4e4e7; 
+[data-theme="dark"] .report-section {
+    background: #0f172a !important;
 }
 
-/* 2. Elevated Surfaces (Navbar) */
+/* Navbar */
 [data-theme="dark"] .navbar { 
-    background: #18181b !important; 
-    border-bottom: 1px solid #27272a !important; 
+    background: #1e293b !important; 
+    border-bottom: 1px solid #334155 !important; 
 }
 [data-theme="dark"] .logo span, 
 [data-theme="dark"] .nav-links a, 
-[data-theme="dark"] .nav-user { color: #f4f4f5 !important; }
-[data-theme="dark"] .nav-links a:hover { color: #e11d48 !important; background: #27272a !important; }
+[data-theme="dark"] .nav-user { color: #f1f5f9 !important; }
+[data-theme="dark"] .nav-links a:hover { color: #d90429 !important; }
 [data-theme="dark"] .menu-toggle, 
-[data-theme="dark"] .theme-btn { color: #f4f4f5 !important; }
+[data-theme="dark"] .theme-btn { color: #f1f5f9 !important; }
 
-/* 3. Dashboard Cards (Layered Depth) */
-[data-theme="dark"] .welcome-card,
-[data-theme="dark"] .stat-card,
-[data-theme="dark"] .history-card { 
-    background: #18181b !important; 
-    border: 1px solid #27272a !important; 
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important; 
-}
-[data-theme="dark"] .welcome-card h1,
-[data-theme="dark"] .stat-card h3,
-[data-theme="dark"] .section-title h2,
-[data-theme="dark"] .empty h3 { color: #f4f4f5 !important; }
-[data-theme="dark"] .welcome-card p,
-[data-theme="dark"] .stat-card p,
-[data-theme="dark"] .empty p { color: #a1a1aa !important; }
-
-/* 4. Professional Table Design */
-[data-theme="dark"] .table-wrapper { background: #18181b !important; }
-[data-theme="dark"] table, 
-[data-theme="dark"] tbody tr, 
-[data-theme="dark"] tbody tr:nth-child(even), 
-[data-theme="dark"] tbody tr:nth-child(odd) { 
-    background: transparent !important; 
-}
-[data-theme="dark"] th { 
-    background: #09090b !important; 
-    color: #a1a1aa !important; 
-    font-weight: 500 !important;
-    border-bottom: 1px solid #27272a !important; 
-}
-[data-theme="dark"] td { 
-    background: #18181b !important; 
-    color: #d4d4d8 !important; 
-    border-bottom: 1px solid #27272a !important; 
-}
-[data-theme="dark"] tbody tr:hover td { 
-    background: #27272a !important; 
+/* Report Cards */
+[data-theme="dark"] .report-header,
+[data-theme="dark"] .result-card,
+[data-theme="dark"] .report-card {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* 5. Accessible Risk Badges (Soft glow effect) */
-[data-theme="dark"] .low { background: rgba(16, 185, 129, 0.15) !important; color: #34d399 !important; }
-[data-theme="dark"] .medium { background: rgba(245, 158, 11, 0.15) !important; color: #fbbf24 !important; }
-[data-theme="dark"] .high { background: rgba(225, 29, 72, 0.15) !important; color: #fb7185 !important; }
-
-/* 6. Refined Footer */
-[data-theme="dark"] .site-footer { 
-    background: #09090b !important; 
-    border-top: 1px solid #27272a !important; 
+[data-theme="dark"] .report-header h1,
+[data-theme="dark"] .result-content h2,
+[data-theme="dark"] .card-title,
+[data-theme="dark"] .detail-item strong,
+[data-theme="dark"] .info-box strong {
+    color: #ffffff !important;
 }
-[data-theme="dark"] .site-footer .footer-logo h2,
-[data-theme="dark"] .site-footer .footer-section h3,
-[data-theme="dark"] .site-footer .footer-logo span { color: #f4f4f5 !important; }
-[data-theme="dark"] .site-footer .footer-section p,
-[data-theme="dark"] .site-footer .footer-links a,
-[data-theme="dark"] .site-footer .contact-item span,
-[data-theme="dark"] .site-footer .contact-item a,
-[data-theme="dark"] .site-footer .footer-bottom p { color: #a1a1aa !important; }
-[data-theme="dark"] .site-footer .footer-social a { background: #18181b !important; border: 1px solid #27272a !important; color: #f4f4f5 !important; }
-[data-theme="dark"] .site-footer .footer-social a:hover { background: #e11d48 !important; border-color: #e11d48 !important; }
-[data-theme="dark"] .site-footer .footer-bottom { border-top-color: #27272a !important; }
 
-/* 7. Modal & Forms Settings */
-[data-theme="dark"] .modal-content { background: #18181b !important; border: 1px solid #27272a !important; }
-[data-theme="dark"] .modal-header h2 { color: #f4f4f5 !important; }
-[data-theme="dark"] .form-group label { color: #a1a1aa !important; }
-[data-theme="dark"] .form-group input { background: #09090b !important; border-color: #3f3f46 !important; color: #f4f4f5 !important; }
-[data-theme="dark"] .form-group input:focus { border-color: #e11d48 !important; }
-[data-theme="dark"] .settings-btn { background: #27272a !important; color: #f4f4f5 !important; border-color: #3f3f46 !important; }
-[data-theme="dark"] .settings-btn:hover { border-color: #e11d48 !important; }
-[data-theme="dark"] .modal-divider { border-top-color: #27272a !important; }
-[data-theme="dark"] .btn-cancel { background: #27272a !important; color: #a1a1aa !important; border: 1px solid #3f3f46 !important; }
-[data-theme="dark"] .btn-cancel:hover { background: #3f3f46 !important; color: #f4f4f5 !important; }
-[data-theme="dark"] .btn-save { background: #e11d48 !important; color: #ffffff !important; }
-[data-theme="dark"] .btn-save:hover { background: #be123c !important; }
+[data-theme="dark"] .report-header p,
+[data-theme="dark"] .result-content p,
+[data-theme="dark"] .detail-item span,
+[data-theme="dark"] .info-box span {
+    color: #cbd5e1 !important;
+}
 
-/* 8. Danger Zone / Actions */
-[data-theme="dark"] .danger-zone { border-top-color: #27272a !important; }
-[data-theme="dark"] .btn-danger { background: #18181b !important; border-color: rgba(225, 29, 72, 0.3) !important; color: #fb7185 !important; }
-[data-theme="dark"] .btn-danger:hover { background: #e11d48 !important; border-color: #e11d48 !important; color: #ffffff !important; }
+/* Buttons */
+[data-theme="dark"] .back-btn {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+    border: 1px solid #334155 !important;
+}
 
-[data-theme="dark"] .btn-activate { background: rgba(16, 185, 129, 0.1) !important; color: #34d399 !important; border-color: rgba(16, 185, 129, 0.3) !important; }
-[data-theme="dark"] .btn-activate:hover { background: #10b981 !important; color: #ffffff !important; border-color: #10b981 !important; }
+[data-theme="dark"] .back-btn:hover {
+    background: #334155 !important;
+    border-color: #475569 !important;
+}
 
-[data-theme="dark"] .btn-disable { background: rgba(245, 158, 11, 0.1) !important; color: #fbbf24 !important; border-color: rgba(245, 158, 11, 0.3) !important; }
-[data-theme="dark"] .btn-disable:hover { background: #f59e0b !important; color: #ffffff !important; border-color: #f59e0b !important; }
+/* Data Elements */
+[data-theme="dark"] .detail-item,
+[data-theme="dark"] .info-box {
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] .detail-item:hover,
+[data-theme="dark"] .info-box:hover {
+    border-color: #d90429 !important;
+    box-shadow: none !important;
+}
+
+/* Disclaimer & Badges */
+[data-theme="dark"] .disclaimer {
+    background: rgba(245, 158, 11, 0.1) !important;
+    border-left: 5px solid #f59e0b !important;
+}
+
+[data-theme="dark"] .disclaimer h3 {
+    color: #fcd34d !important;
+}
+
+[data-theme="dark"] .disclaimer p {
+    color: #fde68a !important;
+}
+
+[data-theme="dark"] .section-tag,
+[data-theme="dark"] .result-icon {
+    background: rgba(217, 4, 41, 0.15) !important;
+    color: #ff4d6d !important;
+}
+
+[data-theme="dark"] .low { background: rgba(21, 128, 61, 0.2) !important; color: #4ade80 !important; }
+[data-theme="dark"] .medium { background: rgba(180, 83, 9, 0.2) !important; color: #fbbf24 !important; }
+[data-theme="dark"] .high { background: rgba(185, 28, 28, 0.2) !important; color: #f87171 !important; }
