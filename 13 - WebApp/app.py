@@ -327,6 +327,13 @@ def reset_whatsapp():
             else:
                 reset_url = url_for('reset_token', token=token, _external=True)
 
+            message_text = (
+                f"Hello *{user.username}*,\n\n"
+                f"Here is your secure password reset link for CardioPredict AI:\n\n"
+                f"{reset_url}\n\n"
+                f"This link expires in 30 minutes."
+            )
+
             clean_digits = "".join(filter(str.isdigit, user.phone))
             formatted_phone = f"+{clean_digits}" if not clean_digits.startswith("+") else clean_digits
 
@@ -334,17 +341,14 @@ def reset_whatsapp():
             INSTANCE_ID = "instance187614"
             TOKEN = "2wvg9k0bomw8nvqj"
 
-            # UltraMsg Interactive Link Endpoint for Clickable Card/Button
-            api_url = f"https://api.ultramsg.com/{INSTANCE_ID}/messages/link"
+            # UltraMsg Standard Chat Endpoint
+            api_url = f"https://api.ultramsg.com/{INSTANCE_ID}/messages/chat"
 
             try:
                 post_data = urllib.parse.urlencode({
                     "token": TOKEN,
                     "to": formatted_phone,
-                    "title": "CardioPredict AI",
-                    "body": f"Hello {user.username},\n\nClick the link card below to reset your password securely.",
-                    "thumbnail": "https://img.icons8.com/color/96/heart-health.png",
-                    "url": reset_url,
+                    "body": message_text,
                     "priority": "10"
                 }).encode('utf-8')
 
@@ -360,17 +364,20 @@ def reset_whatsapp():
                 with urllib.request.urlopen(req) as response:
                     res = json.loads(response.read().decode('utf-8'))
 
-                if res.get("sent") == "true" or res.get("id"):
+                # UltraMsg returns either a success boolean or a message ID
+                if res.get("sent") == "true" or res.get("sent") is True or res.get("id"):
                     flash('Password reset link sent directly to your registered WhatsApp number!', 'success')
                     return render_template("reset_whatsapp_success.html")
                 else:
-                    flash('Failed to dispatch message via WhatsApp API.', 'error')
+                    error_msg = res.get("error", "Failed to dispatch message via WhatsApp API.")
+                    print(f"UltraMsg API Error Response: {res}")
+                    flash(f'WhatsApp API Error: {error_msg}', 'error')
                     return redirect(url_for('reset_whatsapp'))
 
             except Exception as e:
-                print(f"UltraMsg API Dispatch Error: {str(e)}")
-                flash('Password reset link processed and sent to your registered WhatsApp number!', 'success')
-                return render_template("reset_whatsapp_success.html")
+                print(f"UltraMsg API Dispatch Exception: {str(e)}")
+                flash('Server error while dispatching WhatsApp message.', 'error')
+                return redirect(url_for('reset_whatsapp'))
         else:
             flash('No account found with that email address or username.', 'error')
 
