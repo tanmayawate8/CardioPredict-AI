@@ -334,8 +334,19 @@ def reset_whatsapp():
                 f"This link expires in 30 minutes."
             )
 
-            clean_digits = "".join(filter(str.isdigit, user.phone))
-            formatted_phone = f"+{clean_digits}" if not clean_digits.startswith("+") else clean_digits
+            # Sanitize phone number for UltraMsg API
+            raw_phone = str(user.phone or "").strip()
+            digits_only = "".join(filter(str.isdigit, raw_phone))
+
+            # Auto-append country code 91 (India) if standard 10 digits are provided
+            if len(digits_only) == 10:
+                formatted_phone = f"91{digits_only}"
+            else:
+                formatted_phone = digits_only
+
+            if not formatted_phone:
+                flash('Registered contact number is invalid. Please use Email Recovery.', 'error')
+                return redirect(url_for('reset_whatsapp'))
 
             # UltraMsg API Credentials
             INSTANCE_ID = "instance187614"
@@ -364,12 +375,11 @@ def reset_whatsapp():
                 with urllib.request.urlopen(req) as response:
                     res = json.loads(response.read().decode('utf-8'))
 
-                # UltraMsg returns either a success boolean or a message ID
                 if res.get("sent") == "true" or res.get("sent") is True or res.get("id"):
                     flash('Password reset link sent directly to your registered WhatsApp number!', 'success')
                     return render_template("reset_whatsapp_success.html")
                 else:
-                    error_msg = res.get("error", "Failed to dispatch message via WhatsApp API.")
+                    error_msg = res.get("error") or res.get("message") or "Failed to send message via UltraMsg."
                     print(f"UltraMsg API Error Response: {res}")
                     flash(f'WhatsApp API Error: {error_msg}', 'error')
                     return redirect(url_for('reset_whatsapp'))
