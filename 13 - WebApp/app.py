@@ -86,23 +86,28 @@ def load_user(user_id):
 
 
 # ============================================================
-# AUTOMATIC DATABASE PATCH (FORCES MISSING COLUMNS INTO MYSQL)
+# AUTOMATIC DATABASE PATCH (POSTGRESQL & MYSQL SAFE)
 # ============================================================
 with app.app_context():
-    with db.engine.connect() as conn:
-        try:
-            conn.execute(text("ALTER TABLE users ADD COLUMN is_disabled BOOLEAN DEFAULT FALSE;"))
-            conn.commit()
-            print("Database patch: is_disabled column added!")
-        except Exception:
-            pass  # Fails silently if column already exists
+    try:
+        with db.engine.connect() as conn:
+            # Patch is_disabled column
+            try:
+                conn.execute(text("ALTER TABLE users ADD COLUMN is_disabled BOOLEAN DEFAULT FALSE;"))
+                conn.commit()
+                print("Database patch: is_disabled column added!")
+            except Exception:
+                conn.rollback()
 
-        try:
-            conn.execute(text("ALTER TABLE users ADD COLUMN phone VARCHAR(20);"))
-            conn.commit()
-            print("Database patch: phone column added!")
-        except Exception:
-            pass  # Fails silently if column already exists
+            # Patch phone column
+            try:
+                conn.execute(text("ALTER TABLE users ADD COLUMN phone VARCHAR(20);"))
+                conn.commit()
+                print("Database patch: phone column added!")
+            except Exception:
+                conn.rollback()
+    except Exception as e:
+        print("Database patch status check finished.")
 
     db.create_all()
 
