@@ -2,8 +2,10 @@ Flask
 Flask-Login
 Flask-SQLAlchemy
 Flask-Migrate
+Flask-Mail
 SQLAlchemy
 Werkzeug
+itsdangerous
 python-dotenv
 Authlib
 requests
