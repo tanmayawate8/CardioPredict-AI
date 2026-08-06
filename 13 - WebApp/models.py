@@ -9,6 +9,8 @@ from werkzeug.security import (
     generate_password_hash,
     check_password_hash
 )
+from itsdangerous import URLSafeTimedSerializer as Serializer
+from flask import current_app
 
 from extensions import db
 
@@ -38,13 +40,18 @@ class User(db.Model, UserMixin):
         nullable=False
     )
 
+    phone = db.Column(
+        db.String(20),
+        nullable=True
+    )
+
     password_hash = db.Column(
         db.String(255),
         nullable=False
     )
 
     # ==========================================
-    # ACCOUNT STATUS FLAG (NEW)
+    # ACCOUNT STATUS FLAG
     # ==========================================
     is_disabled = db.Column(
         db.Boolean,
@@ -71,7 +78,7 @@ class User(db.Model, UserMixin):
 
 
     # ==========================================
-    # PASSWORD HELPERS
+    # PASSWORD HELPERS & TOKENS
     # ==========================================
 
     def set_password(self, password):
@@ -87,6 +94,21 @@ class User(db.Model, UserMixin):
             self.password_hash,
             password
         )
+
+
+    def get_reset_token(self, expires_sec=1800):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        return s.dumps({'user_id': self.id}, salt='password-reset-salt')
+
+
+    @staticmethod
+    def verify_reset_token(token, expires_sec=1800):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token, salt='password-reset-salt', max_age=expires_sec)['user_id']
+        except Exception:
+            return None
+        return db.session.get(User, user_id)
 
 
     # ==========================================

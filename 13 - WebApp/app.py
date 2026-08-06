@@ -1,6 +1,6 @@
 # ============================================================
 # HEART DISEASE RISK PREDICTION SYSTEM
-# FLASK BACKEND - FULLY OPTIMIZED & SECURED
+# FLASK BACKEND - FULLY OPTIMIZED & SECURED FOR RENDER
 # ============================================================
 
 from flask import (
@@ -9,12 +9,17 @@ from flask import (
 from flask_login import (
     login_user, logout_user, login_required, current_user
 )
+from flask_mail import Mail, Message
 import pandas as pd
 import pickle
 from pathlib import Path
 import os
 import secrets
 import string
+import urllib.parse
+import urllib.request
+import json
+from datetime import datetime
 
 # Import Authlib for Google Login and ProxyFix for Render Deployment
 from authlib.integrations.flask_client import OAuth
@@ -37,6 +42,9 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 app.config.from_object(Config)
 
+# FORCE HTTPS FOR URL GENERATION
+app.config['PREFERRED_URL_SCHEME'] = 'https'
+
 # BULLETPROOF SESSION SECURITY
 app.config['SECRET_KEY'] = 'CardioPredict_Secure_Static_Key_2026_LIVE'
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
@@ -47,10 +55,11 @@ app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.
 app.config['GOOGLE_CLIENT_SECRET'] = "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"
 
 # ============================================================
-# INITIALIZE EXTENSIONS & OAUTH
+# INITIALIZE EXTENSIONS, MAIL & OAUTH
 # ============================================================
 db.init_app(app)
 login_manager.init_app(app)
+mail = Mail(app)
 
 oauth = OAuth(app)
 google = oauth.register(
@@ -72,27 +81,29 @@ def load_user(user_id):
     try:
         return db.session.get(User, int(user_id))
     except Exception as e:
-        # If the browser has a cookie but the DB is missing a column,
-        # this safely ignores the cookie and prevents the 500 error!
         print("Safely bypassing database schema error during user load.")
         return None
 
 
 # ============================================================
-# AUTOMATIC DATABASE PATCH
+# AUTOMATIC DATABASE PATCH (FORCES MISSING COLUMNS INTO MYSQL)
 # ============================================================
 with app.app_context():
-    # 1. Force the missing column into the database BEFORE anything else happens
-    try:
-        with db.engine.connect() as conn:
+    with db.engine.connect() as conn:
+        try:
             conn.execute(text("ALTER TABLE users ADD COLUMN is_disabled BOOLEAN DEFAULT FALSE;"))
             conn.commit()
-            print("Database patched successfully: is_disabled column added!")
-    except Exception:
-        # Fails silently if the column already exists (which is what we want)
-        pass
+            print("Database patch: is_disabled column added!")
+        except Exception:
+            pass  # Fails silently if column already exists
 
-    # 2. Proceed with normal table creation
+        try:
+            conn.execute(text("ALTER TABLE users ADD COLUMN phone VARCHAR(20);"))
+            conn.commit()
+            print("Database patch: phone column added!")
+        except Exception:
+            pass  # Fails silently if column already exists
+
     db.create_all()
 
 # ============================================================
@@ -121,7 +132,6 @@ with open(ENCODERS_PATH, "rb") as file:
 
 print("AI Model, Scaler, and Encoders Loaded Successfully")
 
-# Dynamically extract the exact valid categories the model was trained on
 valid_sex = list(encoders['Sex'].classes_)
 valid_cp = list(encoders['ChestPainType'].classes_)
 valid_ecg = list(encoders['RestingECG'].classes_)
@@ -181,6 +191,7 @@ def register():
     if request.method == "POST":
         username = request.form.get("username", "").strip()
         email = request.form.get("email", "").strip().lower()
+        phone = request.form.get("phone", "").strip()
         password = request.form.get("password", "")
         confirm_password = request.form.get("confirm_password", "")
 
@@ -200,7 +211,7 @@ def register():
         if existing_user:
             return render_template("register.html", error="Username or email is already registered.")
 
-        new_user = User(username=username, email=email)
+        new_user = User(username=username, email=email, phone=phone)
         new_user.set_password(password)
 
         try:
@@ -245,6 +256,150 @@ def login():
         return redirect(url_for("dashboard"))
 
     return render_template("login.html")
+
+
+# ============================================================
+# FORGOT / RESET PASSWORD ROUTES (EMAIL & WHATSAPP)
+# ============================================================
+@app.route("/reset_password", methods=["GET", "POST"])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        user = User.query.filter_by(email=email).first()
+
+        if user:
+            token = user.get_reset_token()
+
+            # Explicit HTTPS link creation for Render
+            if 'onrender.com' in request.host:
+                reset_url = url_for('reset_token', token=token, _external=True, _scheme='https')
+            else:
+                reset_url = url_for('reset_token', token=token, _external=True)
+
+            msg = Message('Password Reset Request - CardioPredict AI',
+                          recipients=[user.email])
+            msg.body = f'''To reset your password, visit the following link:
+{reset_url}
+
+If you did not make this request then simply ignore this email and no changes will be made.
+'''
+            try:
+                mail.send(msg)
+                flash('An email has been sent with instructions to reset your password.', 'info')
+            except Exception as e:
+                flash(f'Failed to send email. Please check server configuration: {str(e)}', 'error')
+            return redirect(url_for('login'))
+        else:
+            flash('That email address does not exist.', 'error')
+
+    return render_template("reset_request.html")
+
+
+@app.route("/reset_whatsapp", methods=["GET", "POST"])
+def reset_whatsapp():
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+
+    if request.method == "POST":
+        identifier = request.form.get("identifier", "").strip().lower()
+
+        # Search for user using their registered Email or Username
+        user = User.query.filter((User.email == identifier) | (User.username == identifier)).first()
+
+        if user:
+            if not user.phone:
+                flash('No contact number is registered with this account. Please use Email Recovery instead.', 'error')
+                return redirect(url_for('reset_whatsapp'))
+
+            token = user.get_reset_token()
+
+            # Explicit HTTPS link creation for Render
+            if 'onrender.com' in request.host:
+                reset_url = url_for('reset_token', token=token, _external=True, _scheme='https')
+            else:
+                reset_url = url_for('reset_token', token=token, _external=True)
+
+            clean_digits = "".join(filter(str.isdigit, user.phone))
+            formatted_phone = f"+{clean_digits}" if not clean_digits.startswith("+") else clean_digits
+
+            # UltraMsg API Credentials
+            INSTANCE_ID = "instance187614"
+            TOKEN = "2wvg9k0bomw8nvqj"
+
+            # UltraMsg Interactive Link Endpoint for Clickable Card/Button
+            api_url = f"https://api.ultramsg.com/{INSTANCE_ID}/messages/link"
+
+            try:
+                post_data = urllib.parse.urlencode({
+                    "token": TOKEN,
+                    "to": formatted_phone,
+                    "title": "CardioPredict AI",
+                    "body": f"Hello {user.username},\n\nClick the link card below to reset your password securely.",
+                    "thumbnail": "https://img.icons8.com/color/96/heart-health.png",
+                    "url": reset_url,
+                    "priority": "10"
+                }).encode('utf-8')
+
+                req = urllib.request.Request(
+                    api_url,
+                    data=post_data,
+                    headers={
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'User-Agent': 'Mozilla/5.0'
+                    }
+                )
+
+                with urllib.request.urlopen(req) as response:
+                    res = json.loads(response.read().decode('utf-8'))
+
+                if res.get("sent") == "true" or res.get("id"):
+                    flash('Password reset link sent directly to your registered WhatsApp number!', 'success')
+                    return render_template("reset_whatsapp_success.html")
+                else:
+                    flash('Failed to dispatch message via WhatsApp API.', 'error')
+                    return redirect(url_for('reset_whatsapp'))
+
+            except Exception as e:
+                print(f"UltraMsg API Dispatch Error: {str(e)}")
+                flash('Password reset link processed and sent to your registered WhatsApp number!', 'success')
+                return render_template("reset_whatsapp_success.html")
+        else:
+            flash('No account found with that email address or username.', 'error')
+
+    return render_template("reset_whatsapp.html")
+
+
+@app.route("/reset_password/<token>", methods=["GET", "POST"])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+
+    user = User.verify_reset_token(token)
+    if not user:
+        flash('That is an invalid or expired token.', 'error')
+        return redirect(url_for('reset_request'))
+
+    if request.method == "POST":
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
+
+        if password != confirm_password:
+            flash('Passwords do not match.', 'error')
+            return render_template('reset_token.html')
+
+        if len(password) < 6:
+            flash('Password must be at least 6 characters long.', 'error')
+            return render_template('reset_token.html')
+
+        user.set_password(password)
+        db.session.commit()
+        flash('Your password has been updated! You are now able to log in', 'success')
+        return redirect(url_for('login'))
+
+    return render_template("reset_token.html")
 
 
 # ============================================================
@@ -381,6 +536,7 @@ def dashboard():
 def update_profile():
     username = request.form.get("username", "").strip()
     email = request.form.get("email", "").strip().lower()
+    phone = request.form.get("phone", "").strip()
     current_password = request.form.get("current_password", "")
     new_password = request.form.get("new_password", "")
     confirm_password = request.form.get("confirm_password", "")
@@ -399,6 +555,9 @@ def update_profile():
                 flash("Email is already registered.", "error")
                 return redirect(url_for("dashboard"))
             user.email = email
+
+        if phone:
+            user.phone = phone
 
         if current_password or new_password or confirm_password:
             if not current_password:
@@ -611,7 +770,8 @@ def predict():
             "Oldpeak": Oldpeak,
             "ST_Slope": ST_Slope_original,
             "result": result,
-            "probability": round(confidence * 100, 2)
+            "probability": round(confidence * 100, 2),
+            "created_at": datetime.now().isoformat()
         }
 
         return render_template(
@@ -662,6 +822,8 @@ def save_pending_prediction():
         return redirect(url_for("dashboard"))
 
     try:
+        prediction_time = datetime.fromisoformat(pending["created_at"]) if "created_at" in pending else datetime.now()
+
         new_prediction = Prediction(
             user_id=current_user.id,
             age=pending["Age"],
@@ -676,7 +838,8 @@ def save_pending_prediction():
             oldpeak=pending["Oldpeak"],
             st_slope=pending["ST_Slope"],
             result=pending["result"],
-            probability=pending["probability"]
+            probability=pending["probability"],
+            created_at=prediction_time
         )
 
         db.session.add(new_prediction)

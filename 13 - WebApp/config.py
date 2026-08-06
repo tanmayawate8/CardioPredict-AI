@@ -28,20 +28,16 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-this")
 
     # ==========================================
-    # DATABASE (MySQL)
+    # DATABASE (PostgreSQL / MySQL)
     #
     # Set DATABASE_URL in your .env file, e.g.:
     #
-    #   DATABASE_URL=mysql+pymysql://root:12345678@localhost/heart_disease_db
-    #
-    # Format:
-    #   mysql+pymysql://<user>:<12345678>@<host>:<port>/<database>
-    # (port defaults to 3306 if omitted)
+    #   DATABASE_URL=postgresql://user:pass@host/db
     # ==========================================
 
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",
-        "postgresql: // heartdb_user: jzkYvEIPc79fsNdblaKwxLXl0w5xmxgb @ dpg - d9iudo7aqgkc73amkbmg - a / heartdb"
+        "postgresql://heartdb_user:jzkYvEIPc79fsNdblaKwxLXl0w5xmxgb@dpg-d9iudo7aqgkc73amkbmg-a/heartdb"
     )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv(
@@ -69,28 +65,27 @@ class Config:
     )
 
     # ==========================================
-    # EMAIL
+    # EMAIL & FLASK-MAIL SETTINGS (FORGOT PASSWORD)
     #
-    # EMAIL_ADDRESS / EMAIL_PASSWORD are for a
-    # future Gmail SMTP feature (e.g. password
-    # reset or verification emails). Not wired
-    # into the app yet — contact.py still sends
-    # through Resend.
+    # Used for password reset and verification emails.
     # ==========================================
 
     EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-
     EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-
     RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+
+    # Flask-Mail standard configuration required for sending reset links
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.getenv("EMAIL_ADDRESS")
+    MAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+    MAIL_DEFAULT_SENDER = os.getenv("EMAIL_ADDRESS", "noreply@cardiopredict.ai")
 
     # ==========================================
     # SECURITY TOKEN LIFETIMES
     #
-    # Reserved for future password-reset and
-    # email-verification features (not yet
-    # implemented — these values aren't used
-    # anywhere in the app right now).
+    # Defines expiration times for reset tokens.
     # ==========================================
 
     PASSWORD_RESET_EXPIRE = int(os.getenv("PASSWORD_RESET_EXPIRE", 1800))

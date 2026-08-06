@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- DARK THEME AUTO-LOAD SCRIPT -->
+    <script>
+        (function(){
+            if(localStorage.getItem('theme') === 'dark'){
+                document.documentElement.setAttribute('data-theme','dark');
+            }
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Sent | CardioPredict AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span>CardioPredict AI</span>
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+        </ul>
+        <button id="theme-toggle" aria-label="Toggle dark mode" type="button">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+    </nav>
+</header>
+
+<!-- ================= WHATSAPP SUCCESS SECTION ================= -->
+<section class="professional-auth">
+    <div class="auth-container" style="display: flex; justify-content: center; width: 100%;">
+        <div class="auth-card professional-card" style="max-width: 500px; width: 100%; text-align: center; margin: 40px auto;">
+            <div class="login-icon" style="background: rgba(37, 211, 102, 0.1); color: #25d366; margin: 0 auto 20px;">
+                <i class="fa-solid fa-circle-check" style="font-size: 40px;"></i>
+            </div>
+            <h2>Message Sent Successfully!</h2>
+            <p class="auth-subtitle">Your secure password reset link has been dispatched directly to your WhatsApp number.</p>
+            
+            <div style="margin: 30px 0;">
+                <a href="{{ url_for('login') }}" class="auth-submit" style="background: #25d366; border-color: #25d366; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 30px; border-radius: 8px; color: #fff; font-weight: 600; width: 100%;">
+                    <i class="fa-solid fa-right-to-bracket"></i> Return to Login
+                </a>
+            </div>
+
+            <p class="auth-switch">
+                <a href="{{ url_for('login') }}">Back to Login</a>
+            </p>
+
+            <div class="security-note" style="margin-top: 20px;">
+                <i class="fa-solid fa-lock"></i>
+                Link is valid for 30 minutes
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <span>CardioPredict AI</span>
+            </div>
+            <p style="color: #cbd5e1; line-height: 1.8; font-size: 15px; margin: 0;">CardioPredict AI is a professional health intelligence platform that utilizes advanced predictive analytics to process patient medical vitals and evaluate cardiovascular disease risk in real-time. Designed to support preventive healthcare, our secure web application empowers both patients and physicians with instant, data-driven insights for early diagnosis and proactive care.</p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Connect With Us</h3>
+            <div class="footer-contact">
+                <div class="contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Pune, Maharashtra, India</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+91 98865 00642</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <a href="mailto:codewithtanmay098@gmail.com">codewithtanmay098@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="mailto:codewithtanmay098@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+
+            <a href="{{ url_for('contact') }}" class="footer-message-btn">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Send Message</span>
+            </a>
+        </div>
+    </div>
+
+    <hr>
+
+    <p class="copyright">© 2026 CardioPredict AI. All Rights Reserved.</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
