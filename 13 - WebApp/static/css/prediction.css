@@ -950,6 +950,14 @@
 
 .probability-value {
 
+    display: inline-flex;
+
+    align-items: baseline;
+
+    justify-content: center;
+
+    gap: 2px;
+
     margin-bottom: 20px;
 
     color: var(--secondary);
@@ -961,6 +969,8 @@
     font-weight: 600;
 
     line-height: 1;
+
+    letter-spacing: -1px;
 
 }
 
@@ -2613,11 +2623,12 @@ background-position:-200%;
   DARK THEME OVERRIDES
 =========================================================*/
 
+[data-theme="dark"] body,
 [data-theme="dark"] .prediction-section,
 [data-theme="dark"] .result-section,
 [data-theme="dark"] .error-section{
 
-    background:#0f172a !important;
+    background-color:#0f172a !important;
 
 }
 
@@ -2700,6 +2711,44 @@ background-position:-200%;
 
 }
 
+[data-theme="dark"] .input-group select option {
+
+    background:#0f172a !important;
+
+    color:#e2e8f0 !important;
+
+}
+
+[data-theme="dark"] .form-note {
+
+    background:#0f172a !important;
+
+    border-color:#334155 !important;
+
+}
+
+[data-theme="dark"] .form-note p {
+
+    color:#94a3b8 !important;
+
+}
+
+[data-theme="dark"] .btn-reset {
+
+    color:#94a3b8 !important;
+
+    border-color:#334155 !important;
+
+}
+
+[data-theme="dark"] .btn-reset:hover {
+
+    background:#0f172a !important;
+
+    color:#f1f5f9 !important;
+
+}
+
 [data-theme="dark"] .probability-bar{
 
     background:#0f172a !important;
@@ -2711,6 +2760,12 @@ background-position:-200%;
         rgba(255, 255, 255, 0.1) calc(10% - 1px),
         rgba(255, 255, 255, 0.1) 10%
     ) !important;
+
+}
+
+[data-theme="dark"] .probability-scale span {
+
+    color: #64748b !important;
 
 }
 

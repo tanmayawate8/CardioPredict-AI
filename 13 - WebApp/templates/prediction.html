@@ -1095,16 +1095,18 @@
                     <i class="fa-solid fa-phone"></i>
                     <span>+91 98865 00642</span>
                 </div>
-                <div class="contact-item">
-                    <i class="fa-solid fa-envelope"></i>
-                    <a href="mailto:codewithtanmay098@gmail.com" target="_blank" rel="noopener noreferrer">codewithtanmay098@gmail.com</a>
-                </div>
+<div class="contact-item">
+    <i class="fa-solid fa-envelope"></i>
+    <a href="mailto:codewithtanmay098@gmail.com">codewithtanmay098@gmail.com</a>
+</div>
             </div>
 
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/tanmay-awate-a810283a1?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                 <a href="https://github.com/tanmayawate8/CardioPredict-AI" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="mailto:cardiopredictai@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="mailto:cardiopredictai@gmail.com" aria-label="Email">
+    <i class="fa-solid fa-envelope"></i>
+</a>
             </div>
 
             <a href="{{ url_for('contact') }}" class="footer-message-btn">
@@ -1175,6 +1177,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const ctx = document.getElementById("riskChart");
 
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
 
     if (ctx && typeof Chart !== "undefined") {
 
@@ -1206,11 +1210,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         risk >= 70 ? "#d90429" : (risk >= 30 ? "#d97706" : "#1C6E64"),
 
-                        "#e2e8f0"
+                        isDark ? "#334155" : "#e2e8f0"
 
                     ],
 
-                    borderColor: "#ffffff",
+                    borderColor: isDark ? "#1e293b" : "#ffffff",
 
                     borderWidth: 3
 
@@ -1232,9 +1236,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         labels: {
 
+                            color: isDark ? "#f1f5f9" : "#16233F",
+
                             font: {
 
-                                size: 15
+                                size: 14,
+
+                                weight: "500"
 
                             },
 
