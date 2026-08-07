@@ -159,6 +159,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: background 0.2s ease;
         }
         .btn-copy:hover {
             background: #334155;
@@ -288,7 +289,7 @@
                 <i class="fa-solid fa-key"></i>
             </div>
             <h2>Forgot Password?</h2>
-            <p>Enter your registered email address to generate your password reset link.</p>
+            <p>Enter your registered email address below to generate your password reset link.</p>
         </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -313,14 +314,14 @@
             </button>
         </form>
 
-        <!-- ================= MAILTO & LINK DISPLAY BOX ================= -->
+        <!-- ================= DIRECT LINK / NEW TAB DISPLAY BOX ================= -->
         {% if user_found %}
         <div class="mailto-box">
             <h4><i class="fa-solid fa-circle-check"></i> Reset Link Ready!</h4>
-            <p>Click below to open your device's email client, or copy the link directly:</p>
+            <p>Click below to open the password reset page in a new tab, or copy the link directly:</p>
 
-            <a href="{{ mailto_link }}" class="btn-submit" style="background: #0284c7; margin-bottom: 12px;">
-                <i class="fa-solid fa-paper-plane"></i> Open Mail App with Pre-filled Link
+            <a href="{{ reset_url }}" target="_blank" rel="noopener noreferrer" class="btn-submit" style="background: #0284c7; margin-bottom: 12px;">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Reset Link in New Tab
             </a>
 
             <div class="copy-wrapper">

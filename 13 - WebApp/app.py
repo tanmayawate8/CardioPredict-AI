@@ -267,7 +267,7 @@ def login():
 
 
 # ============================================================
-# RESET PASSWORD VIA MAILTO CLIENT LINK / ON-SCREEN COPY
+# RESET PASSWORD VIA DIRECT ON-SCREEN / NEW TAB LINK
 # ============================================================
 @app.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
@@ -292,20 +292,8 @@ def reset_request():
             else:
                 reset_url = url_for('reset_token', token=token, _external=True)
 
-            # Pre-fill subject and body for the user's default email client
-            subject = urllib.parse.quote("CardioPredict AI Password Reset Link")
-            body = urllib.parse.quote(
-                f"Hello {user.username},\n\n"
-                f"Here is your secure password reset link for CardioPredict AI:\n\n"
-                f"{reset_url}\n\n"
-                f"This link expires in 30 minutes."
-            )
-
-            mailto_link = f"mailto:{user.email}?subject={subject}&body={body}"
-
             return render_template(
                 "reset_request.html",
-                mailto_link=mailto_link,
                 reset_url=reset_url,
                 user_email=user.email,
                 user_found=True
