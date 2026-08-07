@@ -1,6 +1,6 @@
 # ============================================================
 # HEART DISEASE RISK PREDICTION SYSTEM
-# FLASK BACKEND - FULLY OPTIMIZED & SECURED FOR RENDER
+# FLASK BACKEND - OPTIMIZED FOR RENDER & PROFILE WHATSAPP RECOVERY
 # ============================================================
 
 from flask import (
@@ -188,9 +188,9 @@ def contact():
     return render_template("contact.html")
 
 
-# ==========================================
-# REGISTER (STANDARD)
-# ==========================================
+# ============================================================
+# REGISTER (NO PHONE REQUIRED AT SIGNUP)
+# ============================================================
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
@@ -199,7 +199,6 @@ def register():
     if request.method == "POST":
         username = request.form.get("username", "").strip()
         email = request.form.get("email", "").strip().lower()
-        phone = request.form.get("phone", "").strip()
         password = request.form.get("password", "")
         confirm_password = request.form.get("confirm_password", "")
 
@@ -219,7 +218,8 @@ def register():
         if existing_user:
             return render_template("register.html", error="Username or email is already registered.")
 
-        new_user = User(username=username, email=email, phone=phone)
+        # Create user without phone (phone added later in Profile Settings)
+        new_user = User(username=username, email=email)
         new_user.set_password(password)
 
         try:
@@ -286,7 +286,6 @@ def reset_request():
         if user:
             token = user.get_reset_token()
 
-            # Dynamic HTTPS URL detection for Render
             if 'onrender.com' in request.host or request.headers.get('X-Forwarded-Proto') == 'https':
                 reset_url = url_for('reset_token', token=token, _external=True, _scheme='https')
             else:
@@ -305,7 +304,7 @@ def reset_request():
 
 
 # ============================================================
-# RESET PASSWORD VIA WHATSAPP (ULTRAMSG API)
+# RESET PASSWORD VIA WHATSAPP (READS NUMBER FROM USER PROFILE)
 # ============================================================
 @app.route("/reset_whatsapp", methods=["GET", "POST"])
 def reset_whatsapp():
@@ -318,8 +317,9 @@ def reset_whatsapp():
         user = User.query.filter((User.email == identifier) | (User.username == identifier)).first()
 
         if user:
-            if not user.phone:
-                flash('No contact number is registered with this account. Please use Email Recovery instead.', 'error')
+            # Check if user has configured a contact number in profile settings
+            if not user.phone or not str(user.phone).strip():
+                flash('No contact number is configured in your profile settings. Please use Email Recovery.', 'error')
                 return redirect(url_for('reset_whatsapp'))
 
             token = user.get_reset_token()
@@ -336,7 +336,7 @@ def reset_whatsapp():
                 f"This link expires in 30 minutes."
             )
 
-            raw_phone = str(user.phone or "").strip()
+            raw_phone = str(user.phone).strip()
             digits_only = "".join(filter(str.isdigit, raw_phone))
 
             if len(digits_only) == 10:
@@ -345,7 +345,7 @@ def reset_whatsapp():
                 formatted_phone = digits_only
 
             if not formatted_phone:
-                flash('Registered contact number is invalid. Please use Email Recovery.', 'error')
+                flash('Registered contact number in your profile is invalid. Please update it or use Email Recovery.', 'error')
                 return redirect(url_for('reset_whatsapp'))
 
             INSTANCE_ID = "instance187614"
@@ -551,7 +551,7 @@ def dashboard():
 
 
 # ============================================================
-# UPDATE PROFILE
+# UPDATE PROFILE (SAVES WHATSAPP CONTACT NUMBER)
 # ============================================================
 @app.route("/update_profile", methods=["POST"])
 @login_required
@@ -566,6 +566,15 @@ def update_profile():
     user = db.session.get(User, current_user.id)
 
     try:
+        # Check current password before committing any profile updates
+        if not current_password:
+            flash("Please enter your current password to save profile changes.", "error")
+            return redirect(url_for("dashboard"))
+
+        if not user.check_password(current_password):
+            flash("Incorrect current password.", "error")
+            return redirect(url_for("dashboard"))
+
         if username and username != user.username:
             if User.query.filter_by(username=username).first():
                 flash("Username is already taken.", "error")
@@ -578,16 +587,10 @@ def update_profile():
                 return redirect(url_for("dashboard"))
             user.email = email
 
-        if phone:
-            user.phone = phone
+        # Update WhatsApp Contact Number
+        user.phone = phone
 
-        if current_password or new_password or confirm_password:
-            if not current_password:
-                flash("Please enter your current password to set a new one.", "error")
-                return redirect(url_for("dashboard"))
-            if not user.check_password(current_password):
-                flash("Incorrect current password.", "error")
-                return redirect(url_for("dashboard"))
+        if new_password or confirm_password:
             if new_password != confirm_password:
                 flash("New passwords do not match.", "error")
                 return redirect(url_for("dashboard"))

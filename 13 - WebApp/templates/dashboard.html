@@ -170,33 +170,51 @@
                 <h2>Profile Settings</h2>
                 <button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form action="{{ url_for('update_profile') }}" method="POST">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" name="username" value="{{ current_user.username }}" required>
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" name="email" value="{{ current_user.email }}" required>
-                </div>
-                <hr class="modal-divider">
-                <div class="form-group">
-                    <label>Current Password <small style="color:#94a3b8; font-weight:normal;">(Leave blank to keep current)</small></label>
-                    <input type="password" name="current_password" placeholder="Enter current password">
-                </div>
-                <div class="form-group">
-                    <label>New Password</label>
-                    <input type="password" name="new_password" placeholder="Enter new password">
-                </div>
-                <div class="form-group">
-                    <label>Confirm New Password</label>
-                    <input type="password" name="confirm_password" placeholder="Confirm new password">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-cancel" id="cancelModalBtn">Cancel</button>
-                    <button type="submit" class="btn-save">Save Changes</button>
-                </div>
-            </form>
+            <div class="info-note" style="margin-bottom: 20px; padding: 12px 16px; background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 8px; color: #0369a1; font-size: 13px; line-height: 1.5;">
+    <i class="fa-solid fa-circle-info"></i> <strong>Note:</strong> WhatsApp recovery requires a contact number configured in your <strong>Profile Settings</strong>. If you haven't added one yet, please use <a href="{{ url_for('reset_request') }}" style="color: #0284c7; font-weight: 600;">Email Recovery</a> instead.
+</div>
+            <!-- PROFILE UPDATE FORM INSIDE DASHBOARD -->
+<form action="{{ url_for('update_profile') }}" method="POST">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="{{ current_user.username }}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" value="{{ current_user.email }}" required>
+    </div>
+
+    <!-- WHATSAPP RECOVERY CONTACT NUMBER -->
+    <div class="form-group">
+        <label for="phone">
+            Contact Number (For Password Recovery)
+        </label>
+        <input type="tel" id="phone" name="phone" value="{{ current_user.phone or '' }}" placeholder="e.g. +919886500642 or 9886500642">
+    </div>
+
+    <hr style="margin: 20px 0; border: none; border-top: 1px solid #e2e8f0;">
+
+    <div class="form-group">
+        <label for="current_password">Current Password (Required to save changes)</label>
+        <input type="password" id="current_password" name="current_password" placeholder="Enter current password">
+    </div>
+
+    <div class="form-group">
+        <label for="new_password">New Password (Optional)</label>
+        <input type="password" id="new_password" name="new_password" placeholder="Enter new password">
+    </div>
+
+    <div class="form-group">
+        <label for="confirm_password">Confirm New Password</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm new password">
+    </div>
+
+   <button type="submit" class="auth-submit" style="width: 100%; padding: 14px; border-radius: 12px; background: linear-gradient(135deg, #d90429, #ef233c); color: #ffffff; border: none; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px;">
+    <i class="fa-solid fa-floppy-disk"></i>
+    Save Profile Settings
+</button>
+</form>
 
             <div class="danger-zone">
                 <h3>Account Status & Danger Zone</h3>
@@ -223,16 +241,19 @@
 <!-- =========================================================
 PERFECTLY MATCHED GLOBAL FOOTER
 ========================================================= -->
+<!-- ================= FOOTER ================= -->
 <footer>
     <div class="footer-container">
-      <div class="footer-section">
-    <div class="logo">
-        <i class="fa-solid fa-heart-pulse"></i>
-        <span>CardioPredict AI</span>
-    </div>
-    <p style="color: #cbd5e1; line-height: 1.8; font-size: 15px; margin: 0;">CardioPredict AI is a professional health intelligence platform that utilizes advanced predictive analytics to process patient medical vitals and evaluate cardiovascular disease risk in real-time. Designed to support preventive healthcare, our secure web application empowers both patients and physicians with instant, data-driven insights for early diagnosis and proactive care.</p>
-</div>
-        
+        <div class="footer-section">
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <span>CardioPredict AI</span>
+            </div>
+            <p style="color: #cbd5e1; line-height: 1.8; font-size: 14px; margin: 0;">
+                CardioPredict AI is an advanced health intelligence platform providing real-time cardiovascular risk evaluation. By analyzing patient medical vitals through predictive analytics, our secure web app delivers instant, data-driven insights to support early diagnosis and proactive preventive care.
+            </p>
+        </div>
+
         <div class="footer-section">
             <h3>Quick Links</h3>
             <ul>
@@ -240,31 +261,47 @@ PERFECTLY MATCHED GLOBAL FOOTER
                 <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
                 <li><a href="{{ url_for('about') }}">About</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                {% endif %}
             </ul>
         </div>
-        
+
         <div class="footer-section">
             <h3>Connect With Us</h3>
+
             <div class="footer-contact">
-                <div class="contact-item"><i class="fa-solid fa-location-dot"></i><span>Pune, Maharashtra, India</span></div>
-                <div class="contact-item"><i class="fa-solid fa-phone"></i><span>+91 98865 00642</span></div>
-                <div class="contact-item"><i class="fa-solid fa-envelope"></i><a href="mailto:codewithtanmay098@gmail.com">codewithtanmay098@gmail.com</a></div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Pune, Maharashtra, India</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+91 98865 00642</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <!-- OPENS EMAIL APP WHEN CLICKED -->
+                    <a href="mailto:codewithtanmay098@gmail.com">codewithtanmay098@gmail.com</a>
+                </div>
             </div>
+
             <div class="social-icons">
-    <a href="https://www.linkedin.com/in/tanmay-awate-a810283a1?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-    <a href="https://github.com/tanmayawate8/CardioPredict-AI" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-    <a href="mailto:cardiopredictai@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-</div>
-            <a href="{{ url_for('contact') }}" class="footer-message-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</a>
+                <a href="https://www.linkedin.com/in/tanmay-awate-a810283a1?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://github.com/tanmayawate8/CardioPredict-AI" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <!-- OPENS EMAIL APP WHEN CLICKED -->
+                <a href="mailto:cardiopredictai@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+
+            <a href="{{ url_for('contact') }}" class="footer-message-btn">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Send Message</span>
+            </a>
         </div>
     </div>
-    
+
     <hr>
-    
-    <p class="copyright">© 2026 CardioPredict AI. All Rights Reserved.</p>
+
+    <p class="copyright">
+        © 2026 CardioPredict AI. All Rights Reserved.
+    </p>
 </footer>
 
 <!-- External Script runs theme logic -->
