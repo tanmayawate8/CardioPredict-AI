@@ -111,6 +111,9 @@ with app.app_context():
 
     db.create_all()
 
+    # Dispose startup connection pool to prevent stale/corrupted SSL sockets on Cloud DBs
+    db.engine.dispose()
+
 # ============================================================
 # LOAD AI MODEL, SCALER, AND ENCODERS
 # ============================================================
