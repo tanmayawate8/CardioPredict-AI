@@ -756,8 +756,13 @@ def predict():
         else:
             confidence = float(prediction_value)
 
-        if int(prediction_value) == 1:
+        # Categorize into 3 risk tiers based on probability percentage
+        probability_pct = confidence * 100
+
+        if probability_pct >= 70.0:
             result = "High Risk"
+        elif probability_pct >= 30.0:
+            result = "Medium Risk"
         else:
             result = "Low Risk"
 
@@ -795,7 +800,7 @@ def predict():
             "Oldpeak": Oldpeak,
             "ST_Slope": ST_Slope_original,
             "result": result,
-            "probability": round(confidence * 100, 2),
+            "probability": round(probability_pct, 2),
             "created_at": datetime.now().isoformat()
         }
 

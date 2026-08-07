@@ -93,7 +93,7 @@
             </span>
         </div>
 
-        <!-- ADDED MENU TOGGLE FOR MOBILE -->
+        <!-- MENU TOGGLE FOR MOBILE -->
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
             <i class="fas fa-bars"></i>
         </button>
@@ -147,10 +147,10 @@
 
             </li>
             <li>
-        <a href="{{ url_for('logout') }}">
-            Logout
-        </a>
-    </li>
+                <a href="{{ url_for('logout') }}">
+                    Logout
+                </a>
+            </li>
 
 
             {% else %}
@@ -234,7 +234,7 @@
             </span>
 
             <h1>
-                CardioPredic-AI | Heart Disease Risk Prediction
+                CardioPredict-AI | Heart Disease Risk Prediction
             </h1>
 
             <p>
@@ -661,7 +661,7 @@
 
 
         <!-- ========================================== -->
-        <!-- PREDICTION RESULT -->
+        <!-- PREDICTION RESULT TIERS -->
         <!-- ========================================== -->
 
         {% if prediction == "High Risk" %}
@@ -682,6 +682,31 @@
 
                 <h3>
                     High Risk of Heart Disease
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        {% elif prediction == "Medium Risk" %}
+
+        <div class="risk-result medium-risk">
+
+            <div class="risk-icon">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+            <div class="risk-content">
+
+                <span class="risk-label">
+                    Prediction Result
+                </span>
+
+                <h3>
+                    Moderate Risk of Heart Disease
                 </h3>
 
             </div>
@@ -760,6 +785,8 @@
                     class="probability-fill
                     {% if prediction == 'High Risk' %}
                     high-risk-fill
+                    {% elif prediction == 'Medium Risk' %}
+                    medium-risk-fill
                     {% else %}
                     low-risk-fill
                     {% endif %}"
@@ -811,7 +838,7 @@
 
 
         <!-- ========================================== -->
-        <!-- RECOMMENDATION (DYNAMICS BASED ON RISK) -->
+        <!-- RECOMMENDATION (DYNAMIC BASED ON RISK) -->
         <!-- ========================================== -->
 
         {% if prediction == "High Risk" %}
@@ -830,6 +857,26 @@
                 Based on these elevated risk indicators, it is strongly recommended that you 
                 <strong>visit a nearby hospital or consult a qualified healthcare professional immediately</strong> 
                 for a comprehensive physical examination and diagnostic evaluation. Please do not delay professional care.
+            </p>
+
+        </div>
+
+
+        {% elif prediction == "Medium Risk" %}
+
+        <div class="recommendation medium-risk">
+
+            <h3>
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                Moderate Risk Advisory
+
+            </h3>
+
+            <p>
+                The AI model estimates a <strong>moderate cardiovascular risk level</strong> based on your health parameters. 
+                It is recommended to schedule a consultation with a primary care physician or cardiologist for a routine checkup, review lifestyle habits (diet, physical activity, stress), and monitor your blood pressure and cholesterol levels regularly.
             </p>
 
         </div>
@@ -1014,7 +1061,6 @@
 <!-- FOOTER -->
 <!-- ========================================== -->
 
-<!-- ================= FOOTER ================= -->
 <footer>
     <div class="footer-container">
         <div class="footer-section">
@@ -1051,16 +1097,14 @@
                 </div>
                 <div class="contact-item">
                     <i class="fa-solid fa-envelope"></i>
-                    <!-- OPENS EMAIL APP WHEN CLICKED -->
-                    <a href="mailto:codewithtanmay098@gmail.com">codewithtanmay098@gmail.com</a>
+                    <a href="mailto:codewithtanmay098@gmail.com" target="_blank" rel="noopener noreferrer">codewithtanmay098@gmail.com</a>
                 </div>
             </div>
 
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/tanmay-awate-a810283a1?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                 <a href="https://github.com/tanmayawate8/CardioPredict-AI" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <!-- OPENS EMAIL APP WHEN CLICKED -->
-                <a href="mailto:cardiopredictai@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="mailto:cardiopredictai@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
 
             <a href="{{ url_for('contact') }}" class="footer-message-btn">
@@ -1101,6 +1145,8 @@
     </div>
 
 </div>
+
+
 <!-- ========================================== -->
 <!-- JAVASCRIPT -->
 <!-- ========================================== -->
@@ -1158,9 +1204,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     backgroundColor: [
 
-                        "#d90429",
+                        risk >= 70 ? "#d90429" : (risk >= 30 ? "#d97706" : "#1C6E64"),
 
-                        "#2ec4b6"
+                        "#e2e8f0"
 
                     ],
 
