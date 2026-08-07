@@ -267,7 +267,7 @@ def login():
 
 
 # ============================================================
-# RESET PASSWORD VIA EMAIL (DIRECT SENDGRID HTTP API)
+# RESET PASSWORD VIA MAILTO CLIENT LINK / ON-SCREEN COPY
 # ============================================================
 @app.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
@@ -292,70 +292,24 @@ def reset_request():
             else:
                 reset_url = url_for('reset_token', token=token, _external=True)
 
-            html_content = f"""
-            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-                <h2 style="color: #003049;">CardioPredict AI - Password Reset</h2>
-                <p>Hello <strong>{user.username}</strong>,</p>
-                <p>We received a request to reset your password. Click the button below to set a new password:</p>
-                <p style="margin: 25px 0;">
-                    <a href="{reset_url}" style="background-color: #003049; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Reset Password</a>
-                </p>
-                <p>Or copy and paste this link into your browser:</p>
-                <p><a href="{reset_url}">{reset_url}</a></p>
-                <p style="color: #666; font-size: 12px; margin-top: 30px;">This link will expire in 30 minutes. If you did not request this, you can ignore this email.</p>
-            </div>
-            """
+            # Pre-fill subject and body for the user's default email client
+            subject = urllib.parse.quote("CardioPredict AI Password Reset Link")
+            body = urllib.parse.quote(
+                f"Hello {user.username},\n\n"
+                f"Here is your secure password reset link for CardioPredict AI:\n\n"
+                f"{reset_url}\n\n"
+                f"This link expires in 30 minutes."
+            )
 
-            # Construct SendGrid JSON Payload
-            payload = {
-                "personalizations": [
-                    {
-                        "to": [{"email": user.email}],
-                        "subject": "Password Reset Request - CardioPredict AI"
-                    }
-                ],
-                "from": {"email": app.config.get('MAIL_DEFAULT_SENDER')},
-                "content": [
-                    {
-                        "type": "text/html",
-                        "value": html_content
-                    }
-                ]
-            }
+            mailto_link = f"mailto:{user.email}?subject={subject}&body={body}"
 
-            headers = {
-                "Authorization": f"Bearer {app.config.get('SENDGRID_API_KEY')}",
-                "Content-Type": "application/json"
-            }
-
-            try:
-                # Direct HTTPS POST Request to SendGrid v3 Mail API
-                req = urllib.request.Request(
-                    "https://api.sendgrid.com/v3/mail/send",
-                    data=json.dumps(payload).encode('utf-8'),
-                    headers=headers,
-                    method="POST"
-                )
-
-                with urllib.request.urlopen(req) as response:
-                    status_code = response.getcode()
-
-                if status_code in [200, 201, 202]:
-                    flash('An email has been sent with instructions to reset your password.', 'success')
-                    return redirect(url_for('login'))
-                else:
-                    flash(f'SendGrid API returned status code {status_code}', 'error')
-                    return render_template("reset_request.html")
-
-            except urllib.error.HTTPError as e:
-                error_response = e.read().decode('utf-8')
-                print(f"SENDGRID API HTTP ERROR: {e.code} - {error_response}")
-                flash('Email API dispatch failed. Please verify SendGrid sender authorization or use WhatsApp recovery.', 'error')
-                return render_template("reset_request.html")
-            except Exception as e:
-                print(f"SENDGRID DISPATCH ERROR: {str(e)}")
-                flash('Server error while dispatching email. Please try WhatsApp recovery.', 'error')
-                return render_template("reset_request.html")
+            return render_template(
+                "reset_request.html",
+                mailto_link=mailto_link,
+                reset_url=reset_url,
+                user_email=user.email,
+                user_found=True
+            )
         else:
             flash('That email address does not exist in our system.', 'error')
 

@@ -11,7 +11,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password via Email | CardioPredict AI</title>
+    <title>Reset Password | CardioPredict AI</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -19,7 +19,7 @@
 
     <style>
         .auth-container {
-            max-width: 480px;
+            max-width: 500px;
             margin: 60px auto;
             padding: 0 20px;
         }
@@ -108,9 +108,60 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            text-decoration: none;
+            box-sizing: border-box;
         }
         .btn-submit:hover {
             background: #002538;
+        }
+        .mailto-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .mailto-box h4 {
+            color: #0369a1;
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        .mailto-box p {
+            font-size: 13px;
+            color: #334155;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .copy-wrapper {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .copy-wrapper input {
+            flex: 1;
+            padding: 10px;
+            font-size: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background: #ffffff;
+        }
+        .btn-copy {
+            padding: 10px 16px;
+            background: #475569;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-copy:hover {
+            background: #334155;
         }
         .alternative-box {
             margin-top: 25px;
@@ -179,6 +230,21 @@
             border-color: #334155;
             color: #f8fafc;
         }
+        [data-theme="dark"] .mailto-box {
+            background: #0f172a;
+            border-color: #0369a1;
+        }
+        [data-theme="dark"] .mailto-box h4 {
+            color: #38bdf8;
+        }
+        [data-theme="dark"] .mailto-box p {
+            color: #cbd5e1;
+        }
+        [data-theme="dark"] .copy-wrapper input {
+            background: #1e293b;
+            border-color: #334155;
+            color: #f8fafc;
+        }
         [data-theme="dark"] .alternative-box {
             border-top-color: #334155;
         }
@@ -219,10 +285,10 @@
     <div class="auth-card">
         <div class="auth-header">
             <div class="icon-wrapper">
-                <i class="fa-solid fa-envelope-open-text"></i>
+                <i class="fa-solid fa-key"></i>
             </div>
             <h2>Forgot Password?</h2>
-            <p>Enter your registered email address below. We'll send you a link to reset your password.</p>
+            <p>Enter your registered email address to generate your password reset link.</p>
         </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -238,17 +304,36 @@
                 <label for="email">Email Address</label>
                 <div class="input-icon-wrapper">
                     <i class="fa-solid fa-envelope"></i>
-                    <input type="email" id="email" name="email" placeholder="name@example.com" required autocomplete="email">
+                    <input type="email" id="email" name="email" placeholder="name@example.com" value="{{ user_email or '' }}" required autocomplete="email">
                 </div>
             </div>
 
             <button type="submit" class="btn-submit">
-                <i class="fa-solid fa-paper-plane"></i> Send Recovery Link
+                <i class="fa-solid fa-link"></i> Generate Reset Link
             </button>
         </form>
 
+        <!-- ================= MAILTO & LINK DISPLAY BOX ================= -->
+        {% if user_found %}
+        <div class="mailto-box">
+            <h4><i class="fa-solid fa-circle-check"></i> Reset Link Ready!</h4>
+            <p>Click below to open your device's email client, or copy the link directly:</p>
+
+            <a href="{{ mailto_link }}" class="btn-submit" style="background: #0284c7; margin-bottom: 12px;">
+                <i class="fa-solid fa-paper-plane"></i> Open Mail App with Pre-filled Link
+            </a>
+
+            <div class="copy-wrapper">
+                <input type="text" id="resetUrlInput" value="{{ reset_url }}" readonly>
+                <button type="button" class="btn-copy" onclick="copyResetUrl()">
+                    <i class="fa-solid fa-copy"></i> Copy Link
+                </button>
+            </div>
+        </div>
+        {% endif %}
+
         <div class="alternative-box">
-            <p>Having trouble with email delivery?</p>
+            <p>Want to receive the link on WhatsApp instead?</p>
             <a href="{{ url_for('reset_whatsapp') }}" class="btn-whatsapp">
                 <i class="fa-brands fa-whatsapp"></i> Reset via WhatsApp
             </a>
@@ -317,6 +402,16 @@
     <p class="copyright">© 2026 CardioPredict AI. All Rights Reserved.</p>
 </footer>
 
+<script>
+    function copyResetUrl() {
+        const input = document.getElementById('resetUrlInput');
+        input.select();
+        input.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(input.value).then(() => {
+            alert("Password reset link copied to clipboard!");
+        });
+    }
+</script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
