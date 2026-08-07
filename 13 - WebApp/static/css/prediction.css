@@ -159,42 +159,42 @@
 
 .form-intro {
 
-    margin-bottom: 40px; /* Increased bottom margin for breathing room */
+    margin-bottom: 40px;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--line, #E2E6ED);
-    text-align: center; /* Centers the text block perfectly */
+    text-align: center;
 
 }
 
 .form-eyebrow {
 
-    display: inline-block; /* Changed from block to inline-block for proper centering */
-    margin-bottom: 12px; /* Slightly increased bottom margin */
+    display: inline-block;
+    margin-bottom: 12px;
     color: var(--primary, #d90429);
     font-family: var(--font-mono);
-    font-size: 14px; /* Increased size from 12px */
-    font-weight: 700; /* Increased weight for presence */
-    letter-spacing: 0.1em; /* Widened tracking for a professional look */
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 
 }
 
 .form-intro h2 {
 
-    margin: 0 0 12px; /* Adjusted bottom margin */
+    margin: 0 0 12px;
     color: var(--secondary, #16233F);
     font-family: var(--font-display);
-    font-size: 32px; /* Increased size from 24px for prominence */
+    font-size: 32px;
     font-weight: 700;
 
 }
 
 .form-description {
 
-    max-width: 650px; /* Slightly wider to accommodate centered text */
-    margin: 0 auto; /* Centers the paragraph block itself */
+    max-width: 650px;
+    margin: 0 auto;
     color: #6c757d;
-    font-size: 16px; /* Increased size from 14.5px for readability */
+    font-size: 16px;
     line-height: 1.7;
 
 }
@@ -202,8 +202,6 @@
 
 /*=========================================================
   4B. FORM SECTIONS (Demographics / Vital Signs / Tests)
-  Groups related fields the way a real clinical intake
-  form would, instead of one flat 11-field grid.
 =========================================================*/
 
 .form-section {
@@ -442,12 +440,6 @@
   7. INPUT VALIDATION
 =========================================================*/
 
-/*
-  Do not make every valid input green.
-  This keeps the professional medical dashboard
-  appearance clean.
-*/
-
 .input-group input:invalid,
 
 .input-group select:invalid {
@@ -532,7 +524,6 @@
 
 /*=========================================================
   BUTTON ICON
-  (only appears when JS injects a spinner on submit)
 =========================================================*/
 
 .button-group .btn i {
@@ -1106,7 +1097,6 @@
 
     border-radius: 4px;
 
-    /* faint tick marks every 10%, instrument-gauge style */
     background-image: repeating-linear-gradient(
         90deg,
         transparent 0,
@@ -1612,11 +1602,6 @@
 
     }
 
-    /*
-      16px prevents iOS Safari from auto-zooming
-      into the field on focus.
-    */
-
     .input-group input,
 
     .input-group select,
@@ -1867,6 +1852,7 @@
     }
 
 }
+
 /*=========================================
 FOOTER CONTACT ROW
 =========================================*/
@@ -2165,6 +2151,7 @@ FOOTER RESPONSIVE
     }
 
 }
+
 /*=========================================
 RISK PIE CHART
 =========================================*/
@@ -2226,6 +2213,7 @@ RISK PIE CHART
     }
 
 }
+
 /*=========================================================
   SAVE PREDICTION SECTION
 =========================================================*/
@@ -2264,11 +2252,6 @@ RISK PIE CHART
 
 }
 
-
-/*=========================================================
-  SAVE PREDICTION HOVER
-=========================================================*/
-
 .save-prediction-section:hover {
 
     transform: translateY(-2px);
@@ -2277,11 +2260,6 @@ RISK PIE CHART
         0 8px 25px rgba(0, 0, 0, 0.06);
 
 }
-
-
-/*=========================================================
-  SAVE PREDICTION ICON
-=========================================================*/
 
 .save-prediction-icon {
 
@@ -2307,11 +2285,6 @@ RISK PIE CHART
 
 }
 
-
-/*=========================================================
-  SAVE PREDICTION CONTENT
-=========================================================*/
-
 .save-prediction-content {
 
     flex: 1;
@@ -2319,11 +2292,6 @@ RISK PIE CHART
     min-width: 0;
 
 }
-
-
-/*=========================================================
-  SAVE PREDICTION TITLE
-=========================================================*/
 
 .save-prediction-content h3 {
 
@@ -2341,11 +2309,6 @@ RISK PIE CHART
 
 }
 
-
-/*=========================================================
-  SAVE PREDICTION DESCRIPTION
-=========================================================*/
-
 .save-prediction-content p {
 
     margin: 0 0 18px;
@@ -2358,11 +2321,6 @@ RISK PIE CHART
 
 }
 
-
-/*=========================================================
-  IMPORTANT TEXT
-=========================================================*/
-
 .save-prediction-content p strong {
 
     color: var(--primary, #d90429);
@@ -2370,11 +2328,6 @@ RISK PIE CHART
     font-weight: 700;
 
 }
-
-
-/*=========================================================
-  AUTH BUTTON CONTAINER
-=========================================================*/
 
 .save-auth-buttons {
 
@@ -2387,11 +2340,6 @@ RISK PIE CHART
     flex-wrap: wrap;
 
 }
-
-
-/*=========================================================
-  COMMON BUTTON STYLE
-=========================================================*/
 
 .save-auth-buttons a,
 .save-auth-buttons button {
@@ -2431,11 +2379,6 @@ RISK PIE CHART
 
 }
 
-
-/*=========================================================
-  SAVE PREDICTION BUTTON
-=========================================================*/
-
 .save-prediction-btn {
 
     min-width: 170px;
@@ -2447,11 +2390,6 @@ RISK PIE CHART
     border: 1px solid var(--primary, #d90429);
 
 }
-
-
-/*=========================================================
-  SAVE BUTTON HOVER
-=========================================================*/
 
 .save-prediction-btn:hover {
 
@@ -2468,11 +2406,6 @@ RISK PIE CHART
 
 }
 
-
-/*=========================================================
-  SAVE BUTTON ACTIVE
-=========================================================*/
-
 .save-prediction-btn:active {
 
     transform: translateY(0);
@@ -2481,11 +2414,6 @@ RISK PIE CHART
         0 4px 10px rgba(217, 4, 41, 0.20);
 
 }
-
-
-/*=========================================================
-  LOGIN BUTTON
-=========================================================*/
 
 .login-save-btn {
 
@@ -2498,11 +2426,6 @@ RISK PIE CHART
     border: 1px solid var(--teal);
 
 }
-
-
-/*=========================================================
-  LOGIN BUTTON HOVER
-=========================================================*/
 
 .login-save-btn:hover {
 
@@ -2519,11 +2442,6 @@ RISK PIE CHART
 
 }
 
-
-/*=========================================================
-  REGISTER BUTTON
-=========================================================*/
-
 .register-save-btn {
 
     min-width: 170px;
@@ -2535,11 +2453,6 @@ RISK PIE CHART
     border: 1px solid var(--amber);
 
 }
-
-
-/*=========================================================
-  REGISTER BUTTON HOVER
-=========================================================*/
 
 .register-save-btn:hover {
 
@@ -2556,22 +2469,12 @@ RISK PIE CHART
 
 }
 
-
-/*=========================================================
-  BUTTON ICON
-=========================================================*/
-
 .save-auth-buttons a i,
 .save-auth-buttons button i {
 
     font-size: 14px;
 
 }
-
-
-/*=========================================================
-  BUTTON FOCUS
-=========================================================*/
 
 .save-auth-buttons a:focus-visible,
 .save-auth-buttons button:focus-visible {
@@ -2582,22 +2485,12 @@ RISK PIE CHART
 
 }
 
-
-/*=========================================================
-  LOGGED-IN SAVE AREA
-=========================================================*/
-
 .save-prediction-content
 .save-auth-buttons form {
 
     margin: 0;
 
 }
-
-
-/*=========================================================
-  FORM RESET
-=========================================================*/
 
 .save-auth-buttons form {
 
@@ -2608,11 +2501,6 @@ RISK PIE CHART
     padding: 0;
 
 }
-
-
-/*=========================================================
-  RESPONSIVE - TABLET
-=========================================================*/
 
 @media (max-width: 768px) {
 
@@ -2626,7 +2514,6 @@ RISK PIE CHART
 
     }
 
-
     .save-prediction-icon {
 
         width: 55px;
@@ -2637,13 +2524,11 @@ RISK PIE CHART
 
     }
 
-
     .save-prediction-content {
 
         width: 100%;
 
     }
-
 
     .save-auth-buttons {
 
@@ -2655,7 +2540,6 @@ RISK PIE CHART
 
     }
 
-
     .save-auth-buttons a,
     .save-auth-buttons form,
     .save-auth-buttons button {
@@ -2664,13 +2548,11 @@ RISK PIE CHART
 
     }
 
-
     .save-auth-buttons form {
 
         display: flex;
 
     }
-
 
     .save-auth-buttons button {
 
@@ -2679,11 +2561,6 @@ RISK PIE CHART
     }
 
 }
-
-
-/*=========================================================
-  RESPONSIVE - SMALL MOBILE
-=========================================================*/
 
 @media (max-width: 480px) {
 
@@ -2697,13 +2574,11 @@ RISK PIE CHART
 
     }
 
-
     .save-prediction-content h3 {
 
         font-size: 18px;
 
     }
-
 
     .save-prediction-content p {
 
@@ -2712,7 +2587,6 @@ RISK PIE CHART
         line-height: 1.7;
 
     }
-
 
     .save-prediction-icon {
 
@@ -2725,7 +2599,6 @@ RISK PIE CHART
         border-radius: 10px;
 
     }
-
 
     .save-auth-buttons a,
     .save-auth-buttons button {
@@ -2740,11 +2613,6 @@ RISK PIE CHART
 
 }
 
-
-/*=========================================================
-  REDUCED MOTION
-=========================================================*/
-
 @media (prefers-reduced-motion: reduce) {
 
     .save-prediction-section,
@@ -2755,7 +2623,6 @@ RISK PIE CHART
 
     }
 
-
     .save-prediction-section:hover,
     .save-auth-buttons a:hover,
     .save-auth-buttons button:hover {
@@ -2765,6 +2632,7 @@ RISK PIE CHART
     }
 
 }
+
 /*==============================
 PREDICTION LOADER
 ==============================*/
@@ -2937,16 +2805,20 @@ background-position:-200%;
 [data-theme="dark"] .result-section,
 [data-theme="dark"] .error-section{
 
-    background:#0f172a;
+    background:#0f172a !important;
 
 }
 
 [data-theme="dark"] .prediction-container,
 [data-theme="dark"] .result-card,
+[data-theme="dark"] .patient-summary,
+[data-theme="dark"] .probability-section,
 [data-theme="dark"] .risk-chart-section,
 [data-theme="dark"] .loader-card{
 
-    background:#1e293b;
+    background:#1e293b !important;
+
+    border-color:#334155 !important;
 
 }
 
@@ -2956,9 +2828,10 @@ background-position:-200%;
 [data-theme="dark"] .data-label,
 [data-theme="dark"] .risk-label,
 [data-theme="dark"] .probability-section p,
+[data-theme="dark"] .medical-disclaimer p,
 [data-theme="dark"] .save-prediction-content p{
 
-    color:#94a3b8;
+    color:#94a3b8 !important;
 
 }
 
@@ -2971,16 +2844,28 @@ background-position:-200%;
 [data-theme="dark"] .probability-section h3,
 [data-theme="dark"] .probability-value,
 [data-theme="dark"] .risk-chart-section h3,
+[data-theme="dark"] .medical-disclaimer strong,
 [data-theme="dark"] .save-prediction-content h3,
 [data-theme="dark"] .input-group label{
 
-    color:#f1f5f9;
+    color:#f1f5f9 !important;
 
 }
 
-[data-theme="dark"] .form-section-line{
+[data-theme="dark"] .patient-data-item{
 
-    background:#334155;
+    background:#0f172a !important;
+
+    border-color:#334155 !important;
+
+}
+
+[data-theme="dark"] .form-section-line,
+[data-theme="dark"] .section-title{
+
+    border-color:#334155 !important;
+
+    background:#334155 !important;
 
 }
 
@@ -2988,55 +2873,74 @@ background-position:-200%;
 [data-theme="dark"] .input-group select,
 [data-theme="dark"] .input-group textarea{
 
-    background:#0f172a;
+    background:#0f172a !important;
 
-    border-color:#334155;
+    border-color:#334155 !important;
 
-    color:#e2e8f0;
+    color:#e2e8f0 !important;
 
 }
 
 [data-theme="dark"] .input-group input::placeholder,
 [data-theme="dark"] .input-group textarea::placeholder{
 
-    color:#64748b;
-
-}
-
-[data-theme="dark"] .patient-summary,
-[data-theme="dark"] .probability-section{
-
-    background:#0f172a;
-
-    border-color:#334155;
-
-}
-
-[data-theme="dark"] .patient-data-item{
-
-    background:#1e293b;
-
-    border-color:#334155;
-
-}
-
-[data-theme="dark"] .section-title{
-
-    border-bottom-color:#334155;
+    color:#64748b !important;
 
 }
 
 [data-theme="dark"] .probability-bar{
 
-    background:#334155;
+    background:#0f172a !important;
+
+    background-image: repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent calc(10% - 1px),
+        rgba(255, 255, 255, 0.1) calc(10% - 1px),
+        rgba(255, 255, 255, 0.1) 10%
+    ) !important;
+
+}
+
+[data-theme="dark"] .risk-result.high-risk {
+
+    background: rgba(217, 4, 41, 0.15) !important;
+
+    border-color: #d90429 !important;
+
+}
+
+[data-theme="dark"] .risk-result.low-risk {
+
+    background: rgba(28, 110, 100, 0.15) !important;
+
+    border-color: #1C6E64 !important;
+
+}
+
+[data-theme="dark"] .recommendation.high-risk {
+
+    background: rgba(217, 4, 41, 0.1) !important;
+
+}
+
+[data-theme="dark"] .recommendation.low-risk {
+
+    background: rgba(28, 110, 100, 0.1) !important;
+
+}
+
+[data-theme="dark"] .recommendation p {
+
+    color: #cbd5e1 !important;
 
 }
 
 [data-theme="dark"] .save-prediction-section{
 
-    background:linear-gradient(135deg,#0f2a26,#1e293b);
+    background:linear-gradient(135deg,#0f2a26,#1e293b) !important;
 
-    border-color:#1C6E64;
+    border-color:#1C6E64 !important;
 
 }
 
@@ -3045,12 +2949,20 @@ background-position:-200%;
 [data-theme="dark"] .login-save-btn,
 [data-theme="dark"] .register-save-btn{
 
-    background:#1e293b;
+    background:#0f172a !important;
+
+}
+
+[data-theme="dark"] .medical-disclaimer {
+
+    background: #0f172a !important;
+
+    border-color: #334155 !important;
 
 }
 
 [data-theme="dark"] .prediction-loader{
 
-    background:rgba(15,23,42,.96);
+    background:rgba(15,23,42,.96) !important;
 
 }
