@@ -1,5 +1,5 @@
 # ==========================================
-# APPLICATION CONFIGURATION
+# APPLICATION CONFIGURATION (config.py)
 # ==========================================
 
 import os
@@ -9,28 +9,26 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent
 
-# Load variables from your existing .env file
+# Load variables from .env file
 load_dotenv(BASE_DIR / ".env")
 
 
 class Config:
 
     # ==========================================
-    # SECRET KEY
+    # SECRET KEY & SESSION SECURITY
     # ==========================================
-
     SECRET_KEY = os.getenv("SECRET_KEY", "CardioPredict_Secure_Static_Key_2026_LIVE")
 
     # ==========================================
     # DATABASE (PostgreSQL / MySQL)
     # ==========================================
-
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",
         "postgresql://heartdb_user:jzkYvEIPc79fsNdblaKwxLXl0w5xmxgb@dpg-d9iudo7aqgkc73amkbmg-a/heartdb"
     )
 
-    # Fix postgres:// URL prefix if provided by legacy hosting services
+    # Fix legacy postgres:// URL scheme for SQLAlchemy 2.0+
     if SQLALCHEMY_DATABASE_URI and SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
         SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
 
@@ -39,9 +37,8 @@ class Config:
     ) == "True"
 
     # ==========================================
-    # CRITICAL SSL & POOL FIX FOR RENDER & CLOUD POSTGRESQL
+    # DATABASE POOLING & SSL FIX FOR RENDER
     # ==========================================
-
     SQLALCHEMY_ENGINE_OPTIONS = {
         "pool_pre_ping": True,       # Verifies connection health before running queries
         "pool_recycle": 300,         # Recycles active connections every 5 minutes
@@ -51,9 +48,17 @@ class Config:
     }
 
     # ==========================================
+    # SENDGRID API CONFIGURATION
+    # ==========================================
+    SENDGRID_API_KEY = os.getenv(
+        "SENDGRID_API_KEY",
+        "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"
+    )
+    MAIL_DEFAULT_SENDER = os.getenv("MAIL_DEFAULT_SENDER", "cardiopredictai@gmail.com")
+
+    # ==========================================
     # SESSION / LOGIN BEHAVIOR
     # ==========================================
-
     PERMANENT_SESSION_LIFETIME = timedelta(
         seconds=int(os.getenv("SESSION_TIMEOUT", 1800))
     )
@@ -63,25 +68,8 @@ class Config:
     )
 
     # ==========================================
-    # EMAIL & FLASK-MAIL SETTINGS (FORGOT PASSWORD)
-    # ==========================================
-
-    EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-    EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-    RESEND_API_KEY = os.getenv("RESEND_API_KEY")
-
-    # Flask-Mail standard configuration required for sending reset links
-    MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp.gmail.com")
-    MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
-    MAIL_USE_TLS = os.getenv("MAIL_USE_TLS", "true").lower() in ["true", "on", "1"]
-    MAIL_USERNAME = os.getenv("MAIL_USERNAME", os.getenv("EMAIL_ADDRESS", "cardiopredictai@gmail.com"))
-    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD", os.getenv("EMAIL_PASSWORD", ""))
-    MAIL_DEFAULT_SENDER = os.getenv("MAIL_DEFAULT_SENDER", os.getenv("EMAIL_ADDRESS", "cardiopredictai@gmail.com"))
-
-    # ==========================================
     # SECURITY TOKEN LIFETIMES
     # ==========================================
-
     PASSWORD_RESET_EXPIRE = int(os.getenv("PASSWORD_RESET_EXPIRE", 1800))
 
     EMAIL_VERIFY_EXPIRE = int(os.getenv("EMAIL_VERIFY_EXPIRE", 3600))
@@ -89,7 +77,6 @@ class Config:
     # ==========================================
     # FILE UPLOADS
     # ==========================================
-
     UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "static/uploads")
 
     PROFILE_FOLDER = os.getenv("PROFILE_FOLDER", "static/uploads/profile")
@@ -99,7 +86,6 @@ class Config:
     # ==========================================
     # APPLICATION METADATA
     # ==========================================
-
     APP_NAME = os.getenv("APP_NAME", "CardioPredict AI")
 
     APP_URL = os.getenv("APP_URL", "http://127.0.0.1:5000")

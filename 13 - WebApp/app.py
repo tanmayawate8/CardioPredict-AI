@@ -9,7 +9,7 @@ from flask import (
 from flask_login import (
     login_user, logout_user, login_required, current_user
 )
-from flask_mail import Mail, Message
+from flask_mail import Mail
 import pandas as pd
 import pickle
 from pathlib import Path
@@ -37,25 +37,25 @@ from models import User, Prediction
 # ============================================================
 app = Flask(__name__)
 
-# UPGRADED PROXY FIX: Forces Flask to perfectly respect Render's HTTPS routing
+# Force Flask to respect Render's HTTPS routing headers
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 app.config.from_object(Config)
 
-# FORCE HTTPS FOR URL GENERATION
+# FORCE HTTPS FOR URL GENERATION ON DEPLOYMENT
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 
-# BULLETPROOF SESSION SECURITY
-app.config['SECRET_KEY'] = 'CardioPredict_Secure_Static_Key_2026_LIVE'
+# SESSION SECURITY
+app.config['SECRET_KEY'] = app.config.get('SECRET_KEY')
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['SESSION_COOKIE_SECURE'] = False
 
-# Add Google OAuth Credentials
+# Google OAuth Credentials
 app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
 app.config['GOOGLE_CLIENT_SECRET'] = "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"
 
 # ============================================================
-# INITIALIZE EXTENSIONS, MAIL & OAUTH
+# INITIALIZE EXTENSIONS & OAUTH
 # ============================================================
 db.init_app(app)
 login_manager.init_app(app)
@@ -74,7 +74,7 @@ google = oauth.register(
 
 
 # ============================================================
-# CRITICAL FIX: CRASH-PROOF USER LOADER
+# CRASH-PROOF USER LOADER
 # ============================================================
 @login_manager.user_loader
 def load_user(user_id):
@@ -267,7 +267,7 @@ def login():
 
 
 # ============================================================
-# FORGOT / RESET PASSWORD ROUTES (EMAIL & WHATSAPP)
+# RESET PASSWORD VIA EMAIL (DIRECT SENDGRID HTTP API)
 # ============================================================
 @app.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
@@ -276,36 +276,95 @@ def reset_request():
 
     if request.method == "POST":
         email = request.form.get("email", "").strip().lower()
+
+        if not email:
+            flash("Please enter a valid email address.", "error")
+            return render_template("reset_request.html")
+
         user = User.query.filter_by(email=email).first()
 
         if user:
             token = user.get_reset_token()
 
-            # Explicit HTTPS link creation for Render
-            if 'onrender.com' in request.host:
+            # Dynamic HTTPS URL detection for Render
+            if 'onrender.com' in request.host or request.headers.get('X-Forwarded-Proto') == 'https':
                 reset_url = url_for('reset_token', token=token, _external=True, _scheme='https')
             else:
                 reset_url = url_for('reset_token', token=token, _external=True)
 
-            msg = Message('Password Reset Request - CardioPredict AI',
-                          recipients=[user.email])
-            msg.body = f'''To reset your password, visit the following link:
-{reset_url}
+            html_content = f"""
+            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+                <h2 style="color: #003049;">CardioPredict AI - Password Reset</h2>
+                <p>Hello <strong>{user.username}</strong>,</p>
+                <p>We received a request to reset your password. Click the button below to set a new password:</p>
+                <p style="margin: 25px 0;">
+                    <a href="{reset_url}" style="background-color: #003049; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Reset Password</a>
+                </p>
+                <p>Or copy and paste this link into your browser:</p>
+                <p><a href="{reset_url}">{reset_url}</a></p>
+                <p style="color: #666; font-size: 12px; margin-top: 30px;">This link will expire in 30 minutes. If you did not request this, you can ignore this email.</p>
+            </div>
+            """
 
-If you did not make this request then simply ignore this email and no changes will be made.
-'''
+            # Construct SendGrid JSON Payload
+            payload = {
+                "personalizations": [
+                    {
+                        "to": [{"email": user.email}],
+                        "subject": "Password Reset Request - CardioPredict AI"
+                    }
+                ],
+                "from": {"email": app.config.get('MAIL_DEFAULT_SENDER')},
+                "content": [
+                    {
+                        "type": "text/html",
+                        "value": html_content
+                    }
+                ]
+            }
+
+            headers = {
+                "Authorization": f"Bearer {app.config.get('SENDGRID_API_KEY')}",
+                "Content-Type": "application/json"
+            }
+
             try:
-                mail.send(msg)
-                flash('An email has been sent with instructions to reset your password.', 'info')
+                # Direct HTTPS POST Request to SendGrid v3 Mail API
+                req = urllib.request.Request(
+                    "https://api.sendgrid.com/v3/mail/send",
+                    data=json.dumps(payload).encode('utf-8'),
+                    headers=headers,
+                    method="POST"
+                )
+
+                with urllib.request.urlopen(req) as response:
+                    status_code = response.getcode()
+
+                if status_code in [200, 201, 202]:
+                    flash('An email has been sent with instructions to reset your password.', 'success')
+                    return redirect(url_for('login'))
+                else:
+                    flash(f'SendGrid API returned status code {status_code}', 'error')
+                    return render_template("reset_request.html")
+
+            except urllib.error.HTTPError as e:
+                error_response = e.read().decode('utf-8')
+                print(f"SENDGRID API HTTP ERROR: {e.code} - {error_response}")
+                flash('Email API dispatch failed. Please verify SendGrid sender authorization or use WhatsApp recovery.', 'error')
+                return render_template("reset_request.html")
             except Exception as e:
-                flash(f'Failed to send email. Please check server configuration: {str(e)}', 'error')
-            return redirect(url_for('login'))
+                print(f"SENDGRID DISPATCH ERROR: {str(e)}")
+                flash('Server error while dispatching email. Please try WhatsApp recovery.', 'error')
+                return render_template("reset_request.html")
         else:
-            flash('That email address does not exist.', 'error')
+            flash('That email address does not exist in our system.', 'error')
 
     return render_template("reset_request.html")
 
 
+# ============================================================
+# RESET PASSWORD VIA WHATSAPP (ULTRAMSG API)
+# ============================================================
 @app.route("/reset_whatsapp", methods=["GET", "POST"])
 def reset_whatsapp():
     if current_user.is_authenticated:
@@ -314,7 +373,6 @@ def reset_whatsapp():
     if request.method == "POST":
         identifier = request.form.get("identifier", "").strip().lower()
 
-        # Search for user using their registered Email or Username
         user = User.query.filter((User.email == identifier) | (User.username == identifier)).first()
 
         if user:
@@ -324,8 +382,7 @@ def reset_whatsapp():
 
             token = user.get_reset_token()
 
-            # Explicit HTTPS link creation for Render
-            if 'onrender.com' in request.host:
+            if 'onrender.com' in request.host or request.headers.get('X-Forwarded-Proto') == 'https':
                 reset_url = url_for('reset_token', token=token, _external=True, _scheme='https')
             else:
                 reset_url = url_for('reset_token', token=token, _external=True)
@@ -337,11 +394,9 @@ def reset_whatsapp():
                 f"This link expires in 30 minutes."
             )
 
-            # Sanitize phone number for UltraMsg API
             raw_phone = str(user.phone or "").strip()
             digits_only = "".join(filter(str.isdigit, raw_phone))
 
-            # Auto-append country code 91 (India) if standard 10 digits are provided
             if len(digits_only) == 10:
                 formatted_phone = f"91{digits_only}"
             else:
@@ -351,11 +406,8 @@ def reset_whatsapp():
                 flash('Registered contact number is invalid. Please use Email Recovery.', 'error')
                 return redirect(url_for('reset_whatsapp'))
 
-            # UltraMsg API Credentials
             INSTANCE_ID = "instance187614"
             TOKEN = "2wvg9k0bomw8nvqj"
-
-            # UltraMsg Standard Chat Endpoint
             api_url = f"https://api.ultramsg.com/{INSTANCE_ID}/messages/chat"
 
             try:
@@ -397,6 +449,9 @@ def reset_whatsapp():
     return render_template("reset_whatsapp.html")
 
 
+# ============================================================
+# VERIFY TOKEN & CHANGE PASSWORD ROUTE
+# ============================================================
 @app.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_token(token):
     if current_user.is_authenticated:
@@ -434,7 +489,7 @@ def reset_token(token):
 def google_login():
     session['google_action'] = request.args.get('action', 'login')
 
-    if 'onrender.com' in request.host:
+    if 'onrender.com' in request.host or request.headers.get('X-Forwarded-Proto') == 'https':
         redirect_uri = url_for('google_authorize', _external=True, _scheme='https')
     else:
         redirect_uri = url_for('google_authorize', _external=True)
