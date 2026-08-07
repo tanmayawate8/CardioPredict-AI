@@ -783,7 +783,7 @@ def predict():
             "Chest Pain Type": chest_pain_labels[ChestPainType_original],
             "Resting Blood Pressure": f"{RestingBP} mmHg",
             "Cholesterol": f"{Cholesterol} mg/dL",
-            "Fasting Blood Sugar": "Yes (> 120 mg/dL)" if FastingBS == 1 else "No (≤ 120 mg/dL)",
+            "Fasting BS": "Yes (> 120 mg/dL)" if FastingBS == 1 else "No (≤ 120 mg/dL)",
             "Resting ECG": RestingECG_original,
             "Maximum Heart Rate": f"{MaxHR} bpm",
             "Exercise Induced Angina": "Yes" if ExerciseAngina_original == "Y" else "No",
