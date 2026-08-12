@@ -50,9 +50,15 @@ app.config['SECRET_KEY'] = app.config.get('SECRET_KEY')
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['SESSION_COOKIE_SECURE'] = False
 
-# Google OAuth Credentials
-app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
-app.config['GOOGLE_CLIENT_SECRET'] = "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"
+# Google OAuth Credentials (Loaded safely from Environment Variables)
+app.config['GOOGLE_CLIENT_ID'] = os.getenv(
+    'GOOGLE_CLIENT_ID',
+    "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
+)
+app.config['GOOGLE_CLIENT_SECRET'] = os.getenv(
+    'GOOGLE_CLIENT_SECRET',
+    "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"
+)
 
 # ============================================================
 # INITIALIZE EXTENSIONS & OAUTH
