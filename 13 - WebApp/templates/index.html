@@ -536,16 +536,28 @@
 
             Click the button below to start
             predicting heart disease using
-            our AI-powered prediction system.
+            our AI-powered prediction system, or download our free Android app directly.
 
         </p>
 
-        <a href="{{ url_for('prediction_page') }}"
-           class="btn">
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+            <a href="{{ url_for('prediction_page') }}"
+               class="btn">
 
-            Start Prediction
+                Start Prediction
 
-        </a>
+            </a>
+
+            <!-- FREE ANDROID APK DOWNLOAD BUTTON -->
+            <a href="{{ url_for('static', filename='CardioPredict-AI.apk') }}"
+               download
+               class="btn"
+               style="background: #25d366; border-color: #25d366; color: #ffffff;">
+
+                <i class="fa-brands fa-android"></i> Download Android App (.apk)
+
+            </a>
+        </div>
 
     </div>
 
@@ -575,6 +587,7 @@
                 <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
                 <li><a href="{{ url_for('about') }}">About</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('static', filename='CardioPredict-AI.apk') }}" download style="color: #25d366;"><i class="fa-brands fa-android"></i> Download App (.apk)</a></li>
             </ul>
         </div>
 
@@ -619,10 +632,17 @@
 </footer>
 
 <!-- ========================================= -->
-<!-- JAVASCRIPT -->
+<!-- JAVASCRIPT & SERVICE WORKER -->
 <!-- ========================================= -->
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register("{{ url_for('static', filename='js/sw.js') }}");
+    });
+  }
+</script>
 </body>
 
 </html>
