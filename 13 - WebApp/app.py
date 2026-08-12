@@ -55,10 +55,7 @@ app.config['GOOGLE_CLIENT_ID'] = os.getenv(
     'GOOGLE_CLIENT_ID',
     "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
 )
-app.config['GOOGLE_CLIENT_SECRET'] = os.getenv(
-    'GOOGLE_CLIENT_SECRET',
-    "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"
-)
+app.config['GOOGLE_CLIENT_SECRET'] = os.getenv('GOOGLE_CLIENT_SECRET')
 
 # ============================================================
 # INITIALIZE EXTENSIONS & OAUTH
