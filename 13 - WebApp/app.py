@@ -52,7 +52,7 @@ app.config['SESSION_COOKIE_SECURE'] = False
 
 # Google OAuth Credentials
 app.config['GOOGLE_CLIENT_ID'] = "472208823648-hqal3kdqbbi8igap3trjvncqordu0vb0.apps.googleusercontent.com"
-app.config['GOOGLE_CLIENT_SECRET'] = "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"
+app.config['GOOGLE_CLIENT_SECRET'] = "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"
 
 # ============================================================
 # INITIALIZE EXTENSIONS & OAUTH
@@ -79,6 +79,14 @@ google = oauth.register(
 @app.route('/.well-known/assetlinks.json')
 def asset_links():
     return send_from_directory('static', 'assetlinks.json', mimetype='application/json')
+
+
+# ============================================================
+# SERVICE WORKER ROUTE (ROOT SCOPE FOR PWA CAPABILITIES)
+# ============================================================
+@app.route('/sw.js')
+def service_worker():
+    return send_from_directory('static/js', 'sw.js', mimetype='application/javascript')
 
 
 # ============================================================
