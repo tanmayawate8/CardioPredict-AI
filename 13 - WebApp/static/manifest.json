@@ -1,0 +1,13 @@
+{
+  "background_color": "#000000",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Cardio Predict-ai",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "cardiopredict-ai",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "/",
+  "description": "Our intelligent machine learning system analyzes important medical parameters and predicts whether a patient is at risk of heart disease. The application is designed to support early diagnosis and increase awareness through data-driven healthcare solutions."
+}
