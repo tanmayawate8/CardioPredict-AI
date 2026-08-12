@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.onrender.cardiopredict_ai_v0il.twa",
+        "sha256_cert_fingerprints": ["40:5D:26:E4:0D:DB:AA:FD:72:09:27:FF:A2:62:6A:A5:C5:B2:88:86:A8:8E:F2:66:00:98:15:B6:25:AD:4D:4F"]
+      }
+    }]

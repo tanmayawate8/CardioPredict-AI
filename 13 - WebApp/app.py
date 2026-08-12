@@ -4,7 +4,7 @@
 # ============================================================
 
 from flask import (
-    Flask, render_template, request, redirect, url_for, flash, session
+    Flask, render_template, request, redirect, url_for, flash, session, send_from_directory
 )
 from flask_login import (
     login_user, logout_user, login_required, current_user
@@ -71,6 +71,14 @@ google = oauth.register(
         'scope': 'openid email profile'
     }
 )
+
+
+# ============================================================
+# DIGITAL ASSET LINKS ROUTE (FOR GOOGLE PLAY DOMAIN VERIFICATION)
+# ============================================================
+@app.route('/.well-known/assetlinks.json')
+def asset_links():
+    return send_from_directory('static', 'assetlinks.json', mimetype='application/json')
 
 
 # ============================================================
