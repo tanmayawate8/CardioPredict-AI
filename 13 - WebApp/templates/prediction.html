@@ -4,7 +4,9 @@
 <head>
 
     <!-- THEME (applied before CSS loads to avoid a flash of the wrong theme) -->
-
+<!-- PWA Web App Manifest -->
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+<meta name="theme-color" content="#d90429">
     <script>
 
         (function(){
@@ -1271,36 +1273,106 @@ document.addEventListener("DOMContentLoaded", function () {
 <!-- PREDICTION BUTTON LOADING -->
 <!-- ========================================== -->
 
+{% if confidence is defined and confidence is not none %}
+
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const predictionForm =
-        document.getElementById("predictionForm");
+    const risk = Number(
+        "{{ (confidence * 100)|round(2) }}"
+    );
 
-    const predictButton =
-        document.getElementById("predictButton");
+    const safe = 100 - risk;
 
+    const ctx = document.getElementById("riskChart");
 
-    if (predictionForm && predictButton) {
+    // Dynamic Theme Detection
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const isDark = currentTheme === 'dark';
 
-        predictionForm.addEventListener(
-            "submit",
-            function (event) {
+    // Theme-Aware Colors
+    const textColor = isDark ? "#f1f5f9" : "#16233F";
+    const unfilledColor = isDark ? "#334155" : "#e2e8f0";
+    const borderColor = isDark ? "#1e293b" : "#ffffff";
 
-                if (!predictionForm.checkValidity()) {
+    if (ctx && typeof Chart !== "undefined") {
 
-                    return;
+        new Chart(ctx, {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: [
+
+                    "Heart Disease Risk",
+
+                    "Low Risk"
+
+                ],
+
+                datasets: [{
+
+                    data: [
+
+                        risk,
+
+                        safe
+
+                    ],
+
+                    backgroundColor: [
+
+                        risk >= 70 ? "#d90429" : (risk >= 30 ? "#d97706" : "#1C6E64"),
+
+                        unfilledColor
+
+                    ],
+
+                    borderColor: borderColor,
+
+                    borderWidth: 3
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+
+                        position: "bottom",
+
+                        labels: {
+
+                            color: textColor,
+
+                            font: {
+
+                                size: 14,
+
+                                weight: "600"
+
+                            },
+
+                            padding: 15
+
+                        }
+
+                    }
 
                 }
 
-                predictButton.disabled = true;
-
-                predictButton.innerHTML =
-                    '<i class="fa-solid fa-spinner fa-spin"></i> Predicting...';
-
             }
-        );
+
+        });
 
     }
 
@@ -1308,6 +1380,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </script>
 
+{% endif %}
 
 </body>
 

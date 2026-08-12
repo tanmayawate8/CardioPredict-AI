@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <!-- DARK THEME AUTO-LOAD SCRIPT -->
+     <!-- PWA Web App Manifest -->
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+<meta name="theme-color" content="#d90429">
     <script>
         (function(){
             if(localStorage.getItem('theme') === 'dark'){
