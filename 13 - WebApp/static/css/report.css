@@ -392,6 +392,9 @@
     .disclaimer{ padding:18px; }
     .disclaimer h3{ font-size:17px; }
     .disclaimer p{ font-size:14px; }
+
+    .info-box strong{ font-size:19px; }
+    .card-title{ font-size:18px; gap:10px; }
 }
 
 /*=========================================================

@@ -2228,3 +2228,112 @@ MOBILE NAVBAR
         color: var(--primary) !important;
     }
 }
+
+/*=========================================================
+MOBILE APP-GRADE POLISH (GLOBAL — applies site-wide)
+=========================================================*/
+
+html{
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+    overflow-x:hidden;
+    max-width:100%;
+}
+
+body{
+    max-width:100%;
+    -webkit-tap-highlight-color:transparent;
+}
+
+a,
+button,
+.btn,
+.btn-outline,
+.btn-reset,
+input[type="submit"],
+input[type="button"]{
+    -webkit-tap-highlight-color:transparent;
+}
+
+.table-wrapper,
+.nav-links,
+.modal-content{
+    -webkit-overflow-scrolling:touch;
+}
+
+/* Prevent iOS Safari auto-zoom on form focus across every page */
+@media (max-width:768px){
+
+    input,
+    select,
+    textarea{
+        font-size:16px !important;
+    }
+
+}
+
+/* Comfortable touch targets for primary actions on phones */
+@media (max-width:768px){
+
+    .btn,
+    .btn-outline,
+    .btn-reset,
+    .btn-primary,
+    .btn-secondary,
+    .auth-submit,
+    .google-login,
+    .footer-btn,
+    .about-primary-btn,
+    .about-secondary-btn,
+    .print-btn,
+    .back-btn{
+        min-height:46px;
+    }
+
+    .theme-btn,
+    .menu-toggle,
+    .password-toggle{
+        min-width:40px;
+        min-height:40px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .social-icons a,
+    .contact-social-icons a{
+        min-width:44px;
+        min-height:44px;
+    }
+
+}
+
+/* Extra-small phones (iPhone SE / compact Android) */
+@media (max-width:390px){
+
+    .navbar{
+        padding:0 4%;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+    .logo i{
+        font-size:24px;
+    }
+
+    section h2{
+        font-size:22px;
+    }
+
+}
+
+/* Short landscape phones — trim vertical rhythm so content isn't cramped */
+@media (max-height:420px) and (orientation:landscape){
+
+    section{
+        padding:30px 0;
+    }
+
+}

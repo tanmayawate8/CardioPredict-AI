@@ -1342,3 +1342,71 @@ font-size:34px;
 
 
 }
+
+
+/* ===============================
+   MOBILE APP-GRADE POLISH
+================================ */
+
+@media(max-width:768px){
+
+    .professional-auth{
+        padding:40px 16px;
+        min-height:auto;
+    }
+
+    .login-options{
+        flex-wrap:wrap;
+        gap:12px;
+    }
+
+    .auth-brand-card{
+        padding:28px 20px;
+        min-height:auto;
+    }
+
+}
+
+@media(max-width:420px){
+
+    .heart-animation{
+        width:70px;
+        height:70px;
+        font-size:32px;
+    }
+
+    .auth-brand h1{
+        font-size:28px;
+    }
+
+    .professional-card{
+        padding:26px 18px;
+        border-radius:20px;
+    }
+
+    .login-icon{
+        width:60px;
+        height:60px;
+        font-size:26px;
+    }
+
+    .auth-card h2{
+        font-size:23px;
+    }
+
+    .input-box input{
+        padding:14px 42px;
+        font-size:15px;
+    }
+
+    .auth-submit{
+        padding:14px;
+        font-size:15px;
+    }
+
+    .google-login{
+        padding:13px;
+        font-size:14px;
+    }
+
+}

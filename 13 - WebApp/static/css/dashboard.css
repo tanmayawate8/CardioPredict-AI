@@ -359,6 +359,39 @@ RESPONSIVE
     .section-title h2 { font-size: 21px; }
     .section-title a { font-size: 13px; padding: 11px 16px; }
     .empty { padding: 45px 15px; }
+
+    /* App-grade touch fixes for small phones */
+    .settings-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+        font-size: 14px;
+    }
+    .section-title {
+        flex-wrap: wrap;
+    }
+    .modal-content {
+        width: 92%;
+        padding: 25px 20px;
+        border-radius: 16px;
+    }
+    .modal-header h2 { font-size: 20px; }
+    .modal-footer {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+    .modal-footer .btn-cancel,
+    .modal-footer .btn-save {
+        width: 100%;
+        text-align: center;
+    }
+    .view-btn {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+    .empty a {
+        width: 100%;
+    }
 }
 
 /*=========================================================
