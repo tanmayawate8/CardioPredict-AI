@@ -669,6 +669,42 @@ HOME PAGE MOBILE RESPONSIVE
     .hero-buttons .btn,
     .hero-buttons .btn-outline{ width:100%; text-align:center; }
 
+    .monitor-panel{
+        padding:22px 18px 18px;
+        border-radius:16px;
+        overflow:hidden;
+    }
+
+    .monitor-panel .monitor-head{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:12px;
+    }
+
+    .monitor-panel .monitor-label{ font-size:12px; }
+
+    .monitor-panel .monitor-reading{
+        font-size:14px;
+        gap:6px;
+        flex-wrap:wrap;
+        max-width:100%;
+    }
+
+    .monitor-panel .monitor-reading b{ font-size:32px; }
+
+    .monitor-panel .monitor-reading .pulse-dot{
+        width:10px;
+        height:10px;
+        margin-right:3px;
+    }
+
+    .monitor-panel .monitor-foot{
+        font-size:11px;
+        flex-wrap:wrap;
+        row-gap:6px;
+        margin-top:16px;
+    }
+
     section.information,
     section.features,
     section.statistics,
