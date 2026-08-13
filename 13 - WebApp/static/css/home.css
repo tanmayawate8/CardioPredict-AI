@@ -684,7 +684,7 @@ HOME PAGE MOBILE RESPONSIVE
     .monitor-panel .monitor-label{ font-size:12px; }
 
     .monitor-panel .monitor-reading{
-        font-size:14px;
+        font-size:18px;
         gap:6px;
         flex-wrap:wrap;
         max-width:100%;
